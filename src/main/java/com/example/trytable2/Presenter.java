@@ -18,11 +18,11 @@ public class Presenter
         // patients:
 
         //Patient(String name, String id, int waiting_time, int severity_before, int urgency_level, Specialization spec_needed) {
-        Patient a = new Patient("a","1",0,7,"Neurosurgery");
-        Patient b = new Patient("b","2",1,7,"Pediatric_surgery");
-        Patient f = new Patient("c","3",2,7,"Cardiothoracic_surgery");
-        Patient d = new Patient("d","4",3,7,"Vascular_surgery");
-        Patient e = new Patient("e","5",4,7,"Vascular_surgery");
+        Patient a = new Patient("a","1",0,1,"Neurosurgery");
+        Patient b = new Patient("b","2",1,2,"Pediatric_surgery");
+        Patient f = new Patient("c","3",2,3,"Cardiothoracic_surgery");
+        Patient d = new Patient("d","4",3,4,"Vascular_surgery");
+        Patient e = new Patient("e","5",4,5,"Vascular_surgery");
         n.getPatient_queue().add(a);
         p.getPatient_queue().add(b);
         c.getPatient_queue().add(f);

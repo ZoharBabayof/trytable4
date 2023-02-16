@@ -13,8 +13,8 @@ public class Patient
 
     private String name;
     private String id;
-    private int waiting_time;
-    private int severity_before;
+    private int waiting_time; // *5 minutes
+    private int severity_before; // 1-resuscitation 5 - non urgency
     private int urgency_level;
     private String spec_needed;//every
 

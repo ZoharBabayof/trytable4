@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+
+
     @Override
     public void start(Stage stage) throws IOException {
 //        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -68,7 +70,8 @@ public class HelloApplication extends Application {
                 new FileData(patient, String.valueOf(urg), "25 MB", "12/01/2017"),
                 new FileData("file2", "D:zmyFiles\file2.txt", "30 MB", "01/11/2019"),
                 new FileData("file3", "D:zmyFiles\file3.txt", "50 MB", "12/04/2017"),
-                new FileData("file4", "D:zyFiles\file4.txt", "75 MB", "25/09/2018")
+                new FileData("file4", "D:zyFiles\file4.txt", "75 MB", "25/09/2018"),
+                new FileData("file4", "D:zyFiles\file4.txt", "76 MB", "25/09/2018")
         );
         //Creating columns
         TableColumn fileNameCol = new TableColumn("File Name");
