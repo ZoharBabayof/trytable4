@@ -24,7 +24,30 @@ public class Specialization {
         this.doctors_with_spec = new ArrayList<>();
     }
 
-/*
+    public String getSpec_name() {
+        return spec_name;
+    }
+
+    public Queue<Patient> getPatient_queue() {
+        return patient_queue;
+    }
+
+    public ArrayList<Doctor> getDoctors_with_spec() {
+        return doctors_with_spec;
+    }
+
+    public void setSpec_name(String spec_name) {
+        this.spec_name = spec_name;
+    }
+
+    public void setPatient_queue(Queue<Patient> patient_queue) {
+        this.patient_queue = patient_queue;
+    }
+
+    public void setDoctors_with_spec(ArrayList<Doctor> doctors_with_spec) {
+        this.doctors_with_spec = doctors_with_spec;
+    }
+    /*
     -spec_name: String
 -patient_queue: <patient> queue
 -doctors_with_spec: dinamic <doctor> array

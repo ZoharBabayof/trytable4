@@ -1,5 +1,8 @@
 package com.example.trytable2;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
 public class Presenter
 {
     public static void main(String[] args)
@@ -20,7 +23,15 @@ public class Presenter
         Patient f = new Patient("c","3",2,7,"Cardiothoracic_surgery");
         Patient d = new Patient("d","4",3,7,"Vascular_surgery");
         Patient e = new Patient("e","5",4,7,"Vascular_surgery");
-
+        n.getPatient_queue().add(a);
+        p.getPatient_queue().add(b);
+        c.getPatient_queue().add(f);
+        v.getPatient_queue().add(d);
+        v.getPatient_queue().add(e);
+        Iterator<Patient> iterator = v.getPatient_queue().iterator();
+        while(iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
 
 
         // the actual code:
