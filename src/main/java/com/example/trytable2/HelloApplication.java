@@ -153,10 +153,74 @@ public class HelloApplication extends Application {
 //        stage.setScene(scene);
 //        stage.show();
 
+        //create object for every kind of specilization:
+        Specialization n = new Specialization("Neurosurgery");
+        Specialization p = new Specialization("Pediatric_surgery");
+        Specialization c = new Specialization("Cardiothoracic_surgery");
+        Specialization v = new Specialization("Vascular_surgery");
+       // Patient(String name, String id, int waiting_time, int severity_before, int urgency_level, Specialization spec_needed) {
+        Patient a = new Patient("a","1",0,1,"Neurosurgery");
+        Patient b = new Patient("b","2",1,2,"Pediatric_surgery");
+        Patient f = new Patient("c","3",2,3,"Cardiothoracic_surgery");
+        Patient d = new Patient("d","4",3,4,"Vascular_surgery");
+        Patient e = new Patient("e","5",4,5,"Vascular_surgery");
+        n.getPatient_queue().add(a);
+        p.getPatient_queue().add(b);
+        c.getPatient_queue().add(f);
+        v.getPatient_queue().add(d);
+        v.getPatient_queue().add(e);
+
+        //Label for education
+        Label label = new Label("File Data:");
+        Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
+        label.setFont(font);
+        //Creating a table view
+        TableView<FileData> table = new TableView<FileData>();
+        final ObservableList<FileData> data = FXCollections.observableArrayList(
+                new FileData(a.getName(), a.getName(), a.getName(), a.getName()),
+                new FileData("file2", "D:/myFiles\file2.txt", "30 MB", "01/11/2019"),
+                new FileData("file3", "D:/myFiles\file3.txt", "50 MB", "12/04/2017"),
+                new FileData("file4", "D:/myFiles\file4.txt", "75 MB", "25/09/2018")
+        );
+
+        //Creating columns
+        TableColumn fileNameCol = new TableColumn("File Name");
+        fileNameCol.setCellValueFactory(new PropertyValueFactory<>("fileName"));
+        TableColumn pathCol = new TableColumn("Path");
+        pathCol.setCellValueFactory(new PropertyValueFactory("path"));
+        TableColumn sizeCol = new TableColumn("Size");
+        sizeCol.setCellValueFactory(new PropertyValueFactory("size"));
+        TableColumn dateCol = new TableColumn("Date Modified");
+        dateCol.setCellValueFactory(new PropertyValueFactory("dateModified"));
+        dateCol.setPrefWidth(100);
+        Iterator<Patient> iterator = v.getPatient_queue().iterator();
+        while(iterator.hasNext()){
+            Patient q = iterator.next();
+            FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data.add(g);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+        //Adding data to the table
+        ObservableList<String> list = FXCollections.observableArrayList();
+        table.setItems(data);
+        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        table.getColumns().addAll(fileNameCol, pathCol, sizeCol, dateCol);
+        //Setting the size of the table
+        table.setMaxSize(350, 200);
+        VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 50, 50, 60));
+        vbox.getChildren().addAll(label, table);
+        //Setting the scene
+        Scene scene = new Scene(vbox, 595, 230);
+        stage.setTitle("Table View Exmple");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) throws IOException {
-      //  launch();
+        launch();
         //Stage newstage = new Stage();
         // idan(newstage,"z");
         //idan();
