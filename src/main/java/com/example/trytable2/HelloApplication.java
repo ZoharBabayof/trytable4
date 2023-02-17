@@ -163,15 +163,31 @@ public class HelloApplication extends Application {
         Patient b = new Patient("b","2",1,2,"Pediatric_surgery");
         Patient f = new Patient("c","3",2,3,"Cardiothoracic_surgery");
         Patient d = new Patient("d","4",3,4,"Vascular_surgery");
-        Patient e = new Patient("e","5",4,5,"Vascular_surgery");
+
+        Patient e = new Patient("e","0",4,5,"Vascular_surgery");
+        Patient e1 = new Patient("e1","1",4,5,"Vascular_surgery");
+        Patient e2 = new Patient("e2","2",1,5,"Vascular_surgery");
+        Patient e3 = new Patient("e3","3",4,5,"Vascular_surgery");
+        Patient e4 = new Patient("e4","1",4,5,"Vascular_surgery");
+        Patient e5 = new Patient("e1","2",1,5,"Vascular_surgery");
+        Patient e6 = new Patient("e2","19",4,5,"Vascular_surgery");
+        Patient e7 = new Patient("e3","1",4,5,"Vascular_surgery");
+        Patient e8 = new Patient("e4","2",4,5,"Vascular_surgery");
         n.getPatient_queue().add(a);
         p.getPatient_queue().add(b);
         c.getPatient_queue().add(f);
         v.getPatient_queue().add(d);
         v.getPatient_queue().add(e);
+        v.getPatient_queue().add(e1);
+        v.getPatient_queue().add(e2);
+        v.getPatient_queue().add(e3);
+        v.getPatient_queue().add(e4);
+        v.getPatient_queue()..sorted();
+
+
 
         //Label for education
-        Label label = new Label("File Data:");
+        Label label = new Label("Vascular_surgery:");
         Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
         label.setFont(font);
         //Creating a table view
@@ -203,19 +219,20 @@ public class HelloApplication extends Application {
             //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
+
         //Adding data to the table
         ObservableList<String> list = FXCollections.observableArrayList();
         table.setItems(data);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
         //Setting the size of the table
-        table.setMaxSize(500, 800);
+        table.setMaxSize(500, 400);
         VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 50, 50, 60));
         vbox.getChildren().addAll(label, table);
         //Setting the scene
-        Scene scene = new Scene(vbox, 500, 800);
+        Scene scene = new Scene(vbox, 500, 400);
         stage.setTitle("Table View Exmple");
         stage.setScene(scene);
         stage.show();
