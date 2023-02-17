@@ -175,29 +175,31 @@ public class HelloApplication extends Application {
         Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
         label.setFont(font);
         //Creating a table view
-        TableView<FileData> table = new TableView<FileData>();
-        final ObservableList<FileData> data = FXCollections.observableArrayList(
-                new FileData(a.getName(), a.getName(), a.getName(), a.getName()),
-                new FileData("file2", "D:/myFiles\file2.txt", "30 MB", "01/11/2019"),
-                new FileData("file3", "D:/myFiles\file3.txt", "50 MB", "12/04/2017"),
-                new FileData("file4", "D:/myFiles\file4.txt", "75 MB", "25/09/2018")
+        TableView<Patient> table = new TableView<Patient>();
+        final ObservableList<Patient> data = FXCollections.observableArrayList(
+//                new Patient(a.getName(), a.getName(), a.getName(), a.getName()),
+//                new Patient("file2", "D:/myFiles\file2.txt", "30 MB", "01/11/2019"),
+//                new FileData("file3", "D:/myFiles\file3.txt", "50 MB", "12/04/2017"),
+//                new FileData("file4", "D:/myFiles\file4.txt", "75 MB", "25/09/2018")
         );
 
         //Creating columns
-        TableColumn fileNameCol = new TableColumn("File Name");
-        fileNameCol.setCellValueFactory(new PropertyValueFactory<>("fileName"));
-        TableColumn pathCol = new TableColumn("Path");
-        pathCol.setCellValueFactory(new PropertyValueFactory("path"));
-        TableColumn sizeCol = new TableColumn("Size");
-        sizeCol.setCellValueFactory(new PropertyValueFactory("size"));
-        TableColumn dateCol = new TableColumn("Date Modified");
-        dateCol.setCellValueFactory(new PropertyValueFactory("dateModified"));
-        dateCol.setPrefWidth(100);
+        TableColumn NameCol = new TableColumn("Name");
+        NameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn IDCol = new TableColumn("id");
+        IDCol.setCellValueFactory(new PropertyValueFactory("id"));
+        TableColumn waitCol = new TableColumn("waiting_time");
+        waitCol.setCellValueFactory(new PropertyValueFactory("waiting_time"));
+        TableColumn sevCol = new TableColumn("severity_before");
+        sevCol.setCellValueFactory(new PropertyValueFactory("severity_before"));
+        TableColumn specCol = new TableColumn("spec_needed");
+        specCol.setCellValueFactory(new PropertyValueFactory("spec_needed"));
+        specCol.setPrefWidth(100);
         Iterator<Patient> iterator = v.getPatient_queue().iterator();
         while(iterator.hasNext()){
             Patient q = iterator.next();
-            FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
-            data.add(g);
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data.add(q);
             //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
@@ -205,15 +207,15 @@ public class HelloApplication extends Application {
         ObservableList<String> list = FXCollections.observableArrayList();
         table.setItems(data);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        table.getColumns().addAll(fileNameCol, pathCol, sizeCol, dateCol);
+        table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
         //Setting the size of the table
-        table.setMaxSize(350, 200);
+        table.setMaxSize(500, 800);
         VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 50, 50, 60));
         vbox.getChildren().addAll(label, table);
         //Setting the scene
-        Scene scene = new Scene(vbox, 595, 230);
+        Scene scene = new Scene(vbox, 500, 800);
         stage.setTitle("Table View Exmple");
         stage.setScene(scene);
         stage.show();
