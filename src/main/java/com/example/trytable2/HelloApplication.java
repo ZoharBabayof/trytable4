@@ -157,8 +157,8 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) throws IOException {
       //  launch();
-        Stage newstage = new Stage();
-        idan(newstage,"z");
+        //Stage newstage = new Stage();
+        // idan(newstage,"z");
         //idan();
     }
 }
