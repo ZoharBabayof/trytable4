@@ -15,7 +15,7 @@ public class Patient
     private String id;
     private int waiting_time; // *5 minutes
     private int severity_before; // 1-resuscitation 5 - non urgency
-    private int urgency_level;
+    private int urgency_level; // 2^(5-severity_before)*waiting_time is the time from 120 he can wait
     private String spec_needed;//every
 
     public Patient(String name, String id, int waiting_time, int severity_before, String spec_needed) {

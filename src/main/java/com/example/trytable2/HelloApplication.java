@@ -182,7 +182,8 @@ public class HelloApplication extends Application {
         v.getPatient_queue().add(e2);
         v.getPatient_queue().add(e3);
         v.getPatient_queue().add(e4);
-        v.getPatient_queue()..sorted();
+
+         v.getPatient_queue().stream().sorted();
 
 
 
