@@ -1,4 +1,7 @@
 package com.example.trytable2;
+import  java.lang.Math.*;
+
+import static java.lang.Math.pow;
 
 public class Patient
 {
@@ -13,17 +16,17 @@ public class Patient
 
     private String name;
     private String id;
-    private int waiting_time; // *5 minutes
-    private int severity_before; // 1-resuscitation 5 - non urgency
-    private int urgency_level; // 2^(5-severity_before)*waiting_time is the time from 120 he can wait
+    private double waiting_time; // *5 minutes
+    private double severity_before; // 1-resuscitation 5 - non urgency
+    private double urgency_level;
     private String spec_needed;//every
 
-    public Patient(String name, String id, int waiting_time, int severity_before, String spec_needed) {
+    public Patient(String name, String id, double waiting_time, double severity_before, String spec_needed) {
         this.name = name;
         this.id = id;
         this.waiting_time = waiting_time;
         this.severity_before = severity_before;
-        this.urgency_level = 3;// here we need to do a automatic calculation by the rules of health world
+        this.urgency_level = pow(2,(5-this.severity_before))*waiting_time;// 2^(5-severity_before)*waiting_time is the time from 120 he can wait
         this.spec_needed = spec_needed;
     }
 
@@ -35,15 +38,15 @@ public class Patient
         return id;
     }
 
-    public int getWaiting_time() {
+    public double getWaiting_time() {
         return waiting_time;
     }
 
-    public int getSeverity_before() {
+    public double getSeverity_before() {
         return severity_before;
     }
 
-    public int getUrgency_level() {
+    public double getUrgency_level() {
         return urgency_level;
     }
 
@@ -59,15 +62,15 @@ public class Patient
         this.id = id;
     }
 
-    public void setWaiting_time(int waiting_time) {
+    public void setWaiting_time(double waiting_time) {
         this.waiting_time = waiting_time;
     }
 
-    public void setSeverity_before(int severity_before) {
+    public void setSeverity_before(double severity_before) {
         this.severity_before = severity_before;
     }
 
-    public void setUrgency_level(int urgency_level) {
+    public void setUrgency_level(double urgency_level) {
         this.urgency_level = urgency_level;
     }
 
