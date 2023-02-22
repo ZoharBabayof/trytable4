@@ -99,6 +99,21 @@ public class HelloApplication extends Application {
         specCol.setCellValueFactory(new PropertyValueFactory("spec_needed"));
         specCol.setPrefWidth(100);
 
+
+
+        //Creating columns
+        TableColumn NameCol2 = new TableColumn("Name");
+        NameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn IDCol2 = new TableColumn("id");
+        IDCol.setCellValueFactory(new PropertyValueFactory("id"));
+        TableColumn waitCol2 = new TableColumn("waiting_time");
+        waitCol.setCellValueFactory(new PropertyValueFactory("waiting_time"));
+        TableColumn sevCol2 = new TableColumn("severity_before");
+        sevCol.setCellValueFactory(new PropertyValueFactory("severity_before"));
+        TableColumn specCol2 = new TableColumn("spec_needed");
+        specCol.setCellValueFactory(new PropertyValueFactory("spec_needed"));
+        specCol.setPrefWidth(100);
+
         // for vascular surgery
 
         Iterator<Patient> iterator = v.getPatient_queue().iterator();
@@ -148,7 +163,7 @@ public class HelloApplication extends Application {
         //Label for education
         Label label2 = new Label("Neurosurgery:");
         Font font2 = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
-        label.setFont(font2);
+        label2.setFont(font2);
         //Creating a table view
         TableView<Patient> table2 = new TableView<Patient>();
         final ObservableList<Patient> data2 = FXCollections.observableArrayList(
@@ -177,18 +192,18 @@ public class HelloApplication extends Application {
         while(iterator2.hasNext()){
             Patient k = iterator2.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
-            data.add(k);
+            data2.add(k);
             //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
 
         //Adding data to the table
         ObservableList<String> list2 = FXCollections.observableArrayList();
-        table.setItems(data2);
-        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
+        table2.setItems(data2);
+        table2.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        table2.getColumns().addAll(NameCol2, IDCol2, waitCol2, sevCol2,specCol2);
         //Setting the size of the table
-        table.setMaxSize(500, 400);
+        table2.setMaxSize(500, 400);
 
         TabPane tabPane2 = new TabPane();
         // vbox.
