@@ -109,16 +109,16 @@ public class HelloApplication extends Application {
 
         //Creating columns
         TableColumn NameCol2 = new TableColumn("Name");
-        NameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        NameCol2.setCellValueFactory(new PropertyValueFactory<>("Name"));
         TableColumn IDCol2 = new TableColumn("id");
-        IDCol.setCellValueFactory(new PropertyValueFactory("id"));
+        IDCol2.setCellValueFactory(new PropertyValueFactory("id"));
         TableColumn waitCol2 = new TableColumn("waiting_time");
-        waitCol.setCellValueFactory(new PropertyValueFactory("waiting_time"));
+        waitCol2.setCellValueFactory(new PropertyValueFactory("waiting_time"));
         TableColumn sevCol2 = new TableColumn("severity_before");
-        sevCol.setCellValueFactory(new PropertyValueFactory("severity_before"));
+        sevCol2.setCellValueFactory(new PropertyValueFactory("severity_before"));
         TableColumn specCol2 = new TableColumn("spec_needed");
-        specCol.setCellValueFactory(new PropertyValueFactory("spec_needed"));
-        specCol.setPrefWidth(100);
+        specCol2.setCellValueFactory(new PropertyValueFactory("spec_needed"));
+        specCol2.setPrefWidth(100);
 
         // for vascular surgery
 
@@ -224,19 +224,11 @@ public class HelloApplication extends Application {
         pane2.getChildren().addAll(tabPane,label2,table2);
         pane2.setStyle("-fx-background-color: BEIGE");
 
-        PrinterJob printerJob = PrinterJob.createPrinterJob();
-        if (printerJob != null) {
-            PageLayout pageLayout = printerJob.getPrinter().createPageLayout(Paper.A5, PageOrientation.LANDSCAPE, 0, 0, 0, 0);
 
-            boolean success = printerJob.printPage(pageLayout, root);
-            if (success) {
-                printerJob.endJob();
-            }
-        }
-      //  stage.setTitle("TabPane Demo");
-     //   BorderPane root2 = new BorderPane();
+        //  stage.setTitle("TabPane Demo");
+        //   BorderPane root2 = new BorderPane();
 
-       // tabPane = new TabPane();
+        // tabPane = new TabPane();
         //tabPane.setSide(Side.BOTTOM);
 
 
@@ -268,7 +260,7 @@ public class HelloApplication extends Application {
 
 
         root.setCenter(tabPane);
-      //  root.setCenter(tabPane2);
+        //  root.setCenter(tabPane2);
 
 
         Stage stage2 = new Stage();
