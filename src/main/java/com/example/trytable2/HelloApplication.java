@@ -40,16 +40,16 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-//defenitions
+//defenitions for model
         //create object for every kind of specilization:
         Specialization n = new Specialization("Neurosurgery");
         Specialization p = new Specialization("Pediatric_surgery");
-        Specialization c = new Specialization("Cardiothoracic_surgery");
+        Specialization c = new Specialization("Card_surgery");
         Specialization v = new Specialization("Vascular_surgery");
         // Patient(String name, String id, int waiting_time, int severity_before, int urgency_level, Specialization spec_needed) {
         Patient a = new Patient("a","1",0,1,"Neurosurgery");
         Patient b = new Patient("b","2",1,2,"Pediatric_surgery");
-        Patient f = new Patient("c","3",2,3,"Cardiothoracic_surgery");
+        Patient f = new Patient("c","3",2,3,"Card_surgery");
         Patient d = new Patient("d","4",3,4,"Vascular_surgery");
 
         Patient e = new Patient("e","0",4,5,"Vascular_surgery");
@@ -62,9 +62,7 @@ public class HelloApplication extends Application {
         Patient e7 = new Patient("e3","1",4,5,"Vascular_surgery");
         Patient e8 = new Patient("e4","2",4,5,"Vascular_surgery");
         n.getPatient_queue().add(a);
-        n.getPatient_queue().add(a);
-        n.getPatient_queue().add(a);
-        n.getPatient_queue().add(a);
+
 
         p.getPatient_queue().add(b);
         c.getPatient_queue().add(f);
@@ -78,6 +76,11 @@ public class HelloApplication extends Application {
         //   v.getPatient_queue().stream().sorted();
 
 
+
+
+
+
+        // for view
 // for vascular surgery
         //Label for education
         Label label = new Label("Vascular_surgery:");
@@ -119,6 +122,49 @@ public class HelloApplication extends Application {
         TableColumn specCol2 = new TableColumn("spec_needed");
         specCol2.setCellValueFactory(new PropertyValueFactory("spec_needed"));
         specCol2.setPrefWidth(100);
+
+        //Creating columns
+        TableColumn NameCol3 = new TableColumn("Name");
+        NameCol3.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn IDCol3 = new TableColumn("id");
+        IDCol3.setCellValueFactory(new PropertyValueFactory("id"));
+        TableColumn waitCol3 = new TableColumn("waiting_time");
+        waitCol3.setCellValueFactory(new PropertyValueFactory("waiting_time"));
+        TableColumn sevCol3 = new TableColumn("severity_before");
+        sevCol3.setCellValueFactory(new PropertyValueFactory("severity_before"));
+        TableColumn specCol3 = new TableColumn("spec_needed");
+        specCol3.setCellValueFactory(new PropertyValueFactory("spec_needed"));
+        specCol3.setPrefWidth(100);
+
+
+
+        //Creating columns
+        TableColumn NameCol4 = new TableColumn("Name");
+        NameCol4.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn IDCol4 = new TableColumn("id");
+        IDCol4.setCellValueFactory(new PropertyValueFactory("id"));
+        TableColumn waitCol4 = new TableColumn("waiting_time");
+        waitCol4.setCellValueFactory(new PropertyValueFactory("waiting_time"));
+        TableColumn sevCol4 = new TableColumn("severity_before");
+        sevCol4.setCellValueFactory(new PropertyValueFactory("severity_before"));
+        TableColumn specCol4 = new TableColumn("spec_needed");
+        specCol4.setCellValueFactory(new PropertyValueFactory("spec_needed"));
+        specCol4.setPrefWidth(100);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // for vascular surgery
 
@@ -176,6 +222,15 @@ public class HelloApplication extends Application {
 
         );
 
+        TableView<Patient> table3 = new TableView<Patient>();
+        final ObservableList<Patient> data3 = FXCollections.observableArrayList(
+
+        );
+        TableView<Patient> table4 = new TableView<Patient>();
+        final ObservableList<Patient> data4 = FXCollections.observableArrayList(
+
+        );
+
 
 
 
@@ -194,7 +249,7 @@ public class HelloApplication extends Application {
 
         // for vascular surgery
 
-        Iterator<Patient> iterator2 = p.getPatient_queue().iterator();
+        Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
         while(iterator2.hasNext()){
             Patient k = iterator2.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -204,6 +259,22 @@ public class HelloApplication extends Application {
 
         }
 
+        Iterator<Patient> iterator3 = p.getPatient_queue().iterator();
+        while(iterator3.hasNext()){
+            Patient z = iterator3.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data3.add(z);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+        Iterator<Patient> iterator4 = c.getPatient_queue().iterator();
+        while(iterator4.hasNext()){
+            Patient q = iterator4.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data4.add(q);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
         //Adding data to the table
         ObservableList<String> list2 = FXCollections.observableArrayList();
         table2.setItems(data2);
@@ -214,6 +285,19 @@ public class HelloApplication extends Application {
         table2.setMaxSize(500, 400);
 
 
+        table3.setItems(data3);
+
+        table3.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        table3.getColumns().addAll(NameCol3, IDCol3, waitCol3, sevCol3,specCol3);
+        //Setting the size of the table
+        table3.setMaxSize(500, 400);
+
+        table4.setItems(data4);
+
+        table4.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        table4.getColumns().addAll(NameCol4, IDCol4, waitCol4, sevCol4,specCol4);
+        //Setting the size of the table
+        table4.setMaxSize(500, 400);
 
         // vbox.
         AnchorPane pane2 = new AnchorPane();
@@ -221,10 +305,24 @@ public class HelloApplication extends Application {
         AnchorPane.setRightAnchor(tabPane, 15.0);
         AnchorPane.setBottomAnchor(tabPane, 15.0);
         AnchorPane.setLeftAnchor(tabPane, 15.0);
-        pane2.getChildren().addAll(tabPane,label2,table2);
+        pane2.getChildren().addAll(tabPane,label,table2);
         pane2.setStyle("-fx-background-color: BEIGE");
 
+        AnchorPane pane3 = new AnchorPane();
+        AnchorPane.setTopAnchor(tabPane, 15.0);
+        AnchorPane.setRightAnchor(tabPane, 15.0);
+        AnchorPane.setBottomAnchor(tabPane, 15.0);
+        AnchorPane.setLeftAnchor(tabPane, 15.0);
+        pane3.getChildren().addAll(tabPane,label,table3);
+        pane3.setStyle("-fx-background-color: BEIGE");
 
+        AnchorPane pane4 = new AnchorPane();
+        AnchorPane.setTopAnchor(tabPane, 15.0);
+        AnchorPane.setRightAnchor(tabPane, 15.0);
+        AnchorPane.setBottomAnchor(tabPane, 15.0);
+        AnchorPane.setLeftAnchor(tabPane, 15.0);
+        pane4.getChildren().addAll(tabPane,label,table4);
+        pane4.setStyle("-fx-background-color: BEIGE");
         //  stage.setTitle("TabPane Demo");
         //   BorderPane root2 = new BorderPane();
 
@@ -252,11 +350,18 @@ public class HelloApplication extends Application {
         // Button button = new Button("Button" + Integer.toString(i));
         tab.setContent(pane);
         tabPane.getTabs().add(tab);
-        Tab tab1 = new Tab("Neurosurgery");
+        Tab tab2 = new Tab("Neurosurgery");
         // Button button = new Button("Button" + Integer.toString(i));
-        tab1.setContent(pane2);
-        tabPane.getTabs().add(tab1);
-
+        tab2.setContent(pane2);
+        tabPane.getTabs().add(tab2);
+        Tab tab3 = new Tab("Pediatric_surgery");
+        // Button button = new Button("Button" + Integer.toString(i));
+        tab3.setContent(pane3);
+        tabPane.getTabs().add(tab3);
+        Tab tab4 = new Tab("Card_surgery");
+        // Button button = new Button("Button" + Integer.toString(i));
+        tab4.setContent(pane4);
+        tabPane.getTabs().add(tab4);
 
 
         root.setCenter(tabPane);
