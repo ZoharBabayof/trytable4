@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.print.PageLayout;
 import javafx.print.PrinterJob;
@@ -15,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -366,16 +368,47 @@ public static void CreateTables(Stage stage)
 
 }
 
-    /**
-     *
-     * @param stage
-     * @param tabPane
-     * @param stage2
-     */
-    public static void CreateTimer(Stage stage,TabPane tabPane,Stage stage2 )
-    {
 
+    public static void CreateTimer(Stage primaryStage )
+    {
+         Button btStart = new Button("Start");
+         Button btClear = new Button("Clear");
+        // Create a hbox for buttons
+        HBox paneForButtons = new HBox(5);
+        paneForButtons.setAlignment(Pos.CENTER);
+        paneForButtons.getChildren().addAll(btStart, btClear);
+
+        // Create a Stopwatch
+        StopWatch stopWatch = new StopWatch();
+
+        // Create a border pane
+        BorderPane pane = new BorderPane();
+        pane.setBottom(paneForButtons);
+        pane.setCenter(stopWatch);
+
+        // Create and register handlers
+        btStart.setOnAction(e -> {
+            if (btStart.getText().equals("Start") || btStart.getText().equals("Resume")) {
+                stopWatch.start();
+                btStart.setText("Pause");
+            } else {
+                stopWatch.pause();
+                btStart.setText("Resume");
+            }
+        });
+
+        btClear.setOnAction(e -> {
+            stopWatch.clear();
+        });
+
+        // Create a scene and place it in the stage
+        Scene scene = new Scene(pane);
+        primaryStage.setTitle("java2s.com");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
+
+   // }
 
 
     @Override
@@ -386,8 +419,8 @@ public static void CreateTables(Stage stage)
 
 
 
-        CreateTables( stage); // inthe fucutre i ll give the funtion +4 specializaions from model
-        //CreateTimer( stage, tabPane,stage2 );
+        CreateTables(stage); // inthe fucutre i ll give the funtion +4 specializaions from model
+        CreateTimer(stage);
 
         root.setCenter(tabPane);
         Scene scene = new Scene(root, 800, 500);
