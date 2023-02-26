@@ -194,8 +194,7 @@ public static void CreateTables(Stage stage)
     stage.setTitle("TabPane Demo");
 
 
-    tabPane = new TabPane();
-    tabPane.setSide(Side.BOTTOM);
+
 
 
 
@@ -371,41 +370,34 @@ public static void CreateTables(Stage stage)
 
     public static void CreateTimer(Stage primaryStage )
     {
-         Button btStart = new Button("Start");
-         Button btClear = new Button("Clear");
+        // Button btStart = new Button("Start");
+       //  Button btClear = new Button("Clear");
         // Create a hbox for buttons
-        HBox paneForButtons = new HBox(5);
-        paneForButtons.setAlignment(Pos.CENTER);
-        paneForButtons.getChildren().addAll(btStart, btClear);
-
+        //HBox paneForButtons = new HBox(5);
+       // paneForButtons.setAlignment(Pos.CENTER);
+        // paneForButtons.getChildren().addAll(btStart, btClear);
+        tabPane = new TabPane();
+        tabPane.setSide(Side.BOTTOM);
         // Create a Stopwatch
         StopWatch stopWatch = new StopWatch();
 
         // Create a border pane
         BorderPane pane = new BorderPane();
-        pane.setBottom(paneForButtons);
         pane.setCenter(stopWatch);
+        stopWatch.start();
 
-        // Create and register handlers
-        btStart.setOnAction(e -> {
-            if (btStart.getText().equals("Start") || btStart.getText().equals("Resume")) {
-                stopWatch.start();
-                btStart.setText("Pause");
-            } else {
-                stopWatch.pause();
-                btStart.setText("Resume");
-            }
-        });
 
-        btClear.setOnAction(e -> {
-            stopWatch.clear();
-        });
+
 
         // Create a scene and place it in the stage
         Scene scene = new Scene(pane);
-        primaryStage.setTitle("java2s.com");
+        primaryStage.setTitle("CLOCK");
         primaryStage.setScene(scene);
-        primaryStage.show();
+      //  primaryStage.show();
+        Tab tab5 = new Tab("Event_Room");// beacuse I want the tab of clock to be the event room
+        // Button button = new Button("Button" + Integer.toString(i));
+        tab5.setContent(pane);
+        tabPane.getTabs().add(tab5);
     }
 
    // }
@@ -418,9 +410,9 @@ public static void CreateTables(Stage stage)
         BorderPane root = new BorderPane();
 
 
-
-        CreateTables(stage); // inthe fucutre i ll give the funtion +4 specializaions from model
         CreateTimer(stage);
+        CreateTables(stage); // inthe fucutre i ll give the funtion +4 specializaions from model
+
 
         root.setCenter(tabPane);
         Scene scene = new Scene(root, 800, 500);

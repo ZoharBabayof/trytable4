@@ -55,12 +55,12 @@ class StopWatch extends BorderPane {
         });
 
         // lay out the UI
-        HBox buttonBox = new HBox(10);
-        buttonBox.getChildren().addAll(btControl, btClear);
-        buttonBox.setAlignment(Pos.CENTER);
+//        HBox buttonBox = new HBox(10);
+//        buttonBox.getChildren().addAll(btControl, btClear);
+//        buttonBox.setAlignment(Pos.CENTER);
 
         setCenter(tTime);
-        setBottom(buttonBox);
+//        setBottom(buttonBox);
         setMargin(tTime, new Insets(20, 50, 20, 50));
     }
 
