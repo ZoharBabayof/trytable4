@@ -4,69 +4,30 @@ package com.example.trytable2;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Side;
-import javafx.print.PageLayout;
-import javafx.print.PrinterJob;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.TabPane;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
-public class HelloApplication extends Application {
+public class View extends Application {
 
     // global objects
     Stage stage2 = new Stage();
     static TabPane tabPane = new TabPane();
 
-public static void CreateTables(Stage stage)
+public static void CreateTables(Stage stage, ArrayList<Specialization> specs)
 {
 
-//defenitions for model
-    //create object for every kind of specilization:
-    Specialization n = new Specialization("Neurosurgery");
-    Specialization p = new Specialization("Pediatric_surgery");
-    Specialization c = new Specialization("Card_surgery");
-    Specialization v = new Specialization("Vascular_surgery");
-    // Patient(String name, String id, int waiting_time, int severity_before, int urgency_level, Specialization spec_needed) {
-    Patient a = new Patient("a","1",0,1,"Neurosurgery");
-    Patient b = new Patient("b","2",1,2,"Pediatric_surgery");
-    Patient f = new Patient("c","3",2,3,"Card_surgery");
-    Patient d = new Patient("d","4",3,4,"Vascular_surgery");
-
-    Patient e = new Patient("e","0",4,5,"Vascular_surgery");
-    Patient e1 = new Patient("e1","1",4,5,"Vascular_surgery");
-    Patient e2 = new Patient("e2","2",1,5,"Vascular_surgery");
-    Patient e3 = new Patient("e3","3",4,5,"Vascular_surgery");
-    Patient e4 = new Patient("e4","1",4,5,"Vascular_surgery");
-    Patient e5 = new Patient("e1","2",1,5,"Vascular_surgery");
-    Patient e6 = new Patient("e2","19",4,5,"Vascular_surgery");
-    Patient e7 = new Patient("e3","1",4,5,"Vascular_surgery");
-    Patient e8 = new Patient("e4","2",4,5,"Vascular_surgery");
-    n.getPatient_queue().add(a);
-
-
-    p.getPatient_queue().add(b);
-    c.getPatient_queue().add(f);
-    v.getPatient_queue().add(d);
-    v.getPatient_queue().add(e);
-    v.getPatient_queue().add(e1);
-    v.getPatient_queue().add(e2);
-    v.getPatient_queue().add(e3);
-    v.getPatient_queue().add(e4);
 
     //   v.getPatient_queue().stream().sorted();
 
@@ -74,6 +35,10 @@ public static void CreateTables(Stage stage)
 
 
 
+    Specialization n = specs.get(0);
+    Specialization p = specs.get(1);
+    Specialization c = specs.get(2);
+    Specialization v = specs.get(3);
 
     // for view
 // for vascular surgery
@@ -407,11 +372,13 @@ public static void CreateTables(Stage stage)
 
     public void start(Stage stage) throws IOException
     {
+        Presenter p = new Presenter();
+        ArrayList<Specialization> specs = p.giveSpec();
         BorderPane root = new BorderPane();
 
 
         CreateTimer(stage);
-        CreateTables(stage); // inthe fucutre i ll give the funtion +4 specializaions from model
+        CreateTables(stage,specs); // inthe fucutre i ll give the funtion +4 specializaions from model
 
 
         root.setCenter(tabPane);

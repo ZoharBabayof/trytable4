@@ -15,13 +15,17 @@ public class Specialization {
     private String spec_name;
     private Queue<Patient> patient_queue;
     private ArrayList <Doctor> doctors_with_spec;// dinamic array that contains all docotor who have this specilization.
-
+    private static int count=0;
     //private static ArrayList<Specialization> specilities;// dinamic array of all specilizations static - i must
 
     public Specialization(String spec_name) {
         this.spec_name = spec_name;
         this.patient_queue = new LinkedList<Patient>();
         this.doctors_with_spec = new ArrayList<>();
+
+
+       // this.specs = new
+
     }
 
     public String getSpec_name() {
