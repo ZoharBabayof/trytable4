@@ -18,6 +18,8 @@ public class RecoveryRoom
 
     public RecoveryRoom()
     {
+        this.resting_patients = new ArrayList<Patient>();
+
     }
 
     public RecoveryRoom(ArrayList<Patient> resting_patients) {

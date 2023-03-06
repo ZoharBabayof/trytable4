@@ -66,7 +66,8 @@ public class Model
         this.specs.add(v);
 
         //create all Operating Rooms :
-        //Specialization n = new Specialization("Neurosurgery");
+        OperatingRoom1 = new OperatingRoom();
+
 
 
 
