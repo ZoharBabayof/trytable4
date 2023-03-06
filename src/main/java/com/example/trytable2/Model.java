@@ -5,17 +5,27 @@ import java.util.ArrayList;
 public class Model
 {
     private static ArrayList<Specialization> specs;//array for every kind of specialization
+    //private static ArrayList<Doctor> doctors;//array for every kind of specialization // i have this in spec already
+    private static ArrayList<OperatingRoom > OperatingRooms;//array for every kind of specialization
+
 
 
     public Model()
     {
-       this.specs = new ArrayList<>();
+       this.specs = new ArrayList<Specialization>();
+
+
     }
 
     /*
         definitions for the main objects in project: all the Specializations, Doctors, Patients, Rooms
         - define the structs and data structures
          */
+
+    /**
+     *
+     * @return
+     */
     public  ArrayList<Specialization>  StartModel()
     {
 
@@ -55,6 +65,23 @@ public class Model
         this.specs.add(c);
         this.specs.add(v);
 
-        return(this.specs);
+        //create all Operating Rooms :
+        //Specialization n = new Specialization("Neurosurgery");
+
+
+
+        //create the RecoveryRoom
+        RecoveryRoom recoveryRoom = new RecoveryRoom();
+        Patient p7 = new Patient("e3","1",4,-1,"Vascular_surgery");
+        Patient p8 = new Patient("e4","222",4,-1,"Neurosurgery");
+        Patient p77 = new Patient("e33","12",22,-1,"Pediatric_surgery");
+        Patient p87 = new Patient("e43","22",4,-1,"Neurosurgery");
+
+        recoveryRoom.getResting_patients().add(p7);
+        recoveryRoom.getResting_patients().add(p8);
+        recoveryRoom.getResting_patients().add(p77);
+        recoveryRoom.getResting_patients().add(p87);
+
+        return(this.specs);//,this.O,recoveryRoom);
     }
 }

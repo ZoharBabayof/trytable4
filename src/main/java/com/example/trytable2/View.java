@@ -25,7 +25,7 @@ public class View extends Application {
     Stage stage2 = new Stage();
     static TabPane tabPane = new TabPane();
 
-public static void CreateTables(Stage stage, ArrayList<Specialization> specs)
+public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs)
 {
 
 
@@ -378,7 +378,7 @@ public static void CreateTables(Stage stage, ArrayList<Specialization> specs)
 
 
         CreateTimer(stage);
-        CreateTables(stage,specs); // inthe fucutre i ll give the funtion +4 specializaions from model
+        SpecsInformation(stage,specs); // in the future I'll give the function +4 specializations from model
 
 
         root.setCenter(tabPane);
