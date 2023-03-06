@@ -8,6 +8,7 @@ public class Model
     //private static ArrayList<Doctor> doctors;//array for every kind of specialization // i have this in spec already
     private static ArrayList<OperatingRoom > OperatingRooms;//array for every kind of specialization
 
+    RecoveryRoom recoveryRoom; //
 
 
     public Model()
@@ -66,13 +67,24 @@ public class Model
         this.specs.add(v);
 
         //create all Operating Rooms :
-        OperatingRoom1 = new OperatingRoom();
+        OperatingRoom op1 = new OperatingRoom();
+        OperatingRoom op2 = new OperatingRoom();
+        OperatingRoom op3 = new OperatingRoom();
+        OperatingRoom op4 = new OperatingRoom();
+        // add specialities to specialities_array in OperatingRooms
+        op1.getSpecialities_array().add(n); // add Neurosurgery
+        op1.getSpecialities_array().add(v);// add Vascular_surgery
 
+        op2.getSpecialities_array().add(p); // add Pediatric_surgery
+        op2.getSpecialities_array().add(c);// add Card_surgery
+
+        op3.getSpecialities_array().add(c); // add Card_surgery
+        op4.getSpecialities_array().add(n); // add Neurosurgery
 
 
 
         //create the RecoveryRoom
-        RecoveryRoom recoveryRoom = new RecoveryRoom();
+        this.recoveryRoom = new RecoveryRoom();
         Patient p7 = new Patient("e3","1",4,-1,"Vascular_surgery");
         Patient p8 = new Patient("e4","222",4,-1,"Neurosurgery");
         Patient p77 = new Patient("e33","12",22,-1,"Pediatric_surgery");
@@ -84,5 +96,10 @@ public class Model
         recoveryRoom.getResting_patients().add(p87);
 
         return(this.specs);//,this.O,recoveryRoom);
+    }
+
+    public void galeSheplyAlgoritem()
+    {
+
     }
 }
