@@ -28,21 +28,23 @@ public class View extends Application {
 
 
 
-
-
-
     public static void opRoomsInformation(Stage primaryStage,ArrayList<Specialization> specs)
+    {
+
+    }
+
+    public static void DoctorsInformation(Stage primaryStage,ArrayList<Doctor> specs)
     {
         // get objects
 //        OperatingRoom a = oprooms.get(0);
 //        OperatingRoom b = oprooms.get(1);
 //        OperatingRoom c = oprooms.get(2);
 //        OperatingRoom d = oprooms.get(3);
-        Specialization n = specs.get(0);
+        Doctor n = specs.get(0);
 
 
         //create labels
-        Label label = new Label("Vascular_surgery:");
+        Label label = new Label("Doctors:");
         Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
         label.setFont(font);
         //Creating a table view
@@ -93,83 +95,10 @@ public class View extends Application {
 
         primaryStage.setTitle("TabPane Demo");
 
-        Tab tab = new Tab("zohar");
+        Tab tab = new Tab("zohar2");
         // Button button = new Button("Button" + Integer.toString(i));
         tab.setContent(pane);
-       // tabPane.getTabs().add(tab);
-
-
-
-
-
-
-        // get objects
-//        OperatingRoom a = oprooms.get(0);
-//        OperatingRoom b = oprooms.get(1);
-//        OperatingRoom c = oprooms.get(2);
-//        OperatingRoom d = oprooms.get(3);
-        Specialization n2 = specs.get(0);
-
-
-        //create labels
-        Label label2 = new Label("Vascular_surgery:");
-        Font font2 = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
-        label2.setFont(font);
-        //Creating a table view
-        TableView<Patient> table2 = new TableView<Patient>();
-        final ObservableList<Patient> data2 = FXCollections.observableArrayList(
-
-        );
-
-        //Creating columns
-        TableColumn NameCol2 = new TableColumn("Name");
-        NameCol2.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        TableColumn IDCol2 = new TableColumn("id");
-        IDCol2.setCellValueFactory(new PropertyValueFactory("id"));
-        TableColumn waitCol2 = new TableColumn("waiting_time");
-        waitCol2.setCellValueFactory(new PropertyValueFactory("waiting_time"));
-        TableColumn sevCol2 = new TableColumn("severity_before");
-        sevCol2.setCellValueFactory(new PropertyValueFactory("severity_before"));
-        TableColumn specCol2 = new TableColumn("spec_needed");
-        specCol2.setCellValueFactory(new PropertyValueFactory("spec_needed"));
-        specCol2.setPrefWidth(100);
-        Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
-        while(iterator.hasNext()){
-            Patient q = iterator.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
-            data2.add(q);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
-
-        }
-
-        //Adding data to the table
-        ObservableList<String> list2 = FXCollections.observableArrayList();
-        table2.setItems(data);
-        table2.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        table2.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
-        //Setting the size of the table
-        table2.setMaxSize(500, 400);
-
-
-        AnchorPane pane2 = new AnchorPane();
-        AnchorPane.setTopAnchor(tabPane, 30.0);
-        AnchorPane.setRightAnchor(tabPane, 30.0);
-        AnchorPane.setBottomAnchor(tabPane, 30.0);
-        AnchorPane.setLeftAnchor(tabPane, 30.0);
-        pane2.getChildren().addAll(tabPane,label,table);
-        pane2.setStyle("-fx-background-color: BEIGE");
-
-
-        primaryStage.setTitle("TabPane Demo");
-
-
-        tab.setContent(pane2);
         tabPane.getTabs().add(tab);
-
-
-
-
-
 
 
     }
@@ -521,18 +450,27 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
         ArrayList<Specialization> specs = p.giveSpec();
         ArrayList<OperatingRoom > oprooms = p.retOprooms();
         RecoveryRoom recoveryRoom = p.retRecoveryRoom();
+        ArrayList<Doctor> doctors = p.retDoctors();
+
         BorderPane root = new BorderPane();
 
 
         CreateTimer(stage);
         SpecsInformation(stage,specs); // in the future I'll give the function +4 specializations from model
-        opRoomsInformation(stage,specs);
+        opRoomsInformation(stage,specs); // not finished
+        DoctorsInformation(stage,doctors);// not finished
+        // not finished
 
         root.setCenter(tabPane);
         Scene scene = new Scene(root, 800, 500);
         //  scene.add;
         stage2.setScene(scene);
         stage2.show();
+
+
+
+
+
     }
 
 

@@ -10,11 +10,12 @@ public class Model
 
     private static RecoveryRoom recoveryRoom; //RecoveryRoom object
 
-
+    private static ArrayList<Doctor > doctors;
     public Model()
     {
        this.specs = new ArrayList<Specialization>();
        this.oprooms = new ArrayList<OperatingRoom>();
+       this.doctors = new ArrayList<Doctor>();
 
     }
 
@@ -101,6 +102,22 @@ public class Model
         this.recoveryRoom.getResting_patients().add(p77);
         this.recoveryRoom.getResting_patients().add(p87);
 
+        //create the doctors objects
+
+        Doctor d1 = new Doctor("zohar","1",true,"-1");
+        Doctor d2 = new Doctor("zohar2","2",true,"-1");
+        Doctor d3 = new Doctor("zohar3","3",true,"-1");
+        Doctor d4 = new Doctor("zohar4","4",true,"-1");
+        Doctor d5 = new Doctor("zohar5","5",true,"-1");
+
+        //add doctors objects to arraylist of doctors
+        this.doctors.add(d1);
+        this.doctors.add(d2);
+        this.doctors.add(d3);
+        this.doctors.add(d4);
+        this.doctors.add(d5);
+
+
         return(this.specs);
        // ;//,this.O,recoveryRoom);
     }
@@ -112,6 +129,11 @@ public class Model
     public RecoveryRoom retRecoveryRoom()
     {
         return this.recoveryRoom;
+    }
+    public  ArrayList<Doctor> retDoctors()
+
+    {
+        return this.doctors;
     }
     public void galeSheplyAlgoritem()
     {

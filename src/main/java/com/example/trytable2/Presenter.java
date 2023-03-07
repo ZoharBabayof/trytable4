@@ -60,5 +60,9 @@ public class Presenter
     {
         return this.model.retRecoveryRoom();
     }
+    public ArrayList<Doctor > retDoctors()
+    {
+        return this.model.retDoctors();
+    }
 
 }
