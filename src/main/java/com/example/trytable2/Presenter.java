@@ -6,8 +6,11 @@ import java.util.LinkedList;
 
 public class Presenter
 {
+    private Model model;
     public Presenter() {
+        this.model = new Model();
     }
+
 
     public static void main(String[] args)
     {
@@ -47,7 +50,15 @@ public class Presenter
     }
     public ArrayList<Specialization> giveSpec()
     {
-        Model model = new Model();
-        return (model.StartModel());
+        return (this.model.StartModel());
     }
+    public ArrayList<OperatingRoom > retOprooms()
+    {
+        return (this.model.retOprooms());
+    }
+    public RecoveryRoom retRecoveryRoom()
+    {
+        return this.model.retRecoveryRoom();
+    }
+
 }

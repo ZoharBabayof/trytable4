@@ -6,15 +6,15 @@ public class Model
 {
     private static ArrayList<Specialization> specs;//array for every kind of specialization
     //private static ArrayList<Doctor> doctors;//array for every kind of specialization // i have this in spec already
-    private static ArrayList<OperatingRoom > OperatingRooms;//array for every kind of specialization
+    private static ArrayList<OperatingRoom > oprooms;//array for every kind of specialization
 
-    RecoveryRoom recoveryRoom; //
+    private static RecoveryRoom recoveryRoom; //RecoveryRoom object
 
 
     public Model()
     {
        this.specs = new ArrayList<Specialization>();
-
+       this.oprooms = new ArrayList<OperatingRoom>();
 
     }
 
@@ -81,6 +81,11 @@ public class Model
         op3.getSpecialities_array().add(c); // add Card_surgery
         op4.getSpecialities_array().add(n); // add Neurosurgery
 
+        // add all OperatingRooms to oprooms(array list of all OperatingRooms)
+        this.oprooms.add(op1);
+        this.oprooms.add(op1);
+        this.oprooms.add(op1);
+        this.oprooms.add(op1);
 
 
         //create the RecoveryRoom
@@ -90,14 +95,24 @@ public class Model
         Patient p77 = new Patient("e33","12",22,-1,"Pediatric_surgery");
         Patient p87 = new Patient("e43","22",4,-1,"Neurosurgery");
 
-        recoveryRoom.getResting_patients().add(p7);
-        recoveryRoom.getResting_patients().add(p8);
-        recoveryRoom.getResting_patients().add(p77);
-        recoveryRoom.getResting_patients().add(p87);
+        //  add all Resting_patients to recoveryRoom
+        this.recoveryRoom.getResting_patients().add(p7);
+        this.recoveryRoom.getResting_patients().add(p8);
+        this.recoveryRoom.getResting_patients().add(p77);
+        this.recoveryRoom.getResting_patients().add(p87);
 
-        return(this.specs);//,this.O,recoveryRoom);
+        return(this.specs);
+       // ;//,this.O,recoveryRoom);
     }
 
+    public ArrayList<OperatingRoom > retOprooms()
+    {
+        return this.oprooms;
+    }
+    public RecoveryRoom retRecoveryRoom()
+    {
+        return this.recoveryRoom;
+    }
     public void galeSheplyAlgoritem()
     {
 

@@ -374,6 +374,8 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
     {
         Presenter p = new Presenter();
         ArrayList<Specialization> specs = p.giveSpec();
+        ArrayList<OperatingRoom > oprooms = p.retOprooms();
+        RecoveryRoom recoveryRoom = p.retRecoveryRoom();
         BorderPane root = new BorderPane();
 
 
