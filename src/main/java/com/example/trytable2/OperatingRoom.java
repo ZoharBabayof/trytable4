@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class OperatingRoom
 {
     //HashMap<String, Patient> capitalCities;
-    private static int roomcounter=1;
-    private int room_id ;
+    private static int roomcounter=0;
+    private String room_id ;
     private boolean Is_available;
     private int time_left_evalution;// in clock rounds. if availiable: time_left_evalution = 0.
     private ArrayList<Specialization> specialities_array;// dinamic array of specialities the room can treat
@@ -17,9 +17,10 @@ public class OperatingRoom
 
     public OperatingRoom()
     {
-        this.room_id = roomcounter;
-        this.time_left_evalution = 0;//
         roomcounter++;
+        this.room_id = Integer.toString(roomcounter);
+        this.time_left_evalution = 0;//
+
         this.room_id = room_id;// mispur of operation rooms from 1 to number of rooms
         this.Is_available = true;
         this.time_left_evalution = time_left_evalution;
@@ -39,8 +40,8 @@ public class OperatingRoom
         this.Is_available = false;
     }
 
-    public static int getRoom_id() {
-        return room_id;
+    public String getRoom_id() {
+        return this.room_id;
     }
 
     public boolean isIs_available() {
@@ -63,8 +64,9 @@ public class OperatingRoom
         return pat1;
     }
 
-    public static void setRoom_id(int room_id) {
-        OperatingRoom.room_id = room_id;
+
+    public void setRoom_id(String room_id) {
+        this.room_id = room_id;
     }
 
     public void setIs_available(boolean is_available) {
