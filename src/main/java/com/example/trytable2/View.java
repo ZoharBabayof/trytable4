@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -33,75 +34,75 @@ public class View extends Application {
 
     }
 
-    public static void DoctorsInformation(Stage primaryStage,ArrayList<Doctor> specs)
-    {
-        // get objects
-//        OperatingRoom a = oprooms.get(0);
-//        OperatingRoom b = oprooms.get(1);
-//        OperatingRoom c = oprooms.get(2);
-//        OperatingRoom d = oprooms.get(3);
-        Doctor n = specs.get(0);
-
-
-        //create labels
-        Label label = new Label("Doctors:");
-        Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
-        label.setFont(font);
-        //Creating a table view
-        TableView<Patient> table = new TableView<Patient>();
-        final ObservableList<Patient> data = FXCollections.observableArrayList(
-
-        );
-
-        //Creating columns
-        TableColumn NameCol = new TableColumn("Name");
-        NameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        TableColumn IDCol = new TableColumn("id");
-        IDCol.setCellValueFactory(new PropertyValueFactory("id"));
-        TableColumn waitCol = new TableColumn("waiting_time");
-        waitCol.setCellValueFactory(new PropertyValueFactory("waiting_time"));
-        TableColumn sevCol = new TableColumn("severity_before");
-        sevCol.setCellValueFactory(new PropertyValueFactory("severity_before"));
-        TableColumn specCol = new TableColumn("spec_needed");
-        specCol.setCellValueFactory(new PropertyValueFactory("spec_needed"));
-        specCol.setPrefWidth(100);
-        Iterator<Patient> iterator = n.getPatient_queue().iterator();
-        while(iterator.hasNext()){
-            Patient q = iterator.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
-            data.add(q);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
-
-        }
-
-        //Adding data to the table
-        ObservableList<String> list = FXCollections.observableArrayList();
-        table.setItems(data);
-        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
-        //Setting the size of the table
-        table.setMaxSize(500, 400);
-
-
-        // vbox.
-        AnchorPane pane = new AnchorPane();
-        AnchorPane.setTopAnchor(tabPane, 15.0);
-        AnchorPane.setRightAnchor(tabPane, 15.0);
-        AnchorPane.setBottomAnchor(tabPane, 15.0);
-        AnchorPane.setLeftAnchor(tabPane, 15.0);
-        pane.getChildren().addAll(tabPane,label,table);
-        pane.setStyle("-fx-background-color: BEIGE");
-
-
-        primaryStage.setTitle("TabPane Demo");
-
-        Tab tab = new Tab("zohar2");
-        // Button button = new Button("Button" + Integer.toString(i));
-        tab.setContent(pane);
-        tabPane.getTabs().add(tab);
-
-
-    }
+//    public static void DoctorsInformation(Stage primaryStage,ArrayList<Doctor> specs)
+//    {
+//        // get objects
+////        OperatingRoom a = oprooms.get(0);
+////        OperatingRoom b = oprooms.get(1);
+////        OperatingRoom c = oprooms.get(2);
+////        OperatingRoom d = oprooms.get(3);
+//        Doctor n = specs.get(0);
+//
+//
+//        //create labels
+//        Label label = new Label("Doctors:");
+//        Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
+//        label.setFont(font);
+//        //Creating a table view
+//        TableView<Patient> table = new TableView<Patient>();
+//        final ObservableList<Patient> data = FXCollections.observableArrayList(
+//
+//        );
+//
+//        //Creating columns
+//        TableColumn NameCol = new TableColumn("Name");
+//        NameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+//        TableColumn IDCol = new TableColumn("id");
+//        IDCol.setCellValueFactory(new PropertyValueFactory("id"));
+//        TableColumn waitCol = new TableColumn("waiting_time");
+//        waitCol.setCellValueFactory(new PropertyValueFactory("waiting_time"));
+//        TableColumn sevCol = new TableColumn("severity_before");
+//        sevCol.setCellValueFactory(new PropertyValueFactory("severity_before"));
+//        TableColumn specCol = new TableColumn("spec_needed");
+//        specCol.setCellValueFactory(new PropertyValueFactory("spec_needed"));
+//        specCol.setPrefWidth(100);
+//        Iterator<Patient> iterator = n.getPatient_queue().iterator();
+//        while(iterator.hasNext()){
+//            Patient q = iterator.next();
+//            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+//            data.add(q);
+//            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+//
+//        }
+//
+//        //Adding data to the table
+//        ObservableList<String> list = FXCollections.observableArrayList();
+//        table.setItems(data);
+//        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+//        table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
+//        //Setting the size of the table
+//        table.setMaxSize(500, 400);
+//
+//
+//        // vbox.
+//        AnchorPane pane = new AnchorPane();
+//        AnchorPane.setTopAnchor(tabPane, 15.0);
+//        AnchorPane.setRightAnchor(tabPane, 15.0);
+//        AnchorPane.setBottomAnchor(tabPane, 15.0);
+//        AnchorPane.setLeftAnchor(tabPane, 15.0);
+//        pane.getChildren().addAll(tabPane,label,table);
+//        pane.setStyle("-fx-background-color: BEIGE");
+//
+//
+//        primaryStage.setTitle("TabPane Demo");
+//
+//        Tab tab = new Tab("zohar2");
+//        // Button button = new Button("Button" + Integer.toString(i));
+//        tab.setContent(pane);
+//        tabPane.getTabs().add(tab);
+//
+//
+//    }
 public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs)
 {
 
@@ -231,6 +232,7 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
     AnchorPane.setBottomAnchor(tabPane, 1000.0);
     AnchorPane.setLeftAnchor(tabPane, 1000.0);
     pane.getChildren().addAll(tabPane,label,table);
+    // add more child
     pane.setStyle("-fx-background-color: BEIGE");
 
 
@@ -336,13 +338,22 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
     //Setting the size of the table
     table4.setMaxSize(500, 400);
 
-    // vbox.
+     //vbox. // agebox
+    //define age box
+    HBox row = new HBox();
+    Label alon = new Label("azohar:");
+
+    row.getChildren().addAll(label2,table2,alon);
+
     AnchorPane pane2 = new AnchorPane();
     AnchorPane.setTopAnchor(tabPane, 15.0);
     AnchorPane.setRightAnchor(tabPane, 15.0);
     AnchorPane.setBottomAnchor(tabPane, 15.0);
     AnchorPane.setLeftAnchor(tabPane, 15.0);
-    pane2.getChildren().addAll(tabPane,label,table2);
+   // pane2.getChildren().addAll(tabPane,label,table2);
+     pane2.getChildren().addAll(tabPane,row);
+
+    // pane2.getChildren().add(table);
     pane2.setStyle("-fx-background-color: BEIGE");
 
     AnchorPane pane3 = new AnchorPane();
@@ -458,7 +469,7 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
         CreateTimer(stage);
         SpecsInformation(stage,specs); // in the future I'll give the function +4 specializations from model
         opRoomsInformation(stage,specs); // not finished
-        DoctorsInformation(stage,doctors);// not finished
+       // DoctorsInformation(stage,doctors);// not finished
         // not finished
 
         root.setCenter(tabPane);
