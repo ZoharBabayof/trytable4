@@ -103,6 +103,14 @@ public class View extends Application {
 //
 //
 //    }
+
+
+
+
+
+
+
+
 public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs)
 {
 
