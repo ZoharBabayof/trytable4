@@ -109,19 +109,56 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
 
     //   v.getPatient_queue().stream().sorted();
 
-
-
-
-
+    // get all the specilizations objects
     Specialization n = specs.get(0);
     Specialization p = specs.get(1);
     Specialization c = specs.get(2);
     Specialization v = specs.get(3);
 
 
+    // doctors table creations
+
+    TableView<Doctor> table5 = new TableView<Doctor>();
+    final ObservableList<Doctor> data5 = FXCollections.observableArrayList(
+
+    );
+
+    //Creating columns
+    //name id is_available current_room_id
+    TableColumn NameCol5 = new TableColumn("Name");
+    NameCol5.setCellValueFactory(new PropertyValueFactory<>("Name"));
+    TableColumn IDCol5 = new TableColumn("id");
+    IDCol5.setCellValueFactory(new PropertyValueFactory("id"));
+    TableColumn waitCol5 = new TableColumn("is_available");
+    waitCol5.setCellValueFactory(new PropertyValueFactory("is_available"));
+    TableColumn sevCol5 = new TableColumn("current_room_id");
+    sevCol5.setCellValueFactory(new PropertyValueFactory("current_room_id"));
+    sevCol5.setPrefWidth(100);
+
+    //
+    Iterator<Doctor> iterator5 = v.getDoctors_with_spec().iterator();
+    while(iterator5.hasNext()){
+        Doctor q = iterator5.next();
+        //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+        data5.add(q);
+        //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+    }
+    table5.setItems(data5);
+
+    table5.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    table5.getColumns().addAll(NameCol5, IDCol5, waitCol5, sevCol5);
+    //Setting the size of the table
+    table5.setMaxSize(500, 400);
+
+
+
+
+    // patients table creations
     // for view
 // for vascular surgery
     //Label for education
+
     Label label = new Label("Vascular_surgery:");
     Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
     label.setFont(font);
@@ -175,6 +212,15 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
     specCol3.setCellValueFactory(new PropertyValueFactory("spec_needed"));
     specCol3.setPrefWidth(100);
 
+    Iterator<Patient> iterator = v.getPatient_queue().iterator();
+    while(iterator.hasNext()){
+        Patient q = iterator.next();
+        //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+        data.add(q);
+        //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+    }
+
 
 
     //Creating columns
@@ -207,14 +253,7 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
 
     // for vascular surgery
 
-    Iterator<Patient> iterator = v.getPatient_queue().iterator();
-    while(iterator.hasNext()){
-        Patient q = iterator.next();
-        //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
-        data.add(q);
-        //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
-    }
 
     //Adding data to the table
     ObservableList<String> list = FXCollections.observableArrayList();
@@ -321,7 +360,7 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
     table2.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     table2.getColumns().addAll(NameCol2, IDCol2, waitCol2, sevCol2,specCol2);
     //Setting the size of the table
-    table2.setMaxSize(500, 400);
+    table2.setMaxSize(400, 600);
 
 
     table3.setItems(data3);
@@ -341,9 +380,8 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
      //vbox. // agebox
     //define age box
     HBox row = new HBox();
-    Label alon = new Label("azohar:");
 
-    row.getChildren().addAll(label2,table2,alon);
+    row.getChildren().addAll(table2,table5);
 
     AnchorPane pane2 = new AnchorPane();
     AnchorPane.setTopAnchor(tabPane, 15.0);
@@ -352,6 +390,7 @@ public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs
     AnchorPane.setLeftAnchor(tabPane, 15.0);
    // pane2.getChildren().addAll(tabPane,label,table2);
      pane2.getChildren().addAll(tabPane,row);
+
 
     // pane2.getChildren().add(table);
     pane2.setStyle("-fx-background-color: BEIGE");

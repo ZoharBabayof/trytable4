@@ -118,6 +118,15 @@ public class Model
         this.doctors.add(d5);
 
 
+
+
+        // try diffrent way: add doctors to a spec:
+        n.getDoctors_with_spec().add(d1);
+        n.getDoctors_with_spec().add(d2);
+        n.getDoctors_with_spec().add(d3);
+        n.getDoctors_with_spec().add(d4);
+        v.getDoctors_with_spec().add(d5);
+
         return(this.specs);
        // ;//,this.O,recoveryRoom);
     }
