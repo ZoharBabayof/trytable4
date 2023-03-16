@@ -1,7 +1,10 @@
 
 package com.example.trytable2;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -21,6 +24,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javafx.animation.AnimationTimer;
+import javafx.util.Duration;
 
 public class trygui extends Application {
 
@@ -30,6 +35,17 @@ public class trygui extends Application {
     static AnchorPane pane2 = new AnchorPane();
 
     static HBox row = new HBox();
+
+    static TableView<Patient> table2 = new TableView<Patient>();
+    static final ObservableList<Patient> data2 = FXCollections.observableArrayList(
+
+    );
+
+    static Tab tab2 = new Tab("Neurosurgery");
+    static Specialization n ;
+    static Specialization p ;
+    static Specialization c;
+    static Specialization v;
 
     public static void opRoomsInformation(Stage primaryStage,ArrayList<Specialization> specs)
     {
@@ -120,10 +136,10 @@ public class trygui extends Application {
         //   v.getPatient_queue().stream().sorted();
 
         // get all the specilizations objects
-        Specialization n = specs.get(0);
-        Specialization p = specs.get(1);
-        Specialization c = specs.get(2);
-        Specialization v = specs.get(3);
+         n = specs.get(0);
+         p = specs.get(1);
+         c = specs.get(2);
+         v = specs.get(3);
 
 
         // doctors table creations
@@ -305,10 +321,7 @@ public class trygui extends Application {
         Font font2 = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
         label2.setFont(font2);
         //Creating a table view
-        TableView<Patient> table2 = new TableView<Patient>();
-        final ObservableList<Patient> data2 = FXCollections.observableArrayList(
 
-        );
 
         TableView<Patient> table3 = new TableView<Patient>();
         final ObservableList<Patient> data3 = FXCollections.observableArrayList(
@@ -447,7 +460,7 @@ public class trygui extends Application {
         // Button button = new Button("Button" + Integer.toString(i));
         tab.setContent(pane);
         tabPane.getTabs().add(tab);
-        Tab tab2 = new Tab("Neurosurgery");
+
         // Button button = new Button("Button" + Integer.toString(i));
         tab2.setContent(pane2);
         tabPane.getTabs().add(tab2);
@@ -530,25 +543,103 @@ public class trygui extends Application {
         //  scene.add;
         stage2.setScene(scene);
         stage2.show();
-        LocalDateTime now = LocalDateTime.now();
-        int zohar = now.getMinute();
-        for (int i = 0; i < 10000; i++) {
-            if (i == 999)
-                changepane();
-        }
+//        LocalDateTime now = LocalDateTime.now();
+//        int zohar = now.getMinute();
+//        for (int i = 0; i < 10000; i++) {
+//            if (i == 999)
+//                changepane();
+//        }
+     Patient newPatient = new Patient("John", "123", 10, 5, "Neurosurgery");
+//        new Thread(() -> {
+//            try {
+//                // Wait for 5 seconds
+//                Thread.sleep(5000);
+//
+//                // Add a new patient to the data list
+//
+//                data2.add(newPatient);
+//
+//                // Update the table with the new data
+//                Platform.runLater(() -> {
+//                    table2.setItems(data2);
+//
+//                    // Select the new row in the table
+//                    table2.getSelectionModel().select(newPatient);
+//
+//                    // Update the UI to show the new data in the tab
+//                    tab2.setContent(pane2);
+//                });
+//
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }).start();
 
 
-        //Thread.sleep(5000L);
-        while (true) {
-            zohar = now.getSecond();
-            if (zohar == 59) {
-                pane2.getChildren().addAll(row);
-                break;
+
+
+
+
+
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+            // add 3 new patients to the queue
+            n.getPatient_queue().add(newPatient);
+            n.getPatient_queue().add(newPatient);
+            n.getPatient_queue().add(newPatient);
+
+            // update the data with the new patients
+            data2.clear();
+            Timeline delay = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
+            Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
+            while (iterator2.hasNext()) {
+                Patient k = iterator2.next();
+                data2.add(k);
             }
+            }));
+            delay.play();
+        }));
 
-            //
-        }
+// start the timeline
+        timeline.play();
+
+
+
+
+
+
+
+//
+//        new Thread(() -> {
+//            try {
+//        Thread.sleep(5000);
+//
+//        }
+//
+//        // Update the table with the new data
+//        table2.setItems(data2);
+//
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }).start();
+
+//        //Thread.sleep(5000L);
+//        while (true) {
+//            zohar = now.getSecond();
+//            if (zohar == 59) {
+//                pane2.getChildren().addAll(row);
+//                break;
+//            }
+//
+//            //
+    //    }
     }
+
+
+
+
+
 
 
     public static void main(String[] args) throws IOException {
