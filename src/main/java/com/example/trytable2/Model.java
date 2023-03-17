@@ -151,4 +151,13 @@ public class Model
 
 
 
+
+// functions I need to add to try gui and model
+    // gui
+            // show tables for the operatingrooms, for the resting room after surgery. title for each table in specilization
+            // updatetable -   for every single table in gui create apropriate function. in the functoin clear table and new insertions
+            //
+    // model
+            // finish the function galeSheplyAlgoritem and maybe make an array of available doctors to make it simple
+            // sortpatientqueue -   for every single queue in specilizations
 }

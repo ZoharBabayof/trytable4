@@ -30,18 +30,66 @@ import javafx.util.Duration;
 public class trygui extends Application {
 
     // global objects
-    Stage stage2 = new Stage();
-    static TabPane tabPane = new TabPane();
-    static AnchorPane pane2 = new AnchorPane();
-
     static HBox row = new HBox();
+    static HBox row2 = new HBox();
+    static HBox row3 = new HBox();
+    static HBox row4 = new HBox();
 
+    Stage stage2 = new Stage(); // it's the only stage
+    static TabPane tabPane = new TabPane();
+
+    static AnchorPane pane = new AnchorPane();
+
+    // patients speciality
+    static TableView<Patient> table = new TableView<Patient>();
+    static final ObservableList<Patient> data = FXCollections.observableArrayList(
+
+    );
+
+
+    static AnchorPane pane2 = new AnchorPane();
     static TableView<Patient> table2 = new TableView<Patient>();
     static final ObservableList<Patient> data2 = FXCollections.observableArrayList(
 
     );
 
+    static AnchorPane pane3 = new AnchorPane();
+    static TableView<Patient> table3= new TableView<Patient>();
+    static final ObservableList<Patient> data3 = FXCollections.observableArrayList(
+
+    );
+    static AnchorPane pane4 = new AnchorPane();
+    static TableView<Patient> table4 = new TableView<Patient>();
+    static final ObservableList<Patient> data4 = FXCollections.observableArrayList(
+
+    );
+
+    // doctors speciality
+    static TableView<Doctor> table5 = new TableView<Doctor>();
+    static final ObservableList<Doctor> data5 = FXCollections.observableArrayList(
+
+    );
+
+
+    static TableView<Doctor> table6 = new TableView<Doctor>();
+    static final ObservableList<Doctor> data6 = FXCollections.observableArrayList(
+
+    );
+    static TableView<Doctor> table7 = new TableView<Doctor>();
+    static final ObservableList<Doctor> data7 = FXCollections.observableArrayList(
+
+    );
+    static TableView<Doctor> table8 = new TableView<Doctor>();
+    static final ObservableList<Doctor> data8 = FXCollections.observableArrayList(
+
+    );
+    static Tab tab = new Tab("Vascular_surgery");
     static Tab tab2 = new Tab("Neurosurgery");
+
+    static Tab tab3 = new Tab("Pediatric_surgery");
+    static Tab tab4 = new Tab("Card_surgery");
+
+    static Tab tab5 = new Tab("Event_Room");// beacuse I want the tab of clock to be the event room
     static Specialization n ;
     static Specialization p ;
     static Specialization c;
@@ -136,21 +184,21 @@ public class trygui extends Application {
         //   v.getPatient_queue().stream().sorted();
 
         // get all the specilizations objects
-         n = specs.get(0);
-         p = specs.get(1);
-         c = specs.get(2);
-         v = specs.get(3);
+        n = specs.get(0);
+        p = specs.get(1);
+        c = specs.get(2);
+        v = specs.get(3);
 
 
         // doctors table creations
 
-        TableView<Doctor> table5 = new TableView<Doctor>();
-        final ObservableList<Doctor> data5 = FXCollections.observableArrayList(
 
-        );
 
         //Creating columns
         //name id is_available current_room_id
+
+        // add doctors of neuro surgery
+
         TableColumn NameCol5 = new TableColumn("Name");
         NameCol5.setCellValueFactory(new PropertyValueFactory<>("Name"));
         TableColumn IDCol5 = new TableColumn("id");
@@ -178,6 +226,87 @@ public class trygui extends Application {
         table5.setMaxSize(500, 400);
 
 
+        // add doctors of neuro surgery
+        TableColumn NameCol6 = new TableColumn("Name");
+        NameCol6.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn IDCol6 = new TableColumn("id");
+        IDCol6.setCellValueFactory(new PropertyValueFactory("id"));
+        TableColumn waitCol6 = new TableColumn("is_available");
+        waitCol6.setCellValueFactory(new PropertyValueFactory("is_available"));
+        TableColumn sevCol6 = new TableColumn("current_room_id");
+        sevCol6.setCellValueFactory(new PropertyValueFactory("current_room_id"));
+        sevCol6.setPrefWidth(100);
+
+        //
+        Iterator<Doctor> iterator6 = n.getDoctors_with_spec().iterator();
+        while(iterator6.hasNext()){
+            Doctor q = iterator6.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data6.add(q);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+
+        table6.setItems(data6);
+
+        table6.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        table6.getColumns().addAll(NameCol6, IDCol6, waitCol6, sevCol6);
+        //Setting the size of the table
+        table6.setMaxSize(500, 400);
+
+        // add doctors of neuro surgery
+        TableColumn NameCol7 = new TableColumn("Name");
+        NameCol7.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn IDCol7 = new TableColumn("id");
+        IDCol7.setCellValueFactory(new PropertyValueFactory("id"));
+        TableColumn waitCol7 = new TableColumn("is_available");
+        waitCol7.setCellValueFactory(new PropertyValueFactory("is_available"));
+        TableColumn sevCol7 = new TableColumn("current_room_id");
+        sevCol7.setCellValueFactory(new PropertyValueFactory("current_room_id"));
+        sevCol7.setPrefWidth(100);
+
+        //
+        Iterator<Doctor> iterator7 = p.getDoctors_with_spec().iterator();
+        while(iterator7.hasNext()){
+            Doctor q = iterator7.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data7.add(q);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+
+        table7.setItems(data7);
+
+        table7.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        table7.getColumns().addAll(NameCol7, IDCol7, waitCol7, sevCol7);
+        //Setting the size of the table
+        table7.setMaxSize(500, 400);
+        // add doctors of neuro surgery
+        TableColumn NameCol8 = new TableColumn("Name");
+        NameCol8.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        TableColumn IDCol8 = new TableColumn("id");
+        IDCol8.setCellValueFactory(new PropertyValueFactory("id"));
+        TableColumn waitCol8 = new TableColumn("is_available");
+        waitCol8.setCellValueFactory(new PropertyValueFactory("is_available"));
+        TableColumn sevCol8 = new TableColumn("current_room_id");
+        sevCol8.setCellValueFactory(new PropertyValueFactory("current_room_id"));
+        sevCol8.setPrefWidth(100);
+
+        //
+        Iterator<Doctor> iterator8 = c.getDoctors_with_spec().iterator();
+        while(iterator8.hasNext()){
+            Doctor q = iterator8.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data8.add(q);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+        table8.setItems(data8);
+
+        table8.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        table8.getColumns().addAll(NameCol8, IDCol8, waitCol8, sevCol8);
+        //Setting the size of the table
+        table8.setMaxSize(500, 400);
 
 
         // patients table creations
@@ -188,11 +317,11 @@ public class trygui extends Application {
         Label label = new Label("Vascular_surgery:");
         Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
         label.setFont(font);
-        //Creating a table view
-        TableView<Patient> table = new TableView<Patient>();
-        final ObservableList<Patient> data = FXCollections.observableArrayList(
-
-        );
+//        //Creating a table view
+//        TableView<Patient> table = new TableView<Patient>();
+//        final ObservableList<Patient> data = FXCollections.observableArrayList(
+//
+//        );
 
 
 
@@ -291,12 +420,13 @@ public class trygui extends Application {
 
 
         // vbox.
-        AnchorPane pane = new AnchorPane();
+//        AnchorPane pane = new AnchorPane();
+        row.getChildren().addAll(table,table5);
         AnchorPane.setTopAnchor(tabPane, 15.0);
         AnchorPane.setRightAnchor(tabPane, 15.0);
         AnchorPane.setBottomAnchor(tabPane, 1000.0);
         AnchorPane.setLeftAnchor(tabPane, 1000.0);
-        pane.getChildren().addAll(tabPane,label,table);
+        pane.getChildren().addAll(tabPane,row);
         // add more child
         pane.setStyle("-fx-background-color: BEIGE");
 
@@ -322,15 +452,15 @@ public class trygui extends Application {
         label2.setFont(font2);
         //Creating a table view
 
-
-        TableView<Patient> table3 = new TableView<Patient>();
-        final ObservableList<Patient> data3 = FXCollections.observableArrayList(
-
-        );
-        TableView<Patient> table4 = new TableView<Patient>();
-        final ObservableList<Patient> data4 = FXCollections.observableArrayList(
-
-        );
+//
+//        TableView<Patient> table3 = new TableView<Patient>();
+//        final ObservableList<Patient> data3 = FXCollections.observableArrayList(
+//
+//        );
+//        TableView<Patient> table4 = new TableView<Patient>();
+//        final ObservableList<Patient> data4 = FXCollections.observableArrayList(
+//
+//        );
 
 
 
@@ -404,7 +534,7 @@ public class trygui extends Application {
         //define age box
 
 
-        row.getChildren().addAll(table2,table5);
+        row2.getChildren().addAll(table2,table6);
 
 
         AnchorPane.setTopAnchor(tabPane, 15.0);
@@ -412,26 +542,30 @@ public class trygui extends Application {
         AnchorPane.setBottomAnchor(tabPane, 15.0);
         AnchorPane.setLeftAnchor(tabPane, 15.0);
         // pane2.getChildren().addAll(tabPane,label,table2);
-        pane2.getChildren().addAll(tabPane,row);
+        pane2.getChildren().addAll(tabPane,row2);
 
 
         // pane2.getChildren().add(table);
         pane2.setStyle("-fx-background-color: BEIGE");
 
-        AnchorPane pane3 = new AnchorPane();
+//        AnchorPane pane3 = new AnchorPane();
+        // row.getChildren().removeAll(table2,table5);////////////////////////////////////////////////////////////////////////////////////////////
+        row3.getChildren().addAll(table3,table7);////////////////////////////////////////////////////////////////////////////////////////////
+
         AnchorPane.setTopAnchor(tabPane, 15.0);
         AnchorPane.setRightAnchor(tabPane, 15.0);
         AnchorPane.setBottomAnchor(tabPane, 15.0);
         AnchorPane.setLeftAnchor(tabPane, 15.0);
-        pane3.getChildren().addAll(tabPane,label,table3);
+        pane3.getChildren().addAll(tabPane,row3);
         pane3.setStyle("-fx-background-color: BEIGE");
 
-        AnchorPane pane4 = new AnchorPane();
+        row4.getChildren().addAll(table4,table8);
+//        AnchorPane pane4 = new AnchorPane();
         AnchorPane.setTopAnchor(tabPane, 15.0);
         AnchorPane.setRightAnchor(tabPane, 15.0);
         AnchorPane.setBottomAnchor(tabPane, 15.0);
         AnchorPane.setLeftAnchor(tabPane, 15.0);
-        pane4.getChildren().addAll(tabPane,label,table4);
+        pane4.getChildren().addAll(tabPane,row4);
         pane4.setStyle("-fx-background-color: BEIGE");
         //  stage.setTitle("TabPane Demo");
         //   BorderPane root2 = new BorderPane();
@@ -456,22 +590,8 @@ public class trygui extends Application {
 
 
 
-        Tab tab = new Tab("Vascular_surgery");
-        // Button button = new Button("Button" + Integer.toString(i));
-        tab.setContent(pane);
-        tabPane.getTabs().add(tab);
 
-        // Button button = new Button("Button" + Integer.toString(i));
-        tab2.setContent(pane2);
-        tabPane.getTabs().add(tab2);
-        Tab tab3 = new Tab("Pediatric_surgery");
-        // Button button = new Button("Button" + Integer.toString(i));
-        tab3.setContent(pane3);
-        tabPane.getTabs().add(tab3);
-        Tab tab4 = new Tab("Card_surgery");
-        // Button button = new Button("Button" + Integer.toString(i));
-        tab4.setContent(pane4);
-        tabPane.getTabs().add(tab4);
+
 
 
         //  root.setCenter(tabPane2);
@@ -506,7 +626,7 @@ public class trygui extends Application {
         primaryStage.setTitle("CLOCK");
         primaryStage.setScene(scene);
         //  primaryStage.show();
-        Tab tab5 = new Tab("Event_Room");// beacuse I want the tab of clock to be the event room
+
         // Button button = new Button("Button" + Integer.toString(i));
         tab5.setContent(pane);
         tabPane.getTabs().add(tab5);
@@ -515,10 +635,7 @@ public class trygui extends Application {
     // }
 
 
-    public void changepane()
-    {
-        pane2.getChildren().remove(row);
-    }
+
 
     @Override
 
@@ -529,6 +646,7 @@ public class trygui extends Application {
         RecoveryRoom recoveryRoom = p.retRecoveryRoom();
         ArrayList<Doctor> doctors = p.retDoctors();
 
+
         BorderPane root = new BorderPane();
 
 
@@ -538,6 +656,21 @@ public class trygui extends Application {
         // DoctorsInformation(stage,doctors);// not finished
         // not finished
 
+        // Button button = new Button("Button" + Integer.toString(i));
+        tab.setContent(pane);
+        tabPane.getTabs().add(tab);
+
+        // Button button = new Button("Button" + Integer.toString(i));
+        tab2.setContent(pane2);
+        tabPane.getTabs().add(tab2);
+
+        // Button button = new Button("Button" + Integer.toString(i));
+        tab3.setContent(pane3);
+        tabPane.getTabs().add(tab3);
+
+        // Button button = new Button("Button" + Integer.toString(i));
+        tab4.setContent(pane4);
+        tabPane.getTabs().add(tab4);
         root.setCenter(tabPane);
         Scene scene = new Scene(root, 800, 500);
         //  scene.add;
@@ -549,7 +682,7 @@ public class trygui extends Application {
 //            if (i == 999)
 //                changepane();
 //        }
-     Patient newPatient = new Patient("John", "123", 10, 5, "Neurosurgery");
+        Patient newPatient = new Patient("John", "123", 10, 5, "Neurosurgery");
 //        new Thread(() -> {
 //            try {
 //                // Wait for 5 seconds
@@ -581,27 +714,27 @@ public class trygui extends Application {
 
 
 
-
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
-            // add 3 new patients to the queue
-            n.getPatient_queue().add(newPatient);
-            n.getPatient_queue().add(newPatient);
-            n.getPatient_queue().add(newPatient);
-
-            // update the data with the new patients
-            data2.clear();
-            Timeline delay = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
-            Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
-            while (iterator2.hasNext()) {
-                Patient k = iterator2.next();
-                data2.add(k);
-            }
-            }));
-            delay.play();
-        }));
-
-// start the timeline
-        timeline.play();
+//
+//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+//            // add 3 new patients to the queue
+//            n.getPatient_queue().add(newPatient);
+//            n.getPatient_queue().add(newPatient);
+//            n.getPatient_queue().add(newPatient);
+//
+//            // update the data with the new patients
+//            data2.clear();
+//            Timeline delay = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
+//                Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
+//                while (iterator2.hasNext()) {
+//                    Patient k = iterator2.next();
+//                    data2.add(k);
+//                }
+//            }));
+//            delay.play();
+//        }));
+//
+//// start the timeline
+//        timeline.play();
 
 
 
@@ -633,7 +766,7 @@ public class trygui extends Application {
 //            }
 //
 //            //
-    //    }
+        //    }
     }
 
 
