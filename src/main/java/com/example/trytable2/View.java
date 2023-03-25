@@ -713,28 +713,28 @@ public class View extends Application {
 
 
 
+// good example to how I overcame the problem of javaFX running beside thread://////////////////////////////////////////////////////////////
 
-//
-//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
-//            // add 3 new patients to the queue
-//            n.getPatient_queue().add(newPatient);
-//            n.getPatient_queue().add(newPatient);
-//            n.getPatient_queue().add(newPatient);
-//
-//            // update the data with the new patients
-//            data2.clear();
-//            Timeline delay = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
-//                Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
-//                while (iterator2.hasNext()) {
-//                    Patient k = iterator2.next();
-//                    data2.add(k);
-//                }
-//            }));
-//            delay.play();
-//        }));
-//
-//// start the timeline
-//        timeline.play();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+            // add 3 new patients to the queue
+            n.getPatient_queue().add(newPatient);
+            n.getPatient_queue().add(newPatient);
+            n.getPatient_queue().add(newPatient);
+
+            // update the data with the new patients
+            data2.clear();
+            Timeline delay = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
+                Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
+                while (iterator2.hasNext()) {
+                    Patient k = iterator2.next();
+                    data2.add(k);
+                }
+            }));
+            delay.play();
+        }));
+
+// start the timeline
+        timeline.play();
 
 
 

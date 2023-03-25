@@ -1,4 +1,3 @@
-
 package com.example.trytable2;
 
 import javafx.animation.KeyFrame;

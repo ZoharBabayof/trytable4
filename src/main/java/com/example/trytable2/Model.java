@@ -160,4 +160,129 @@ public class Model
     // model
             // finish the function galeSheplyAlgoritem and maybe make an array of available doctors to make it simple
             // sortpatientqueue -   for every single queue in specilizations
+
+
+
+
+    /*
+
+    import java.util.*;
+
+public class OperatingRoomScheduler {
+
+    // Define data structures for patients, doctors, and operating rooms
+    PriorityQueue<Patient> patientQueue;
+    ArrayList<Doctor> doctorList;
+    ArrayList<OperatingRoom> roomList;
+
+    // Constructor to initialize the scheduler with the input data
+    public OperatingRoomScheduler(PriorityQueue<Patient> patients, ArrayList<Doctor> doctors, ArrayList<OperatingRoom> rooms) {
+        patientQueue = patients;
+        doctorList = doctors;
+        roomList = rooms;
+    }
+
+    // Method to run the scheduling algorithm
+    public void schedule() {
+        // Create maps to keep track of the current assignments of patients, doctors, and rooms
+        Map<Patient, Doctor> patientDoctorMap = new HashMap<>();
+        Map<Patient, OperatingRoom> patientRoomMap = new HashMap<>();
+        Map<Doctor, Set<Patient>> doctorPatientMap = new HashMap<>();
+        Map<OperatingRoom, Set<Patient>> roomPatientMap = new HashMap<>();
+
+        // Initialize the sets of unmatched patients, doctors, and rooms
+        Set<Patient> unmatchedPatients = new HashSet<>(patientQueue);
+        Set<Doctor> unmatchedDoctors = new HashSet<>(doctorList);
+        Set<OperatingRoom> unmatchedRooms = new HashSet<>(roomList);
+
+        // While there are still unmatched patients, doctors, and rooms
+        while (!unmatchedPatients.isEmpty() && !unmatchedDoctors.isEmpty() && !unmatchedRooms.isEmpty()) {
+            // For each unmatched patient, find the doctor and room with the highest priority that is available
+            for (Patient patient : unmatchedPatients) {
+                Doctor doctor = null;
+                OperatingRoom room = null;
+                int maxPriority = Integer.MIN_VALUE;
+                for (Doctor d : unmatchedDoctors) {
+                    if (d.canOperateOn(patient) && d.getPriority() > maxPriority && d.hasSpecialty(patient.getRequiredSpecialties())) {
+                        maxPriority = d.getPriority();
+                        doctor = d;
+                    }
+                }
+                for (OperatingRoom r : unmatchedRooms) {
+                    if (r.canOperateOn(patient) && r.getPriority() > maxPriority && r.hasSpecialty(patient.getRequiredSpecialties()) && r.getDuration() >= patient.getDuration()) {
+                        maxPriority = r.getPriority();
+                        room = r;
+                    }
+                }
+                // If a matching doctor and room are found, assign the patient to them
+                if (doctor != null && room != null) {
+                    patientDoctorMap.put(patient, doctor);
+                    patientRoomMap.put(patient, room);
+                    if (!doctorPatientMap.containsKey(doctor)) {
+                        doctorPatientMap.put(doctor, new HashSet<>());
+                    }
+                    doctorPatientMap.get(doctor).add(patient);
+                    if (!roomPatientMap.containsKey(room)) {
+                        roomPatientMap.put(room, new HashSet<>());
+                    }
+                    roomPatientMap.get(room).add(patient);
+                    unmatchedPatients.remove(patient);
+                    unmatchedDoctors.remove(doctor);
+                    unmatchedRooms.remove(room);
+                }
+            }
+        }
+
+        // Print the final assignments
+        for (Patient patient : patientQueue) {
+            Doctor doctor = patientDoctorMap.get(patient);
+            OperatingRoom room = patientRoomMap.get(patient);
+            System.out.println("Patient " + patient.getId() + " is assigned to Doctor " + doctor.getId() + " in Room " + room.getId());
+        }
+    }
+}
+
+class Patient implements Comparable<Patient> {
+    private int id;
+    private int priority;
+    private ArrayList<String> requiredSpecial
+
+
+
+     */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 5 seconds to sorting
+    // i must to
+    // i can work with iterator but i dont
+
+
 }
