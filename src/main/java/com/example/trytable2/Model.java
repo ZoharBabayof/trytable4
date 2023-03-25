@@ -1,6 +1,6 @@
 package com.example.trytable2;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Model
 {
@@ -164,92 +164,155 @@ public class Model
 
 
 
-    /*
 
-    import java.util.*;
 
-public class OperatingRoomScheduler {
 
-    // Define data structures for patients, doctors, and operating rooms
-    PriorityQueue<Patient> patientQueue;
-    ArrayList<Doctor> doctorList;
-    ArrayList<OperatingRoom> roomList;
 
-    // Constructor to initialize the scheduler with the input data
-    public OperatingRoomScheduler(PriorityQueue<Patient> patients, ArrayList<Doctor> doctors, ArrayList<OperatingRoom> rooms) {
-        patientQueue = patients;
-        doctorList = doctors;
-        roomList = rooms;
-    }
 
-    // Method to run the scheduling algorithm
-    public void schedule() {
-        // Create maps to keep track of the current assignments of patients, doctors, and rooms
-        Map<Patient, Doctor> patientDoctorMap = new HashMap<>();
-        Map<Patient, OperatingRoom> patientRoomMap = new HashMap<>();
-        Map<Doctor, Set<Patient>> doctorPatientMap = new HashMap<>();
-        Map<OperatingRoom, Set<Patient>> roomPatientMap = new HashMap<>();
 
-        // Initialize the sets of unmatched patients, doctors, and rooms
-        Set<Patient> unmatchedPatients = new HashSet<>(patientQueue);
-        Set<Doctor> unmatchedDoctors = new HashSet<>(doctorList);
-        Set<OperatingRoom> unmatchedRooms = new HashSet<>(roomList);
 
-        // While there are still unmatched patients, doctors, and rooms
-        while (!unmatchedPatients.isEmpty() && !unmatchedDoctors.isEmpty() && !unmatchedRooms.isEmpty()) {
-            // For each unmatched patient, find the doctor and room with the highest priority that is available
-            for (Patient patient : unmatchedPatients) {
-                Doctor doctor = null;
-                OperatingRoom room = null;
-                int maxPriority = Integer.MIN_VALUE;
-                for (Doctor d : unmatchedDoctors) {
-                    if (d.canOperateOn(patient) && d.getPriority() > maxPriority && d.hasSpecialty(patient.getRequiredSpecialties())) {
-                        maxPriority = d.getPriority();
-                        doctor = d;
+
+
+
+
+
+
+
+    public class OperatingRoomScheduler {
+
+        // Define data structures for patients, doctors, and operating rooms
+        PriorityQueue<Patient> patientQueue;
+        ArrayList<Doctor> doctorList;
+        ArrayList<OperatingRoom> roomList;
+
+        // Constructor to initialize the scheduler with the input data
+        public OperatingRoomScheduler(PriorityQueue<Patient> patients, ArrayList<Doctor> doctors, ArrayList<OperatingRoom> rooms) {
+            patientQueue = patients;
+            doctorList = doctors;
+            roomList = rooms;
+        }
+
+        // Method to run the scheduling algorithm
+        public void schedule() {
+            // Create maps to keep track of the current assignments of patients, doctors, and rooms
+            Map<Patient, Doctor> patientDoctorMap = new HashMap<>();
+            Map<Patient, OperatingRoom> patientRoomMap = new HashMap<>();
+            Map<Doctor, Set<Patient>> doctorPatientMap = new HashMap<>();
+            Map<OperatingRoom, Set<Patient>> roomPatientMap = new HashMap<>();
+
+            // Initialize the sets of unmatched patients, doctors, and rooms
+            Set<Patient> unmatchedPatients = new HashSet<>(patientQueue);
+            Set<Doctor> unmatchedDoctors = new HashSet<>(doctorList);
+            Set<OperatingRoom> unmatchedRooms = new HashSet<>(roomList);
+
+            // While there are still unmatched patients, doctors, and rooms
+            while (!unmatchedPatients.isEmpty() && !unmatchedDoctors.isEmpty() && !unmatchedRooms.isEmpty()) {
+                // For each unmatched patient, find the doctor and room with the highest priority that is available
+                for (Patient patient : unmatchedPatients) {
+                    Doctor doctor = null;
+                    OperatingRoom room = null;
+                    int maxPriority = Integer.MIN_VALUE;
+                    for (Doctor d : unmatchedDoctors) {
+                        if (d.canOperateOn(patient) && d.getPriority() > maxPriority) {
+                            maxPriority = d.getPriority();
+                            doctor = d;
+                        }
                     }
-                }
-                for (OperatingRoom r : unmatchedRooms) {
-                    if (r.canOperateOn(patient) && r.getPriority() > maxPriority && r.hasSpecialty(patient.getRequiredSpecialties()) && r.getDuration() >= patient.getDuration()) {
-                        maxPriority = r.getPriority();
-                        room = r;
+                    for (OperatingRoom r : unmatchedRooms) {
+                        if (r.canOperateOn(patient) && r.getPriority() > maxPriority) {
+                            maxPriority = r.getPriority();
+                            room = r;
+                        }
                     }
-                }
-                // If a matching doctor and room are found, assign the patient to them
-                if (doctor != null && room != null) {
-                    patientDoctorMap.put(patient, doctor);
-                    patientRoomMap.put(patient, room);
-                    if (!doctorPatientMap.containsKey(doctor)) {
-                        doctorPatientMap.put(doctor, new HashSet<>());
+                    // If a matching doctor and room are found, assign the patient to them
+                    if (doctor != null && room != null) {
+                        patientDoctorMap.put(patient, doctor);
+                        patientRoomMap.put(patient, room);
+                        if (!doctorPatientMap.containsKey(doctor)) {
+                            doctorPatientMap.put(doctor, new HashSet<>());
+                        }
+                        doctorPatientMap.get(doctor).add(patient);
+                        if (!roomPatientMap.containsKey(room)) {
+                            roomPatientMap.put(room, new HashSet<>());
+                        }
+                        roomPatientMap.get(room).add(patient);
+                        unmatchedPatients.remove(patient);
+                        unmatchedDoctors.remove(doctor);
+                        unmatchedRooms.remove(room);
                     }
-                    doctorPatientMap.get(doctor).add(patient);
-                    if (!roomPatientMap.containsKey(room)) {
-                        roomPatientMap.put(room, new HashSet<>());
-                    }
-                    roomPatientMap.get(room).add(patient);
-                    unmatchedPatients.remove(patient);
-                    unmatchedDoctors.remove(doctor);
-                    unmatchedRooms.remove(room);
                 }
             }
-        }
 
-        // Print the final assignments
-        for (Patient patient : patientQueue) {
-            Doctor doctor = patientDoctorMap.get(patient);
-            OperatingRoom room = patientRoomMap.get(patient);
-            System.out.println("Patient " + patient.getId() + " is assigned to Doctor " + doctor.getId() + " in Room " + room.getId());
+            // Print the final assignments
+            for (Patient patient : patientQueue) {
+                Doctor doctor = patientDoctorMap.get(patient);
+                OperatingRoom room = patientRoomMap.get(patient);
+                System.out.println("Patient " + patient.getId() + " is assigned to Doctor " + doctor.getId() + " in Room " + room.getRoom_id());
+            }
         }
     }
-}
 
-class Patient implements Comparable<Patient> {
-    private int id;
-    private int priority;
-    private ArrayList<String> requiredSpecial
+//    class Patient implements Comparable<Patient> {
+//        private int id;
+//        private int priority;
+//
+//        public Patient(int id, int priority) {
+//            this.id = id;
+//            this.priority = priority;
+//        }
+//
+//        public int getId() {
+//            return id;
+//        }
+//
+//        public int getPriority() {
+//            return priority;
+//        }
+//    class Patient implements Comparable<Patient> {
+//        private int id;
+//        private int priority;
+//        private ArrayList<String> requiredSpecialties;
+//        private int duration;
+//
+//        public Patient(int id, int priority, ArrayList<String> requiredSpecialties, int duration) {
+//            this.id = id;
+//            this.priority = priority;
+//            this.requiredSpecialties = requiredSpecialties;
+//            this.duration = duration;
+//        }
+//
+//        public int getId() {
+//            return id;
+//        }
+//
+//        public int getPriority() {
+//            return priority;
+//        }
+//
+//        public ArrayList<String> getRequiredSpecialties() {
+//            return requiredSpecialties;
+//        }
+//
+//        public int getDuration() {
+//            return duration;
+//        }
+//
+//        // Define the compareTo method to compare patients by priority
+//        @Override
+//        public int compareTo(Patient other) {
+//            return Integer.compare(other.priority, this.priority);
+//        }
+//    }
+
+
+//class Patient implements Comparable<Patient> {
+//    private int id;
+//    private int priority;
+//    private ArrayList<String> requiredSpecial
 
 
 
-     */
+
 
 
 

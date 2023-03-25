@@ -28,6 +28,7 @@ public class OperatingRoom
 
     }
 
+
     public void start_operation(int time_left_evalution, Doctor doc1,Patient pat1)
             // in the fututure create people class that doctor and patient are inherit in to add
             // unlimited/ undefined shape of people to operation (mabey two doctors and not just one for example)
@@ -38,6 +39,28 @@ public class OperatingRoom
 
         this.time_left_evalution = time_left_evalution;
         this.Is_available = false;
+    }
+
+    public boolean canOperateOn(Patient patient)
+    {
+        for(Specialization s:this.specialities_array)
+        {
+            if(s.equals(patient.getSpec_needed()))
+                return true;
+        }
+        return false;
+    }
+
+    public int getPriority()// by the number of specs you treat. the more the less its less urgent to put you with patient because you can treat more kinds
+    {
+        int c = 0;
+        for(Specialization s:this.specialities_array)
+        {
+            c++;
+
+        }
+        return c;
+
     }
 
     public String getRoom_id() {

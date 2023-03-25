@@ -3,7 +3,7 @@ import  java.lang.Math.*;
 
 import static java.lang.Math.pow;
 
-public class Patient
+public class Patient implements Comparable<Patient>
 {
          /*
     -name: String
@@ -88,5 +88,11 @@ public class Patient
                 ", urgency_level=" + urgency_level +
                 ", spec_needed='" + spec_needed + '\'' +
                 '}';
+    }
+
+    // Define the compareTo method to compare patients by priority
+    @Override
+    public int compareTo(Patient other) {
+        return Double.compare(other.urgency_level, this.urgency_level);
     }
 }

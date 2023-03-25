@@ -18,6 +18,28 @@ public class Doctor {
         this.current_room_id = current_room_id;
     }
 
+    public boolean canOperateOn(Patient patient)
+    {
+        for(Specialization s:this.specialities_array)
+        {
+            if(s.equals(patient.getSpec_needed()))
+                return true;
+        }
+        return false;
+    }
+
+    public int getPriority()// by the number of specs you treat. the more the less its less urgent to put you with patient because you can treat more kinds
+    {
+        int c = 0;
+        for(Specialization s:this.specialities_array)
+        {
+            c++;
+
+        }
+        return c;
+
+    }
+
     public String getName() {
         return name;
     }
@@ -57,6 +79,8 @@ public class Doctor {
     public void setCurrent_room_id(String current_room_id) {
         this.current_room_id = current_room_id;
     }
+
+
 
     /*
     -name: String
