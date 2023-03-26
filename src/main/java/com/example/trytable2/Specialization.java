@@ -17,28 +17,35 @@ public class Specialization {
     private ArrayList <Doctor> doctors_with_spec;// dinamic array that contains all docotor who have this specilization.
     private static int count=0;
     private static ArrayList<Specialization> specilities;// dinamic array of all specilizations static - i must
+    private ArrayList <OperatingRoom> OperatingRooms_with_spec;// dinamic array that contains all docotor who have this specilization.
+
 
     public Specialization(String spec_name) {
         this.spec_name = spec_name;
         this.patient_queue = new LinkedList<Patient>();
         this.doctors_with_spec = new ArrayList<Doctor>();
-
+        this.OperatingRooms_with_spec = new ArrayList<OperatingRoom>();
 
        // this.specs = new
 
     }
 
     public String getSpec_name() {
-        return spec_name;
+        return this.spec_name;
     }
 
     public Queue<Patient> getPatient_queue() {
-        return patient_queue;
+        return this.patient_queue;
     }
 
+
     public ArrayList<Doctor> getDoctors_with_spec() {
-        return doctors_with_spec;
+        return this.doctors_with_spec;
     }
+    public ArrayList<OperatingRoom> getOperatingRooms_with_spec() {
+        return this.OperatingRooms_with_spec;
+    }
+
 
     public void setSpec_name(String spec_name) {
         this.spec_name = spec_name;

@@ -4,6 +4,10 @@ import java.util.*;
 
 public class Model
 {
+    Specialization n = new Specialization("Neurosurgery");
+    Specialization p = new Specialization("Pediatric_surgery");
+    Specialization c = new Specialization("Card_surgery");
+    Specialization v = new Specialization("Vascular_surgery");
     private static ArrayList<Specialization> specs;//array for every kind of specialization
     //private static ArrayList<Doctor> doctors;//array for every kind of specialization // i have this in spec already
     private static ArrayList<OperatingRoom > oprooms;//array for every kind of specialization
@@ -32,10 +36,10 @@ public class Model
     {
 
         //create object for every kind of specilization:
-        Specialization n = new Specialization("Neurosurgery");
-        Specialization p = new Specialization("Pediatric_surgery");
-        Specialization c = new Specialization("Card_surgery");
-        Specialization v = new Specialization("Vascular_surgery");
+//        Specialization n = new Specialization("Neurosurgery");
+//        Specialization p = new Specialization("Pediatric_surgery");
+//        Specialization c = new Specialization("Card_surgery");
+//        Specialization v = new Specialization("Vascular_surgery");
         // Patient(String name, String id, int waiting_time, int severity_before, int urgency_level, Specialization spec_needed) {
         Patient a = new Patient("a","1",0,1,"Neurosurgery");
         Patient b = new Patient("b","2",1,2,"Pediatric_surgery");
@@ -68,25 +72,27 @@ public class Model
         this.specs.add(v);
 
         //create all Operating Rooms :
-        OperatingRoom op1 = new OperatingRoom();
-        OperatingRoom op2 = new OperatingRoom();
-        OperatingRoom op3 = new OperatingRoom();
-        OperatingRoom op4 = new OperatingRoom();
-        // add specialities to specialities_array in OperatingRooms
-        op1.getSpecialities_array().add(n); // add Neurosurgery
-        op1.getSpecialities_array().add(v);// add Vascular_surgery
 
-        op2.getSpecialities_array().add(p); // add Pediatric_surgery
-        op2.getSpecialities_array().add(c);// add Card_surgery
-
-        op3.getSpecialities_array().add(c); // add Card_surgery
-        op4.getSpecialities_array().add(n); // add Neurosurgery
+//        OperatingRoom op1 = new OperatingRoom();
+//        OperatingRoom op2 = new OperatingRoom();
+//        OperatingRoom op3 = new OperatingRoom();
+//        OperatingRoom op4 = new OperatingRoom();
+//        // add specialities to specialities_array in OperatingRooms
+//        op1.getSpecialities_array().add(n); // add Neurosurgery
+//        op1.getSpecialities_array().add(v);// add Vascular_surgery
+//
+//        op2.getSpecialities_array().add(p); // add Pediatric_surgery
+//        op2.getSpecialities_array().add(c);// add Card_surgery
+//
+//        op3.getSpecialities_array().add(c); // add Card_surgery
+//        op4.getSpecialities_array().add(n); // add Neurosurgery
 
         // add all OperatingRooms to oprooms(array list of all OperatingRooms)
-        this.oprooms.add(op1);
-        this.oprooms.add(op1);
-        this.oprooms.add(op1);
-        this.oprooms.add(op1);
+//        this.oprooms.add(op1);
+//        this.oprooms.add(op1);
+//        this.oprooms.add(op1);
+//        this.oprooms.add(op1);
+
 
 
         //create the RecoveryRoom
@@ -118,6 +124,11 @@ public class Model
         this.doctors.add(d5);
 
 
+        d1.getSpecialities_array().add(v);
+        v.getDoctors_with_spec().add(d1);
+
+
+
 
 
         // try diffrent way: add doctors to a spec:
@@ -126,6 +137,36 @@ public class Model
         n.getDoctors_with_spec().add(d3);
         n.getDoctors_with_spec().add(d4);
         v.getDoctors_with_spec().add(d5);
+
+        ArrayList<Specialization> specsforrooms = new ArrayList<>();
+        specsforrooms.add(n);
+        OperatingRoom r1 = new  OperatingRoom (specsforrooms);
+        specsforrooms.add(v);
+        specsforrooms.add(c);
+        OperatingRoom r2 = new  OperatingRoom (specsforrooms);
+        specsforrooms.remove(n);
+        OperatingRoom r3 = new  OperatingRoom (specsforrooms);
+        n.getOperatingRooms_with_spec().add(r1);
+        n.getOperatingRooms_with_spec().add(r2);
+
+        v.getOperatingRooms_with_spec().add(r3);
+        v.getOperatingRooms_with_spec().add(r2);
+
+        c.getOperatingRooms_with_spec().add(r2);
+        c.getOperatingRooms_with_spec().add(r3);
+
+
+        r1.getSpecialities_array().add(v);
+        r1.getSpecialities_array().add(n);
+        r1.getSpecialities_array().add(c);
+        r1.getSpecialities_array().add(p);
+
+        v.getOperatingRooms_with_spec().add(r1);
+        n.getOperatingRooms_with_spec().add(r1);
+        c.getOperatingRooms_with_spec().add(r1);
+        p.getOperatingRooms_with_spec().add(r1);
+
+
 
         return(this.specs);
        // ;//,this.O,recoveryRoom);
@@ -144,10 +185,10 @@ public class Model
     {
         return this.doctors;
     }
-    public void galeSheplyAlgoritem()
-    {
-
-    }
+//    public void galeSheplyAlgoritem()
+//    {
+//
+//    }
 
 
 
@@ -178,21 +219,23 @@ public class Model
 
 
 
-    public class OperatingRoomScheduler {
-
-        // Define data structures for patients, doctors, and operating rooms
-        PriorityQueue<Patient> patientQueue;
-        ArrayList<Doctor> doctorList;
-        ArrayList<OperatingRoom> roomList;
-
-        // Constructor to initialize the scheduler with the input data
-        public OperatingRoomScheduler(PriorityQueue<Patient> patients, ArrayList<Doctor> doctors, ArrayList<OperatingRoom> rooms) {
-            patientQueue = patients;
-            doctorList = doctors;
-            roomList = rooms;
-        }
+//    public class OperatingRoomScheduler {
+//
+//        // Define data structures for patients, doctors, and operating rooms
+//        PriorityQueue<Patient> patientQueue;
+//        ArrayList<Doctor> doctorList;
+//        ArrayList<OperatingRoom> roomList;
+//
+//        // Constructor to initialize the scheduler with the input data
+//        public OperatingRoomScheduler(PriorityQueue<Patient> patients, ArrayList<Doctor> doctors, ArrayList<OperatingRoom> rooms) {
+//            patientQueue = patients;
+//            doctorList = doctors;
+//            roomList = rooms;
+//        }
 
         // Method to run the scheduling algorithm
+
+    // i do in the begining in order from the most urgent spec to less
         public void schedule() {
             // Create maps to keep track of the current assignments of patients, doctors, and rooms
             Map<Patient, Doctor> patientDoctorMap = new HashMap<>();
@@ -201,14 +244,18 @@ public class Model
             Map<OperatingRoom, Set<Patient>> roomPatientMap = new HashMap<>();
 
             // Initialize the sets of unmatched patients, doctors, and rooms
-            Set<Patient> unmatchedPatients = new HashSet<>(patientQueue);
-            Set<Doctor> unmatchedDoctors = new HashSet<>(doctorList);
-            Set<OperatingRoom> unmatchedRooms = new HashSet<>(roomList);
 
+            Set<Patient> unmatchedPatients = new HashSet<>(v.getPatient_queue()); // take for example the v patients queue
+            Set<Doctor> unmatchedDoctors = new HashSet<>(v.getDoctors_with_spec()); // v
+            Set<OperatingRoom> unmatchedRooms = new HashSet<>(v.getOperatingRooms_with_spec());//v
+
+            // While there are still unmatched patients, doctors, and rooms
             // While there are still unmatched patients, doctors, and rooms
             while (!unmatchedPatients.isEmpty() && !unmatchedDoctors.isEmpty() && !unmatchedRooms.isEmpty()) {
                 // For each unmatched patient, find the doctor and room with the highest priority that is available
-                for (Patient patient : unmatchedPatients) {
+                Iterator<Patient> patientIterator = unmatchedPatients.iterator();
+                while (patientIterator.hasNext()) {
+                    Patient patient = patientIterator.next();
                     Doctor doctor = null;
                     OperatingRoom room = null;
                     int maxPriority = Integer.MIN_VALUE;
@@ -236,21 +283,26 @@ public class Model
                             roomPatientMap.put(room, new HashSet<>());
                         }
                         roomPatientMap.get(room).add(patient);
-                        unmatchedPatients.remove(patient);
+                        patientIterator.remove(); // remove using the iterator
                         unmatchedDoctors.remove(doctor);
                         unmatchedRooms.remove(room);
                     }
                 }
+                for (Patient patient : v.getPatient_queue()) {
+                    Doctor doctor = patientDoctorMap.get(patient);
+                    OperatingRoom room = patientRoomMap.get(patient);
+                    if(doctor!=null &&patient!=null &&room!=null )
+                        System.out.println("Patient " + patient.getId() + " is assigned to Doctor " + doctor.getId() + " in Room " + room.getRoom_id());
+
+
+                }
             }
 
+
             // Print the final assignments
-            for (Patient patient : patientQueue) {
-                Doctor doctor = patientDoctorMap.get(patient);
-                OperatingRoom room = patientRoomMap.get(patient);
-                System.out.println("Patient " + patient.getId() + " is assigned to Doctor " + doctor.getId() + " in Room " + room.getRoom_id());
-            }
+
         }
-    }
+
 
 //    class Patient implements Comparable<Patient> {
 //        private int id;

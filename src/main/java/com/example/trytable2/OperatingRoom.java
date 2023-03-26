@@ -15,8 +15,9 @@ public class OperatingRoom
     private Patient pat1;
 
 
-    public OperatingRoom()
+    public OperatingRoom(ArrayList<Specialization> specialities_array)
     {
+        this.specialities_array = specialities_array;
         roomcounter++;
         this.room_id = Integer.toString(roomcounter);
         this.time_left_evalution = 0;//
@@ -45,7 +46,7 @@ public class OperatingRoom
     {
         for(Specialization s:this.specialities_array)
         {
-            if(s.equals(patient.getSpec_needed()))
+            if(s.getSpec_name().equals(patient.getSpec_needed()))
                 return true;
         }
         return false;

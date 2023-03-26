@@ -64,5 +64,10 @@ public class Presenter
     {
         return this.model.retDoctors();
     }
+    public void algorithem()
+
+    {
+        model.schedule();
+    }
 
 }

@@ -22,7 +22,7 @@ public class Doctor {
     {
         for(Specialization s:this.specialities_array)
         {
-            if(s.equals(patient.getSpec_needed()))
+            if((s.getSpec_name()).equals(patient.getSpec_needed()))
                 return true;
         }
         return false;

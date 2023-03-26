@@ -648,33 +648,62 @@ public class trygui extends Application {
 
         BorderPane root = new BorderPane();
 
-
-        CreateTimer(stage);
-        SpecsInformation(stage, specs); // in the future I'll give the function +4 specializations from model
-        opRoomsInformation(stage, specs); // not finished
+//
+//        CreateTimer(stage);
+//        SpecsInformation(stage, specs); // in the future I'll give the function +4 specializations from model
+//        opRoomsInformation(stage, specs); // not finished
         // DoctorsInformation(stage,doctors);// not finished
         // not finished
 
         // Button button = new Button("Button" + Integer.toString(i));
-        tab.setContent(pane);
-        tabPane.getTabs().add(tab);
 
-        // Button button = new Button("Button" + Integer.toString(i));
-        tab2.setContent(pane2);
-        tabPane.getTabs().add(tab2);
 
-        // Button button = new Button("Button" + Integer.toString(i));
-        tab3.setContent(pane3);
-        tabPane.getTabs().add(tab3);
+//        tab.setContent(pane);
+//        tabPane.getTabs().add(tab);
+//
+//        // Button button = new Button("Button" + Integer.toString(i));
+//
+//
+//        tab2.setContent(pane2);
+//        tabPane.getTabs().add(tab2);
+//
+//        // Button button = new Button("Button" + Integer.toString(i));
+//
+//
+//        tab3.setContent(pane3);
+//        tabPane.getTabs().add(tab3);
+//
+//        // Button button = new Button("Button" + Integer.toString(i));
+//
+//
+//        tab4.setContent(pane4);
+//        tabPane.getTabs().add(tab4);
+//        root.setCenter(tabPane);
+//        Scene scene = new Scene(root, 800, 500);
+//
+//
+//        //  scene.add;
+//
+//
+//        stage2.setScene(scene);
+//        stage2.show();
 
-        // Button button = new Button("Button" + Integer.toString(i));
-        tab4.setContent(pane4);
-        tabPane.getTabs().add(tab4);
-        root.setCenter(tabPane);
-        Scene scene = new Scene(root, 800, 500);
-        //  scene.add;
-        stage2.setScene(scene);
-        stage2.show();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //        LocalDateTime now = LocalDateTime.now();
 //        int zohar = now.getMinute();
 //        for (int i = 0; i < 10000; i++) {
@@ -682,6 +711,17 @@ public class trygui extends Application {
 //                changepane();
 //        }
         Patient newPatient = new Patient("John", "123", 10, 5, "Neurosurgery");
+
+
+
+
+
+
+
+
+
+
+
 //        new Thread(() -> {
 //            try {
 //                // Wait for 5 seconds
@@ -766,6 +806,8 @@ public class trygui extends Application {
 //
 //            //
         //    }
+
+
     }
 
 
@@ -775,7 +817,14 @@ public class trygui extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        launch();
+        //launch();
+        Presenter p = new Presenter();
+        ArrayList<Specialization> specs = p.giveSpec();
+        ArrayList<OperatingRoom> oprooms = p.retOprooms();
+        RecoveryRoom recoveryRoom = p.retRecoveryRoom();
+        ArrayList<Doctor> doctors = p.retDoctors();
+
+        p.algorithem();
         //Stage newstage = new Stage();
         // idan(newstage,"z");
         //idan();
