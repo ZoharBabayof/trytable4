@@ -4,19 +4,19 @@ import java.util.*;
 
 public class Model
 {
+    // all specs:
     Specialization n = new Specialization("Neurosurgery");
     Specialization p = new Specialization("Pediatric_surgery");
     Specialization c = new Specialization("Card_surgery");
     Specialization v = new Specialization("Vascular_surgery");
-    private static ArrayList<Specialization> specs;//array for every kind of specialization
-    //private static ArrayList<Doctor> doctors;//array for every kind of specialization // i have this in spec already
-    private static ArrayList<OperatingRoom > oprooms;//array for every kind of specialization
+    private static ArrayList<Specialization> specs;//ArrayList for every kind of specialization
+    private static ArrayList<OperatingRoom > oprooms;//ArrayList for every OperatingRoom
+    private static RecoveryRoom recoveryRoom; //one RecoveryRoom in project
 
-    private static RecoveryRoom recoveryRoom; //RecoveryRoom object
-
-    private static ArrayList<Doctor > doctors;
+    private static ArrayList<Doctor > doctors;//ArrayList for every OperatingRoom
     public Model()
     {
+        // init the ArrayLists:
        this.specs = new ArrayList<Specialization>();
        this.oprooms = new ArrayList<OperatingRoom>();
        this.doctors = new ArrayList<Doctor>();
@@ -32,7 +32,7 @@ public class Model
      *
      * @return
      */
-    public  ArrayList<Specialization>  StartModel()
+    public  ArrayList<Specialization>  StartModel() // put values in all patients, doctors rooms and structures
     {
 
         //create object for every kind of specilization:
@@ -41,6 +41,9 @@ public class Model
 //        Specialization c = new Specialization("Card_surgery");
 //        Specialization v = new Specialization("Vascular_surgery");
         // Patient(String name, String id, int waiting_time, int severity_before, int urgency_level, Specialization spec_needed) {
+
+        //---------------------------------------------------------------------------
+        // create all patients:
         Patient a = new Patient("a","1",0,1,"Neurosurgery");
         Patient b = new Patient("b","2",1,2,"Pediatric_surgery");
         Patient f = new Patient("c","3",2,3,"Card_surgery");
@@ -55,9 +58,9 @@ public class Model
         Patient e6 = new Patient("e2","19",4,5,"Vascular_surgery");
         Patient e7 = new Patient("e3","1",4,5,"Vascular_surgery");
         Patient e8 = new Patient("e4","2",4,5,"Vascular_surgery");
+
+        // add patients to their aproppriate spec needed:
         n.getPatient_queue().add(a);
-
-
         p.getPatient_queue().add(b);
         c.getPatient_queue().add(f);
         v.getPatient_queue().add(d);
@@ -66,12 +69,13 @@ public class Model
         v.getPatient_queue().add(e2);
         v.getPatient_queue().add(e3);
         v.getPatient_queue().add(e4);
+
+        // add all specs to the ArrayList
         this.specs.add(n);
         this.specs.add(p);
         this.specs.add(c);
         this.specs.add(v);
 
-        //create all Operating Rooms :
 
 //        OperatingRoom op1 = new OperatingRoom();
 //        OperatingRoom op2 = new OperatingRoom();
@@ -93,10 +97,15 @@ public class Model
 //        this.oprooms.add(op1);
 //        this.oprooms.add(op1);
 
+//-------------------------------------------------------------------------------
 
+        //create the RecoveryRooms
 
-        //create the RecoveryRoom
+        // init ArrayList:
         this.recoveryRoom = new RecoveryRoom();
+
+        // adding patients to the recovery room that will be in the beginning :
+
         Patient p7 = new Patient("e3","1",4,-1,"Vascular_surgery");
         Patient p8 = new Patient("e4","222",4,-1,"Neurosurgery");
         Patient p77 = new Patient("e33","12",22,-1,"Pediatric_surgery");
@@ -108,6 +117,8 @@ public class Model
         this.recoveryRoom.getResting_patients().add(p77);
         this.recoveryRoom.getResting_patients().add(p87);
 
+
+        //--------------------------------------------------------
         //create the doctors objects
 
         Doctor d1 = new Doctor("zohar","1",true,"-1");
@@ -137,7 +148,9 @@ public class Model
         n.getDoctors_with_spec().add(d3);
         n.getDoctors_with_spec().add(d4);
         v.getDoctors_with_spec().add(d5);
+//----------------------------------------------------------------------
 
+        // same with OperatingRooms:
         ArrayList<Specialization> specsforrooms = new ArrayList<>();
         specsforrooms.add(n);
         OperatingRoom r1 = new  OperatingRoom (specsforrooms);
@@ -156,15 +169,21 @@ public class Model
         c.getOperatingRooms_with_spec().add(r3);
 
 
+
+
+
         r1.getSpecialities_array().add(v);
         r1.getSpecialities_array().add(n);
         r1.getSpecialities_array().add(c);
         r1.getSpecialities_array().add(p);
+        r2.getSpecialities_array().add(n);
 
         v.getOperatingRooms_with_spec().add(r1);
         n.getOperatingRooms_with_spec().add(r1);
         c.getOperatingRooms_with_spec().add(r1);
         p.getOperatingRooms_with_spec().add(r1);
+        n.getOperatingRooms_with_spec().add(r2);
+
 
 
 
@@ -236,7 +255,7 @@ public class Model
         // Method to run the scheduling algorithm
 
     // i do in the begining in order from the most urgent spec to less
-        public void schedule() {
+        public void schedule(Specialization s) {
             // Create maps to keep track of the current assignments of patients, doctors, and rooms
             Map<Patient, Doctor> patientDoctorMap = new HashMap<>();
             Map<Patient, OperatingRoom> patientRoomMap = new HashMap<>();
@@ -245,15 +264,25 @@ public class Model
 
             // Initialize the sets of unmatched patients, doctors, and rooms
 
-            Set<Patient> unmatchedPatients = new HashSet<>(v.getPatient_queue()); // take for example the v patients queue
-            Set<Doctor> unmatchedDoctors = new HashSet<>(v.getDoctors_with_spec()); // v
-            Set<OperatingRoom> unmatchedRooms = new HashSet<>(v.getOperatingRooms_with_spec());//v
+            Set<Patient> unmatchedPatients = new HashSet<>(s.getPatient_queue()); // take for example the  patients queue
+            Set<Doctor> unmatchedDoctors = new HashSet<>(s.getDoctors_with_spec()); //
+            Set<OperatingRoom> unmatchedRooms = new HashSet<>(s.getOperatingRooms_with_spec());//v
 
-            // While there are still unmatched patients, doctors, and rooms
-            // While there are still unmatched patients, doctors, and rooms
-            while (!unmatchedPatients.isEmpty() && !unmatchedDoctors.isEmpty() && !unmatchedRooms.isEmpty()) {
+
+            // Set maximum number of iterations as the total number of patients, doctors, and rooms
+            int maxIterations = unmatchedPatients.size() + unmatchedDoctors.size() + unmatchedRooms.size();
+
+            // Keep track of the number of iterations
+            int numIterations = 0;
+
+            // While there are still unmatched patients, doctors, and rooms and maximum iterations not exceeded
+
+            while (!unmatchedPatients.isEmpty() && !unmatchedDoctors.isEmpty() && !unmatchedRooms.isEmpty()  && numIterations < maxIterations) {
                 // For each unmatched patient, find the doctor and room with the highest priority that is available
+
                 Iterator<Patient> patientIterator = unmatchedPatients.iterator();
+                numIterations++;
+
                 while (patientIterator.hasNext()) {
                     Patient patient = patientIterator.next();
                     Doctor doctor = null;
@@ -288,7 +317,7 @@ public class Model
                         unmatchedRooms.remove(room);
                     }
                 }
-                for (Patient patient : v.getPatient_queue()) {
+                for (Patient patient : s.getPatient_queue()) {
                     Doctor doctor = patientDoctorMap.get(patient);
                     OperatingRoom room = patientRoomMap.get(patient);
                     if(doctor!=null &&patient!=null &&room!=null )

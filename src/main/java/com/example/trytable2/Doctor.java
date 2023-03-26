@@ -18,7 +18,7 @@ public class Doctor {
         this.current_room_id = current_room_id;
     }
 
-    public boolean canOperateOn(Patient patient)
+    public boolean canOperateOn(Patient patient) // search if have the spec
     {
         for(Specialization s:this.specialities_array)
         {
@@ -30,6 +30,8 @@ public class Doctor {
 
     public int getPriority()// by the number of specs you treat. the more the less its less urgent to put you with patient because you can treat more kinds
     {
+//        if(this.specialities_array==null)
+//            return -1;
         int c = 0;
         for(Specialization s:this.specialities_array)
         {

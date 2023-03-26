@@ -54,6 +54,7 @@ public class OperatingRoom
 
     public int getPriority()// by the number of specs you treat. the more the less its less urgent to put you with patient because you can treat more kinds
     {
+
         int c = 0;
         for(Specialization s:this.specialities_array)
         {

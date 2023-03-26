@@ -824,7 +824,7 @@ public class trygui extends Application {
         RecoveryRoom recoveryRoom = p.retRecoveryRoom();
         ArrayList<Doctor> doctors = p.retDoctors();
 
-        p.algorithem();
+        p.Algorithem();
         //Stage newstage = new Stage();
         // idan(newstage,"z");
         //idan();

@@ -48,26 +48,37 @@ public class Presenter
 
 
     }
+    // ret all possible specs of hospital in  array list
     public ArrayList<Specialization> giveSpec()
     {
         return (this.model.StartModel());
     }
+
+    // ret all OperatingRooms of hospital in  array list
     public ArrayList<OperatingRoom > retOprooms()
     {
         return (this.model.retOprooms());
     }
+
+    // ret retRecoveryRoom of hospital in  array list
     public RecoveryRoom retRecoveryRoom()
     {
         return this.model.retRecoveryRoom();
     }
+
+    // ret Doctors of hospital in  array list
     public ArrayList<Doctor > retDoctors()
     {
         return this.model.retDoctors();
     }
-    public void algorithem()
+
+    // start main algorithm of project.
+    public void Algorithem()
 
     {
-        model.schedule();
+        //for(Specialization s : this.giveSpec() )
+        Specialization s = this.giveSpec().get(3);
+            model.schedule(s);
     }
 
 }
