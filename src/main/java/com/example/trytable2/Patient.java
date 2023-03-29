@@ -1,5 +1,6 @@
 package com.example.trytable2;
 import  java.lang.Math.*;
+import java.util.Objects;
 
 import static java.lang.Math.pow;
 
@@ -28,6 +29,20 @@ public class Patient implements Comparable<Patient>
         this.severity_before = severity_before;
         this.urgency_level = pow(2,(5-this.severity_before))*waiting_time;// 2^(5-severity_before)*waiting_time is the time from 120 he can wait
         this.spec_needed = spec_needed;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Patient patient = (Patient) o;
+        return Double.compare(patient.waiting_time, waiting_time) == 0 && Double.compare(patient.severity_before, severity_before) == 0 && Double.compare(patient.urgency_level, urgency_level) == 0 && name.equals(patient.name) && id.equals(patient.id) && spec_needed.equals(patient.spec_needed);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id, waiting_time, severity_before, urgency_level, spec_needed);
     }
 
     public String getName() {

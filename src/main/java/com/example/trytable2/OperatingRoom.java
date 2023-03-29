@@ -1,6 +1,7 @@
 package com.example.trytable2;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class OperatingRoom
 {
@@ -29,8 +30,20 @@ public class OperatingRoom
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OperatingRoom that = (OperatingRoom) o;
+        return Is_available == that.Is_available && time_left_evalution == that.time_left_evalution && room_id.equals(that.room_id) && Objects.equals(specialities_array, that.specialities_array) && doc1.equals(that.doc1) && pat1.equals(that.pat1);
+    }
 
-    public void start_operation(int time_left_evalution, Doctor doc1,Patient pat1)
+    @Override
+    public int hashCode() {
+        return Objects.hash(room_id, Is_available, time_left_evalution, specialities_array, doc1, pat1);
+    }
+
+    public void start_operation(int time_left_evalution, Doctor doc1, Patient pat1)
             // in the fututure create people class that doctor and patient are inherit in to add
             // unlimited/ undefined shape of people to operation (mabey two doctors and not just one for example)
     {

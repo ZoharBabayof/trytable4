@@ -255,82 +255,64 @@ public class Model
         // Method to run the scheduling algorithm
 
     // i do in the begining in order from the most urgent spec to less
-        public void schedule(Specialization s) {
-            // Create maps to keep track of the current assignments of patients, doctors, and rooms
-            Map<Patient, Doctor> patientDoctorMap = new HashMap<>();
-            Map<Patient, OperatingRoom> patientRoomMap = new HashMap<>();
-            Map<Doctor, Set<Patient>> doctorPatientMap = new HashMap<>();
-            Map<OperatingRoom, Set<Patient>> roomPatientMap = new HashMap<>();
-
-            // Initialize the sets of unmatched patients, doctors, and rooms
-
-            Set<Patient> unmatchedPatients = new HashSet<>(s.getPatient_queue()); // take for example the  patients queue
-            Set<Doctor> unmatchedDoctors = new HashSet<>(s.getDoctors_with_spec()); //
-            Set<OperatingRoom> unmatchedRooms = new HashSet<>(s.getOperatingRooms_with_spec());//v
 
 
-            // Set maximum number of iterations as the total number of patients, doctors, and rooms
-            int maxIterations = unmatchedPatients.size() + unmatchedDoctors.size() + unmatchedRooms.size();
+    public void schedule(Specialization s) {
+        // Create maps to keep track of the current assignments of patients, doctors, and rooms
+        Map<Patient, Doctor> patientDoctorMap = new HashMap<>();
+        Map<Patient, OperatingRoom> patientRoomMap = new HashMap<>();
+        Map<Doctor, Set<Patient>> doctorPatientMap = new HashMap<>();
+        Map<OperatingRoom, Set<Patient>> roomPatientMap = new HashMap<>();
 
-            // Keep track of the number of iterations
-            int numIterations = 0;
+        // Initialize the sets of unmatched patients, doctors, and rooms
+        Set<Patient> unmatchedPatients = new HashSet<>(s.getPatient_queue());
+        Set<Doctor> unmatchedDoctors = new HashSet<>(s.getDoctors_with_spec());
+        Set<OperatingRoom> unmatchedRooms = new HashSet<>(s.getOperatingRooms_with_spec());
 
-            // While there are still unmatched patients, doctors, and rooms and maximum iterations not exceeded
+        // Create heaps to efficiently find the doctors and operating rooms with the highest priority for each patient
+        PriorityQueue<Doctor> doctorHeap = new PriorityQueue<>(Comparator.comparingInt(Doctor::getPriority).reversed());
+        doctorHeap.addAll(unmatchedDoctors);
+        PriorityQueue<OperatingRoom> roomHeap = new PriorityQueue<>(Comparator.comparingInt(OperatingRoom::getPriority).reversed());
+        roomHeap.addAll(unmatchedRooms);
 
-            while (!unmatchedPatients.isEmpty() && !unmatchedDoctors.isEmpty() && !unmatchedRooms.isEmpty()  && numIterations < maxIterations) {
-                // For each unmatched patient, find the doctor and room with the highest priority that is available
-
-                Iterator<Patient> patientIterator = unmatchedPatients.iterator();
-                numIterations++;
-
-                while (patientIterator.hasNext()) {
-                    Patient patient = patientIterator.next();
-                    Doctor doctor = null;
-                    OperatingRoom room = null;
-                    int maxPriority = Integer.MIN_VALUE;
-                    for (Doctor d : unmatchedDoctors) {
-                        if (d.canOperateOn(patient) && d.getPriority() > maxPriority) {
-                            maxPriority = d.getPriority();
-                            doctor = d;
-                        }
-                    }
-                    for (OperatingRoom r : unmatchedRooms) {
-                        if (r.canOperateOn(patient) && r.getPriority() > maxPriority) {
-                            maxPriority = r.getPriority();
-                            room = r;
-                        }
-                    }
+        // While there are still unmatched patients, doctors, and rooms
+        while (!unmatchedPatients.isEmpty() && !doctorHeap.isEmpty() && !roomHeap.isEmpty()) {
+            // For each unmatched patient, find the doctor and room with the highest priority that is available
+            Iterator<Patient> patientIterator = unmatchedPatients.iterator();
+            while (patientIterator.hasNext()) {
+                Patient patient = patientIterator.next();
+                Doctor doctor = doctorHeap.peek();
+                OperatingRoom room = roomHeap.peek();
+                if (doctor.canOperateOn(patient) && room.canOperateOn(patient)) {
                     // If a matching doctor and room are found, assign the patient to them
-                    if (doctor != null && room != null) {
-                        patientDoctorMap.put(patient, doctor);
-                        patientRoomMap.put(patient, room);
-                        if (!doctorPatientMap.containsKey(doctor)) {
-                            doctorPatientMap.put(doctor, new HashSet<>());
-                        }
-                        doctorPatientMap.get(doctor).add(patient);
-                        if (!roomPatientMap.containsKey(room)) {
-                            roomPatientMap.put(room, new HashSet<>());
-                        }
-                        roomPatientMap.get(room).add(patient);
-                        patientIterator.remove(); // remove using the iterator
-                        unmatchedDoctors.remove(doctor);
-                        unmatchedRooms.remove(room);
+                    patientDoctorMap.put(patient, doctor);
+                    patientRoomMap.put(patient, room);
+                    if (!doctorPatientMap.containsKey(doctor)) {
+                        doctorPatientMap.put(doctor, new HashSet<>());
                     }
-                }
-                for (Patient patient : s.getPatient_queue()) {
-                    Doctor doctor = patientDoctorMap.get(patient);
-                    OperatingRoom room = patientRoomMap.get(patient);
-                    if(doctor!=null &&patient!=null &&room!=null )
-                        System.out.println("Patient " + patient.getId() + " is assigned to Doctor " + doctor.getId() + " in Room " + room.getRoom_id());
-
-
+                    doctorPatientMap.get(doctor).add(patient);
+                    if (!roomPatientMap.containsKey(room)) {
+                        roomPatientMap.put(room, new HashSet<>());
+                    }
+                    roomPatientMap.get(room).add(patient);
+                    patientIterator.remove();
+                    doctorHeap.poll();
+                    roomHeap.poll();
                 }
             }
 
-
-            // Print the final assignments
-
         }
+        // Print the final assignments
+        for (Patient patient : s.getPatient_queue()) {
+            Doctor doctor = patientDoctorMap.get(patient);
+            OperatingRoom room = patientRoomMap.get(patient);
+            if (doctor != null && patient != null && room != null) {
+                System.out.println("Patient " + patient.getId() + " is assigned to Doctor " + doctor.getId() + " in Room " + room.getRoom_id());
+            }
+        }
+
+    }
+
 
 
 //    class Patient implements Comparable<Patient> {

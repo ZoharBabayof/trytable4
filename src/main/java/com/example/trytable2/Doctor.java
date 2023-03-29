@@ -1,6 +1,7 @@
 package com.example.trytable2;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Doctor {
     private String name;
@@ -40,6 +41,19 @@ public class Doctor {
         }
         return c;
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Doctor doctor = (Doctor) o;
+        return Is_available == doctor.Is_available && name.equals(doctor.name) && id.equals(doctor.id) && Objects.equals(specialities_array, doctor.specialities_array) && current_room_id.equals(doctor.current_room_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id, Is_available, specialities_array, current_room_id);
     }
 
     public String getName() {
