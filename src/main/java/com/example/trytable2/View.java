@@ -92,6 +92,14 @@ public class View extends Application {
     static Tab tab5 = new Tab("Event_Room");// beacuse I want the tab of clock to be the event room
 
 
+
+
+
+    static Specialization n = new Specialization("Neurosurgery");
+    static Specialization p = new Specialization("Pediatric_surgery");
+    static Specialization c = new Specialization("Card_surgery");
+    static Specialization v = new Specialization("Vascular_surgery");
+
     public static void opRoomsInformation(Stage primaryStage,ArrayList<Specialization> specs)
     {
 

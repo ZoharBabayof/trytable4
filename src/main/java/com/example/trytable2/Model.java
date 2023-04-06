@@ -67,9 +67,11 @@ public class Model
         Specialization v = new Specialization("Vascular_surgery");
 
         ArrayList<OperatingRoom> operatingRooms = new ArrayList<OperatingRoom>();
-        ArrayList<Patient> patients = new ArrayList<>();
+        ArrayList<Doctor> doctors = new ArrayList<Doctor>();
 
 
+
+        // because the method of file reading right now a room can treat max 2 specs
         try {
             File file = new File("C:\\Users\\User\\IdeaProjects\\trytable2\\src\\main\\java\\com\\example\\trytable2\\HospitalInfo.txt");
             Scanner scanner = new Scanner(file);
@@ -77,23 +79,68 @@ public class Model
                 String line = scanner.nextLine();
                 if (line.contains("OperatingRoom")) {
                     String[] data = line.split(",");
-                    OperatingRoom operatingRoom = new OperatingRoom(new Specialization[] {this.StrToSpec(data[1]), this.StrToSpec(data[2])});
-                    operatingRooms.add(operatingRoom);
+                    if (data.length >= 3) {
+                        OperatingRoom operatingRoom = new OperatingRoom(new Specialization[] {this.StrToSpec(data[1]), this.StrToSpec(data[2])});
+                        operatingRooms.add(operatingRoom);
+                    }
                 } else if (line.contains("Doctor")) {
                     String[] data = line.split(",");
-                    Doctor doctor = new Doctor(data[0], data[1], Boolean.valueOf(data[2]), data[3], new Specialization[] {this.StrToSpec(data[4]), this.StrToSpec(data[5])});
-                    doctors.add(doctor);
+                    if (data.length >= 6) {
+                        Doctor doctor = new Doctor(data[0], data[1], Boolean.valueOf(data[2]), data[3], new Specialization[] {this.StrToSpec(data[4]), this.StrToSpec(data[5])});
+                        doctors.add(doctor);
+                    }
                 } else if (line.contains("Patient")) {
                     String[] data = line.split(",");
-                    Patient patient = new Patient(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]), this.StrToSpec(data[4]));
-                    patients.offer(patient);// adding patients.
-                    // notice i need to use my global arraylistsn ot my chatgpt ones
+                    if (data.length >= 5) {
+                        Patient patient = new Patient(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]), this.StrToSpec(data[4]));
+                        Specialization s = patient.getSpec_needed();
+                        s.getPatient_queue().add(patient);
+                    }
                 }
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Invalid number format in the HospitalInfo.txt file.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Error: An unexpected error occurred while reading the HospitalInfo.txt file.");
+            e.printStackTrace();
         }
+
+
+
+
+        System.out.println("Doctors:");
+        for (Doctor doc : doctors) {
+            System.out.println("- " + doc);
+        }
+
+        System.out.println("Operating Rooms:");
+        for (OperatingRoom room : operatingRooms) {
+            System.out.println("- " + room);
+        }
+
+// print patients
+        System.out.println("\n V Patients:");
+        for (Patient patient : v.getPatient_queue()) {
+            System.out.println("- " + patient);
+        }
+        System.out.println("\n N Patients:");
+        for (Patient patient : n.getPatient_queue()) {
+            System.out.println("- " + patient);
+        }
+        System.out.println("\n C Patients:");
+        for (Patient patient : c.getPatient_queue()) {
+            System.out.println("- " + patient);
+        }
+        System.out.println("\n P Patients:");
+        for (Patient patient : p.getPatient_queue()) {
+            System.out.println("- " + patient);
+        }
+
+
 
         //---------------------------------------------------------------------------
         // create all patients:
