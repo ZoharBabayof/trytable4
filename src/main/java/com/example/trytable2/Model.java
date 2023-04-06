@@ -1,19 +1,22 @@
 package com.example.trytable2;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Model
 {
     // all specs:
-    Specialization n = new Specialization("Neurosurgery");
-    Specialization p = new Specialization("Pediatric_surgery");
-    Specialization c = new Specialization("Card_surgery");
-    Specialization v = new Specialization("Vascular_surgery");
+
     private static ArrayList<Specialization> specs;//ArrayList for every kind of specialization
     private static ArrayList<OperatingRoom > oprooms;//ArrayList for every OperatingRoom
     private static RecoveryRoom recoveryRoom; //one RecoveryRoom in project
 
     private static ArrayList<Doctor > doctors;//ArrayList for every OperatingRoom
+
+
     public Model()
     {
         // init the ArrayLists:
@@ -32,50 +35,87 @@ public class Model
      *
      * @return
      */
-    public  ArrayList<Specialization>  StartModel() // put values in all patients, doctors rooms and structures
+
+
+    public Specialization StrToSpec(String specializationStr) {
+        Specialization n = new Specialization("Neurosurgery");
+        Specialization p = new Specialization("Pediatric_surgery");
+        Specialization c = new Specialization("Card_surgery");
+        Specialization v = new Specialization("Vascular_surgery");
+
+        Specialization specialization = new Specialization("");
+        if (specializationStr.equals("c")) {
+            specialization = c;
+        } else if (specializationStr.equals("p")) {
+            specialization = p;
+        } else if (specializationStr.equals("n")) {
+            specialization = n;
+        } else if (specializationStr.equals("v")) {
+            specialization = v;
+        }
+        return specialization;
+    }
+
+
+
+    public  ArrayList<Specialization>  StartModel() throws IOException // put values in all patients, doctors rooms and structures
     {
 
-        //create object for every kind of specilization:
-//        Specialization n = new Specialization("Neurosurgery");
-//        Specialization p = new Specialization("Pediatric_surgery");
-//        Specialization c = new Specialization("Card_surgery");
-//        Specialization v = new Specialization("Vascular_surgery");
-        // Patient(String name, String id, int waiting_time, int severity_before, int urgency_level, Specialization spec_needed) {
+        Specialization n = new Specialization("Neurosurgery");
+        Specialization p = new Specialization("Pediatric_surgery");
+        Specialization c = new Specialization("Card_surgery");
+        Specialization v = new Specialization("Vascular_surgery");
+
+        ArrayList<OperatingRoom> operatingRooms = new ArrayList<OperatingRoom>();
+        ArrayList<Patient> patients = new ArrayList<>();
+
+
+        try {
+            File file = new File("C:\\Users\\User\\IdeaProjects\\trytable2\\src\\main\\java\\com\\example\\trytable2\\HospitalInfo.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.contains("OperatingRoom")) {
+                    String[] data = line.split(",");
+                    OperatingRoom operatingRoom = new OperatingRoom(new Specialization[] {this.StrToSpec(data[1]), this.StrToSpec(data[2])});
+                    operatingRooms.add(operatingRoom);
+                } else if (line.contains("Doctor")) {
+                    String[] data = line.split(",");
+                    Doctor doctor = new Doctor(data[0], data[1], Boolean.valueOf(data[2]), data[3], new Specialization[] {this.StrToSpec(data[4]), this.StrToSpec(data[5])});
+                    doctors.add(doctor);
+                } else if (line.contains("Patient")) {
+                    String[] data = line.split(",");
+                    Patient patient = new Patient(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]), this.StrToSpec(data[4]));
+                    patients.offer(patient);// adding patients.
+                    // notice i need to use my global arraylistsn ot my chatgpt ones
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         //---------------------------------------------------------------------------
         // create all patients:
-        Patient a = new Patient("a","1",0,1,"Neurosurgery");
-        Patient b = new Patient("b","2",1,2,"Pediatric_surgery");
-        Patient f = new Patient("c","3",2,3,"Card_surgery");
-        Patient d = new Patient("d","4",3,4,"Vascular_surgery");
 
-        Patient e = new Patient("e","0",4,5,"Vascular_surgery");
-        Patient e1 = new Patient("e1","1",4,5,"Vascular_surgery");
-        Patient e2 = new Patient("e2","2",1,5,"Vascular_surgery");
-        Patient e3 = new Patient("e3","3",4,5,"Vascular_surgery");
-        Patient e4 = new Patient("e4","1",4,5,"Vascular_surgery");
-        Patient e5 = new Patient("e1","2",1,5,"Vascular_surgery");
-        Patient e6 = new Patient("e2","19",4,5,"Vascular_surgery");
-        Patient e7 = new Patient("e3","1",4,5,"Vascular_surgery");
-        Patient e8 = new Patient("e4","2",4,5,"Vascular_surgery");
-
-        // add patients to their aproppriate spec needed:
-        n.getPatient_queue().add(a);
-        p.getPatient_queue().add(b);
-        c.getPatient_queue().add(f);
-        v.getPatient_queue().add(d);
-        v.getPatient_queue().add(e);
-        v.getPatient_queue().add(e1);
-        v.getPatient_queue().add(e2);
-        v.getPatient_queue().add(e3);
-        v.getPatient_queue().add(e4);
-
-        // add all specs to the ArrayList
-        this.specs.add(n);
-        this.specs.add(p);
-        this.specs.add(c);
-        this.specs.add(v);
-
+//
+//        // add patients to their aproppriate spec needed:
+//        n.getPatient_queue().add(a);
+//        p.getPatient_queue().add(b);
+//        c.getPatient_queue().add(f);
+//        v.getPatient_queue().add(d);
+//        v.getPatient_queue().add(e);
+//        v.getPatient_queue().add(e1);
+//        v.getPatient_queue().add(e2);
+//        v.getPatient_queue().add(e3);
+//        v.getPatient_queue().add(e4);
+//
+//        // add all specs to the ArrayList
+//        this.specs.add(n);
+//        this.specs.add(p);
+//        this.specs.add(c);
+//        this.specs.add(v);
+//
 
 //        OperatingRoom op1 = new OperatingRoom();
 //        OperatingRoom op2 = new OperatingRoom();
@@ -100,89 +140,84 @@ public class Model
 //-------------------------------------------------------------------------------
 
         //create the RecoveryRooms
-
-        // init ArrayList:
-        this.recoveryRoom = new RecoveryRoom();
-
-        // adding patients to the recovery room that will be in the beginning :
-
-        Patient p7 = new Patient("e3","1",4,-1,"Vascular_surgery");
-        Patient p8 = new Patient("e4","222",4,-1,"Neurosurgery");
-        Patient p77 = new Patient("e33","12",22,-1,"Pediatric_surgery");
-        Patient p87 = new Patient("e43","22",4,-1,"Neurosurgery");
-
-        //  add all Resting_patients to recoveryRoom
-        this.recoveryRoom.getResting_patients().add(p7);
-        this.recoveryRoom.getResting_patients().add(p8);
-        this.recoveryRoom.getResting_patients().add(p77);
-        this.recoveryRoom.getResting_patients().add(p87);
-
+//
+//        // init ArrayList:
+//        this.recoveryRoom = new RecoveryRoom();
+//
+//        // adding patients to the recovery room that will be in the beginning :
+//
+//        Patient p7 = new Patient("e3","1",4,-1,"Vascular_surgery");
+//        Patient p8 = new Patient("e4","222",4,-1,"Neurosurgery");
+//        Patient p77 = new Patient("e33","12",22,-1,"Pediatric_surgery");
+//        Patient p87 = new Patient("e43","22",4,-1,"Neurosurgery");
+//
+//        //  add all Resting_patients to recoveryRoom
+//        this.recoveryRoom.getResting_patients().add(p7);
+//        this.recoveryRoom.getResting_patients().add(p8);
+//        this.recoveryRoom.getResting_patients().add(p77);
+//        this.recoveryRoom.getResting_patients().add(p87);
+//
 
         //--------------------------------------------------------
         //create the doctors objects
 
-        Doctor d1 = new Doctor("zohar","1",true,"-1");
-        Doctor d2 = new Doctor("zohar2","2",true,"-1");
-        Doctor d3 = new Doctor("zohar3","3",true,"-1");
-        Doctor d4 = new Doctor("zohar4","4",true,"-1");
-        Doctor d5 = new Doctor("zohar5","5",true,"-1");
-
-        //add doctors objects to arraylist of doctors
-        this.doctors.add(d1);
-        this.doctors.add(d2);
-        this.doctors.add(d3);
-        this.doctors.add(d4);
-        this.doctors.add(d5);
 
 
-        d1.getSpecialities_array().add(v);
-        v.getDoctors_with_spec().add(d1);
+
+//        //add doctors objects to arraylist of doctors
+//        this.doctors.add(d1);
+//        this.doctors.add(d2);
+//        this.doctors.add(d3);
+//        this.doctors.add(d4);
+//        this.doctors.add(d5);
+//
+//
+//        d1.getSpecialities_array().add(v);
+//        v.getDoctors_with_spec().add(d1);
 
 
 
 
-
-        // try diffrent way: add doctors to a spec:
-        n.getDoctors_with_spec().add(d1);
-        n.getDoctors_with_spec().add(d2);
-        n.getDoctors_with_spec().add(d3);
-        n.getDoctors_with_spec().add(d4);
-        v.getDoctors_with_spec().add(d5);
+//
+//        // try diffrent way: add doctors to a spec:
+//        n.getDoctors_with_spec().add(d1);
+//        n.getDoctors_with_spec().add(d2);
+//        n.getDoctors_with_spec().add(d3);
+//        n.getDoctors_with_spec().add(d4);
+//        v.getDoctors_with_spec().add(d5);
 //----------------------------------------------------------------------
 
-        // same with OperatingRooms:
-        ArrayList<Specialization> specsforrooms = new ArrayList<>();
-        specsforrooms.add(n);
-        OperatingRoom r1 = new  OperatingRoom (specsforrooms);
-        specsforrooms.add(v);
-        specsforrooms.add(c);
-        OperatingRoom r2 = new  OperatingRoom (specsforrooms);
-        specsforrooms.remove(n);
-        OperatingRoom r3 = new  OperatingRoom (specsforrooms);
-        n.getOperatingRooms_with_spec().add(r1);
-        n.getOperatingRooms_with_spec().add(r2);
-
-        v.getOperatingRooms_with_spec().add(r3);
-        v.getOperatingRooms_with_spec().add(r2);
-
-        c.getOperatingRooms_with_spec().add(r2);
-        c.getOperatingRooms_with_spec().add(r3);
-
-
-
-
-
-        r1.getSpecialities_array().add(v);
-        r1.getSpecialities_array().add(n);
-        r1.getSpecialities_array().add(c);
-        r1.getSpecialities_array().add(p);
-        r2.getSpecialities_array().add(n);
-
-        v.getOperatingRooms_with_spec().add(r1);
-        n.getOperatingRooms_with_spec().add(r1);
-        c.getOperatingRooms_with_spec().add(r1);
-        p.getOperatingRooms_with_spec().add(r1);
-        n.getOperatingRooms_with_spec().add(r2);
+//        // same with OperatingRooms:
+//        ArrayList<Specialization> specsforrooms = new ArrayList<>();
+//        specsforrooms.add(n);
+//        specsforrooms.add(v);
+//        specsforrooms.add(c);
+//        specsforrooms.remove(n);
+//
+//        n.getOperatingRooms_with_spec().add(r1);
+//        n.getOperatingRooms_with_spec().add(r2);
+//
+//        v.getOperatingRooms_with_spec().add(r3);
+//        v.getOperatingRooms_with_spec().add(r2);
+//
+//        c.getOperatingRooms_with_spec().add(r2);
+//        c.getOperatingRooms_with_spec().add(r3);
+//
+//
+//
+//
+//
+//        r1.getSpecialities_array().add(v);
+//        r1.getSpecialities_array().add(n);
+//        r1.getSpecialities_array().add(c);
+//        r1.getSpecialities_array().add(p);
+//        r2.getSpecialities_array().add(n);
+//
+//        v.getOperatingRooms_with_spec().add(r1);
+//        n.getOperatingRooms_with_spec().add(r1);
+//        c.getOperatingRooms_with_spec().add(r1);
+//        p.getOperatingRooms_with_spec().add(r1);
+//        n.getOperatingRooms_with_spec().add(r2);
 
 
 
@@ -271,8 +306,8 @@ public class Model
 
         // Create heaps to efficiently find the doctors and operating rooms with the highest priority for each patient
         PriorityQueue<Doctor> doctorHeap = new PriorityQueue<>(Comparator.comparingInt(Doctor::getPriority).reversed());
-        doctorHeap.addAll(unmatchedDoctors);
         PriorityQueue<OperatingRoom> roomHeap = new PriorityQueue<>(Comparator.comparingInt(OperatingRoom::getPriority).reversed());
+        doctorHeap.addAll(unmatchedDoctors);
         roomHeap.addAll(unmatchedRooms);
 
         // While there are still unmatched patients, doctors, and rooms
@@ -300,18 +335,18 @@ public class Model
                     roomHeap.poll();
                 }
             }
+            // Print the final assignments
+//            for (Patient patient : s.getPatient_queue()) {
+//                Doctor doctor = patientDoctorMap.get(patient);
+//                OperatingRoom room = patientRoomMap.get(patient);
+//                if (doctor != null && patient != null && room != null) {
+//                    System.out.println("Patient " + patient.getId() + " is assigned to Doctor " + doctor.getId() + " in Room " + room.getRoom_id());
+//                }
+//            }
 
         }
-        // Print the final assignments
-        for (Patient patient : s.getPatient_queue()) {
-            Doctor doctor = patientDoctorMap.get(patient);
-            OperatingRoom room = patientRoomMap.get(patient);
-            if (doctor != null && patient != null && room != null) {
-                System.out.println("Patient " + patient.getId() + " is assigned to Doctor " + doctor.getId() + " in Room " + room.getRoom_id());
-            }
         }
 
-    }
 
 
 

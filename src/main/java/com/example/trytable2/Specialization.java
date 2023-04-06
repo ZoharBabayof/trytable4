@@ -13,7 +13,7 @@ import java.util.Queue;
 
 public class Specialization {
     private String spec_name;
-    private Queue<Patient> patient_queue;
+        private Queue<Patient> patient_queue;
     private ArrayList <Doctor> doctors_with_spec;// dinamic array that contains all docotor who have this specilization.
     private static int count=0;
     private static ArrayList<Specialization> specilities;// dinamic array of all specilizations static - i must

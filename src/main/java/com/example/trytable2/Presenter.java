@@ -1,5 +1,6 @@
 package com.example.trytable2;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -45,12 +46,21 @@ public class Presenter
         // create
 
 
+        // so I should have a main timer that calls every 5 seconds to the UpdateHospital function
+
+
+
+        // model
+            // UpdateHospital: call to the SortAllPatientsQueues function and call to the Schedule function (that do the schedule while there is option)
+            //                  make sure the last function updates the data structures. then call to the gui to show changes.
+            // in "schedule" function we use doctor, rooms heaps. we need to make functions to sort these heaps by the specialization.
+            // in "schedule" function we use patients heaps. we need to make function to sort this heap by the total urgency.
+            // and in the algorithm we need to add preference to take patient with lower time of surgery if the difference between the total urgency of them is in the range of 2 and none of them in 10.
 
 
     }
     // ret all possible specs of hospital in  array list
-    public ArrayList<Specialization> giveSpec()
-    {
+    public ArrayList<Specialization> giveSpec() throws IOException {
         return (this.model.StartModel());
     }
 
@@ -73,11 +83,11 @@ public class Presenter
     }
 
     // start main algorithm of project.
-    public void Algorithem()
-
-    {
+    public void Algorithem() throws IOException {
         //for(Specialization s : this.giveSpec() )
+
         Specialization s = this.giveSpec().get(3);
+
             model.schedule(s);
     }
 

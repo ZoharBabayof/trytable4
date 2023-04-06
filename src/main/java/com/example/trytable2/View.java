@@ -90,10 +90,7 @@ public class View extends Application {
     static Tab tab4 = new Tab("Card_surgery");
 
     static Tab tab5 = new Tab("Event_Room");// beacuse I want the tab of clock to be the event room
-    static Specialization n ;
-    static Specialization p ;
-    static Specialization c;
-    static Specialization v;
+
 
     public static void opRoomsInformation(Stage primaryStage,ArrayList<Specialization> specs)
     {
@@ -682,7 +679,7 @@ public class View extends Application {
 //            if (i == 999)
 //                changepane();
 //        }
-        Patient newPatient = new Patient("John", "123", 10, 5, "Neurosurgery");
+        Patient newPatient = new Patient("John", "123", 10, 5, n); // need to put in view also reading the file
 //        new Thread(() -> {
 //            try {
 //                // Wait for 5 seconds

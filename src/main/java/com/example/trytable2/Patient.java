@@ -20,9 +20,9 @@ public class Patient implements Comparable<Patient>
     private double waiting_time; // *5 minutes
     private double severity_before; // 1-resuscitation 5 - non urgency
     private double urgency_level;
-    private String spec_needed;//every
+    private Specialization spec_needed;//every
 
-    public Patient(String name, String id, double waiting_time, double severity_before, String spec_needed) {
+    public Patient(String name, String id, double waiting_time, double severity_before, Specialization spec_needed) {
         this.name = name;
         this.id = id;
         this.waiting_time = waiting_time;
@@ -65,7 +65,7 @@ public class Patient implements Comparable<Patient>
         return urgency_level;
     }
 
-    public String getSpec_needed() {
+    public Specialization getSpec_needed() {
         return spec_needed;
     }
 
@@ -89,7 +89,7 @@ public class Patient implements Comparable<Patient>
         this.urgency_level = urgency_level;
     }
 
-    public void setSpec_needed(String spec_needed) {
+    public void setSpec_needed(Specialization spec_needed) {
         this.spec_needed = spec_needed;
     }
 

@@ -7,15 +7,15 @@ public class Doctor {
     private String name;
     private String id;
     private boolean  Is_available;
-    private ArrayList<Specialization> specialities_array;// dinamic array of specialities_array
+    private Specialization [] specialities_array;// dinamic array of specialities_array
     private String current_room_id;// has id of operation room which is an integer number//
 
-    public Doctor(String name, String id, boolean is_available,  String current_room_id)
+    public Doctor(String name, String id, boolean is_available,  String current_room_id, Specialization [] specialities_array )
     {
         this.name = name;
         this.id = id;
         Is_available = true;
-        this.specialities_array = new ArrayList<Specialization>();
+        this.specialities_array = specialities_array;
         this.current_room_id = current_room_id;
     }
 
@@ -68,7 +68,7 @@ public class Doctor {
         return Is_available;
     }
 
-    public ArrayList<Specialization> getSpecialities_array() {
+    public Specialization [] getSpecialities_array() {
         return specialities_array;
     }
 
@@ -88,7 +88,7 @@ public class Doctor {
         Is_available = is_available;
     }
 
-    public void setSpecialities_array(ArrayList<Specialization> specialities_array) {
+    public void setSpecialities_array(Specialization [] specialities_array) {
         this.specialities_array = specialities_array;
     }
 

@@ -19,10 +19,15 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.TabPane;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
+
 import javafx.animation.AnimationTimer;
 import javafx.util.Duration;
 
@@ -710,7 +715,7 @@ public class trygui extends Application {
 //            if (i == 999)
 //                changepane();
 //        }
-        Patient newPatient = new Patient("John", "123", 10, 5, "Neurosurgery");
+        Patient newPatient = new Patient("John", "123", 10, 5, n);
 
 
 
@@ -823,6 +828,8 @@ public class trygui extends Application {
         ArrayList<OperatingRoom> oprooms = p.retOprooms();
         RecoveryRoom recoveryRoom = p.retRecoveryRoom();
         ArrayList<Doctor> doctors = p.retDoctors();
+
+
 
         p.Algorithem();
         //Stage newstage = new Stage();

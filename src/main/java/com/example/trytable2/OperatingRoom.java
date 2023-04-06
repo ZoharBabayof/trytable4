@@ -10,13 +10,13 @@ public class OperatingRoom
     private String room_id ;
     private boolean Is_available;
     private int time_left_evalution;// in clock rounds. if availiable: time_left_evalution = 0.
-    private ArrayList<Specialization> specialities_array;// dinamic array of specialities the room can treat
+    private Specialization [] specialities_array;// dinamic array of specialities the room can treat
     private Doctor doc1;
     // in the future more doctors
     private Patient pat1;
 
 
-    public OperatingRoom(ArrayList<Specialization> specialities_array)
+    public OperatingRoom(Specialization [] arryscep)
     {
         this.specialities_array = specialities_array;
         roomcounter++;
@@ -26,7 +26,7 @@ public class OperatingRoom
         this.room_id = room_id;// mispur of operation rooms from 1 to number of rooms
         this.Is_available = true;
         this.time_left_evalution = time_left_evalution;
-        this.specialities_array = new ArrayList<Specialization>();
+        this.specialities_array = arryscep;
 
     }
 
@@ -90,7 +90,7 @@ public class OperatingRoom
         return time_left_evalution;
     }
 
-    public ArrayList<Specialization> getSpecialities_array() {
+    public Specialization [] getSpecialities_array() {
         return specialities_array;
     }
 
@@ -115,7 +115,7 @@ public class OperatingRoom
         this.time_left_evalution = time_left_evalution;
     }
 
-    public void setSpecialities_array(ArrayList<Specialization> specialities_array) {
+    public void setSpecialities_array(Specialization [] specialities_array) {
         this.specialities_array = specialities_array;
     }
 
