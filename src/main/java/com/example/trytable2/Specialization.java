@@ -58,6 +58,16 @@ public class Specialization {
     public void setDoctors_with_spec(ArrayList<Doctor> doctors_with_spec) {
         this.doctors_with_spec = doctors_with_spec;
     }
+
+    @Override
+    public String toString() {
+        return "Specialization{" +
+                "spec_name='" + spec_name + '\'' +
+                ", patient_queue=" + patient_queue +
+                ", doctors_with_spec=" + doctors_with_spec +
+                ", OperatingRooms_with_spec=" + OperatingRooms_with_spec +
+                '}';
+    }
     /*
     -spec_name: String
 -patient_queue: <patient> queue

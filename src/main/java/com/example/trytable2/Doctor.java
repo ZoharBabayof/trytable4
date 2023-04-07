@@ -1,6 +1,7 @@
 package com.example.trytable2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Doctor {
@@ -96,9 +97,18 @@ public class Doctor {
         this.current_room_id = current_room_id;
     }
 
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", Is_available=" + Is_available +
+                ", specialities_array=" + Arrays.toString(specialities_array) +
+                ", current_room_id='" + current_room_id + '\'' +
+                '}';
+    }
 
-
-    /*
+/*
     -name: String
 -id:String
 -Is_available:boolean

@@ -1,6 +1,7 @@
 package com.example.trytable2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class OperatingRoom
@@ -125,5 +126,17 @@ public class OperatingRoom
 
     public void setPat1(Patient pat1) {
         this.pat1 = pat1;
+    }
+
+    @Override
+    public String toString() {
+        return "OperatingRoom{" +
+                "room_id='" + room_id + '\'' +
+                ", Is_available=" + Is_available +
+                ", time_left_evalution=" + time_left_evalution +
+                ", specialities_array=" + Arrays.toString(specialities_array) +
+                ", doc1=" + doc1 +
+                ", pat1=" + pat1 +
+                '}';
     }
 }

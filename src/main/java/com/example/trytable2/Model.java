@@ -69,9 +69,7 @@ public class Model
         ArrayList<OperatingRoom> operatingRooms = new ArrayList<OperatingRoom>();
         ArrayList<Doctor> doctors = new ArrayList<Doctor>();
 
-
-
-        // because the method of file reading right now a room can treat max 2 specs
+        // lets set max specs can be treated just for comfort of reading the file: 2
         try {
             File file = new File("C:\\Users\\User\\IdeaProjects\\trytable2\\src\\main\\java\\com\\example\\trytable2\\HospitalInfo.txt");
             Scanner scanner = new Scanner(file);
@@ -79,27 +77,36 @@ public class Model
                 String line = scanner.nextLine();
                 if (line.contains("OperatingRoom")) {
                     String[] data = line.split(",");
-                    if (data.length >= 3) {
-                        OperatingRoom operatingRoom = new OperatingRoom(new Specialization[] {this.StrToSpec(data[1]), this.StrToSpec(data[2])});
+                    if (data.length == 3) {
+                        OperatingRoom operatingRoom = new OperatingRoom(new Specialization[]{StrToSpec(data[1]), StrToSpec(data[2])});
+                        operatingRooms.add(operatingRoom);
+                    } else {
+                        OperatingRoom operatingRoom = new OperatingRoom(new Specialization[]{StrToSpec(data[1])});
                         operatingRooms.add(operatingRoom);
                     }
                 } else if (line.contains("Doctor")) {
                     String[] data = line.split(",");
-                    if (data.length >= 6) {
-                        Doctor doctor = new Doctor(data[0], data[1], Boolean.valueOf(data[2]), data[3], new Specialization[] {this.StrToSpec(data[4]), this.StrToSpec(data[5])});
+                    if (data.length == 7) {
+                        Doctor doctor = new Doctor(data[1], data[2], Boolean.valueOf(data[3]), data[4], new Specialization[]{StrToSpec(data[5]), StrToSpec(data[6])});
+                        doctors.add(doctor);
+                    } else {
+                        Doctor doctor = new Doctor(data[1], data[2], Boolean.valueOf(data[3]), data[4], new Specialization[]{StrToSpec(data[5])});
                         doctors.add(doctor);
                     }
                 } else if (line.contains("Patient")) {
                     String[] data = line.split(",");
                     if (data.length >= 5) {
-                        Patient patient = new Patient(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]), this.StrToSpec(data[4]));
+                        Patient patient = new Patient(data[1], data[2], Double.parseDouble(data[3]), Double.parseDouble(data[4]), StrToSpec(data[5]));
                         Specialization s = patient.getSpec_needed();
                         s.getPatient_queue().add(patient);
+                    } else {
+                        System.out.println("Error: Invalid data for Patient in HospitalInfo.txt file.");
                     }
                 }
             }
             scanner.close();
         } catch (FileNotFoundException e) {
+            System.out.println("Error: HospitalInfo.txt file not found.");
             e.printStackTrace();
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid number format in the HospitalInfo.txt file.");
@@ -111,10 +118,9 @@ public class Model
 
 
 
-
         System.out.println("Doctors:");
         for (Doctor doc : doctors) {
-            System.out.println("- " + doc);
+            System.out.println("- " + doc.toString());
         }
 
         System.out.println("Operating Rooms:");
@@ -125,19 +131,19 @@ public class Model
 // print patients
         System.out.println("\n V Patients:");
         for (Patient patient : v.getPatient_queue()) {
-            System.out.println("- " + patient);
+            System.out.println("- " + patient.toString());
         }
         System.out.println("\n N Patients:");
         for (Patient patient : n.getPatient_queue()) {
-            System.out.println("- " + patient);
+            System.out.println("- " + patient.toString());
         }
         System.out.println("\n C Patients:");
         for (Patient patient : c.getPatient_queue()) {
-            System.out.println("- " + patient);
+            System.out.println("- " + patient.toString());
         }
         System.out.println("\n P Patients:");
         for (Patient patient : p.getPatient_queue()) {
-            System.out.println("- " + patient);
+            System.out.println("- " + patient.getName());
         }
 
 
