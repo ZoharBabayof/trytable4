@@ -9,6 +9,10 @@ import java.util.*;
 public class Model
 {
     // all specs:
+    static Specialization n = new Specialization("Neurosurgery");
+    static Specialization p = new Specialization("Pediatric_surgery");
+    static Specialization c = new Specialization("Card_surgery");
+    static Specialization v = new Specialization("Vascular_surgery");
 
     private static ArrayList<Specialization> specs;//ArrayList for every kind of specialization
     private static ArrayList<OperatingRoom > oprooms;//ArrayList for every OperatingRoom
@@ -38,10 +42,7 @@ public class Model
 
 
     public Specialization StrToSpec(String specializationStr) {
-        Specialization n = new Specialization("Neurosurgery");
-        Specialization p = new Specialization("Pediatric_surgery");
-        Specialization c = new Specialization("Card_surgery");
-        Specialization v = new Specialization("Vascular_surgery");
+
 
         Specialization specialization = new Specialization("");
         if (specializationStr.equals("c")) {
@@ -61,10 +62,12 @@ public class Model
     public  ArrayList<Specialization>  StartModel() throws IOException // put values in all patients, doctors rooms and structures
     {
 
-        Specialization n = new Specialization("Neurosurgery");
-        Specialization p = new Specialization("Pediatric_surgery");
-        Specialization c = new Specialization("Card_surgery");
-        Specialization v = new Specialization("Vascular_surgery");
+
+        this.specs.add(n);
+        this.specs.add(p);
+        this.specs.add(c);
+        this.specs.add(v);
+
 
         ArrayList<OperatingRoom> operatingRooms = new ArrayList<OperatingRoom>();
         ArrayList<Doctor> doctors = new ArrayList<Doctor>();
@@ -95,13 +98,17 @@ public class Model
                     }
                 } else if (line.contains("Patient")) {
                     String[] data = line.split(",");
-                    if (data.length >= 5) {
+                    if (data.length == 6) {
                         Patient patient = new Patient(data[1], data[2], Double.parseDouble(data[3]), Double.parseDouble(data[4]), StrToSpec(data[5]));
                         Specialization s = patient.getSpec_needed();
                         s.getPatient_queue().add(patient);
-                    } else {
-                        System.out.println("Error: Invalid data for Patient in HospitalInfo.txt file.");
                     }
+                    else
+                    {
+
+                        System.out.println("cant");
+                    }
+
                 }
             }
             scanner.close();
@@ -127,7 +134,6 @@ public class Model
         for (OperatingRoom room : operatingRooms) {
             System.out.println("- " + room);
         }
-
 // print patients
         System.out.println("\n V Patients:");
         for (Patient patient : v.getPatient_queue()) {
@@ -143,7 +149,7 @@ public class Model
         }
         System.out.println("\n P Patients:");
         for (Patient patient : p.getPatient_queue()) {
-            System.out.println("- " + patient.getName());
+            System.out.println("- " + patient.toString());
         }
 
 

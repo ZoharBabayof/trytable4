@@ -101,7 +101,7 @@ public class Patient implements Comparable<Patient>
                 ", waiting_time=" + waiting_time +
                 ", severity_before=" + severity_before +
                 ", urgency_level=" + urgency_level +
-                ", spec_needed='" + spec_needed + '\'' +
+                ", spec_needed='" + spec_needed.getSpec_name() + '\'' +
                 '}';
     }
 
