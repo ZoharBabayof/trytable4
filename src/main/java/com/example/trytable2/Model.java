@@ -14,18 +14,18 @@ public class Model
     static Specialization c = new Specialization("Card_surgery");
     static Specialization v = new Specialization("Vascular_surgery");
 
-    private static ArrayList<Specialization> specs;//ArrayList for every kind of specialization
-    private static ArrayList<OperatingRoom > oprooms;//ArrayList for every OperatingRoom
-    private static RecoveryRoom recoveryRoom; //one RecoveryRoom in project
+    static ArrayList<Specialization> specs;//ArrayList for every kind of specialization
+    static ArrayList<OperatingRoom > operatingRooms;//ArrayList for every OperatingRoom
+    static RecoveryRoom recoveryRoom; //one RecoveryRoom in project
 
-    private static ArrayList<Doctor > doctors;//ArrayList for every OperatingRoom
+    static ArrayList<Doctor > doctors;//ArrayList for every OperatingRoom
 
 
     public Model()
     {
         // init the ArrayLists:
        this.specs = new ArrayList<Specialization>();
-       this.oprooms = new ArrayList<OperatingRoom>();
+       this.operatingRooms = new ArrayList<OperatingRoom>();
        this.doctors = new ArrayList<Doctor>();
 
     }
@@ -39,6 +39,7 @@ public class Model
      *
      * @return
      */
+
 
 
     public Specialization StrToSpec(String specializationStr) {
@@ -58,19 +59,16 @@ public class Model
     }
 
 
-
-    public  ArrayList<Specialization>  StartModel() throws IOException // put values in all patients, doctors rooms and structures
+    /**
+     * this function init the Hospital by reading all the objects of Doctors, Operating Rooms and Patients from the Information file "HospitalInfo.txt" and adding them to
+     * the relevant data structure. It also adds all the specializations to an arraylist.
+     * It has no parameters and no returns.
+     */
+    public void InitHospital()
     {
 
-
-        this.specs.add(n);
-        this.specs.add(p);
-        this.specs.add(c);
-        this.specs.add(v);
-
-
-        ArrayList<OperatingRoom> operatingRooms = new ArrayList<OperatingRoom>();
-        ArrayList<Doctor> doctors = new ArrayList<Doctor>();
+//        ArrayList<OperatingRoom> operatingRooms = new ArrayList<OperatingRoom>();
+//        ArrayList<Doctor> doctors = new ArrayList<Doctor>();
 
         // lets set max specs can be treated just for comfort of reading the file: 2
         try {
@@ -151,6 +149,20 @@ public class Model
         for (Patient patient : p.getPatient_queue()) {
             System.out.println("- " + patient.toString());
         }
+
+        this.specs.add(n);
+        this.specs.add(p);
+        this.specs.add(c);
+        this.specs.add(v);
+    }
+
+    public  ArrayList<Specialization>  StartModel() throws IOException // put values in all patients, doctors rooms and structures
+    {
+
+
+
+
+
 
 
 
@@ -287,7 +299,7 @@ public class Model
 
     public ArrayList<OperatingRoom > retOprooms()
     {
-        return this.oprooms;
+        return this.operatingRooms;
     }
     public RecoveryRoom retRecoveryRoom()
     {

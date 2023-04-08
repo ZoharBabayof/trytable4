@@ -82,9 +82,25 @@ public class Presenter
         return this.model.retDoctors();
     }
 
-    // start main algorithm of project.
+
+
+
+
+    public void startHospital() {
+        model.InitHospital();
+    }
+
+
+
+
+        // start main algorithm of project.
+
+
+
     public void Algorithem() throws IOException {
+
         //for(Specialization s : this.giveSpec() )
+
 
         Specialization s = this.giveSpec().get(3);
 

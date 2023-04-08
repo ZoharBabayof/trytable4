@@ -829,7 +829,7 @@ public class trygui extends Application {
         RecoveryRoom recoveryRoom = p.retRecoveryRoom();
         ArrayList<Doctor> doctors = p.retDoctors();
 
-
+        p.startHospital();
 
         p.Algorithem();
         //Stage newstage = new Stage();
