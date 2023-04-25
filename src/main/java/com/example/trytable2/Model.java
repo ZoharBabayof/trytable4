@@ -64,6 +64,34 @@ public class Model
      * the relevant data structure. It also adds all the specializations to an arraylist.
      * It has no parameters and no returns.
      */
+
+
+    public boolean SpecinRoomSpecArr(OperatingRoom room, Specialization s)
+    {
+        int counter = 0;
+        while(counter!=room.getSpecialities_array().length&&s!=room.getSpecialities_array()[counter])
+        {
+            counter++;
+        }
+        if(counter==room.getSpecialities_array().length)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean SpecinDocSpecArr(Doctor doc, Specialization s)
+    {
+        int counter = 0;
+        while(counter!=doc.getSpecialities_array().length&&s!=doc.getSpecialities_array()[counter])
+        {
+            counter++;
+        }
+        if(counter==doc.getSpecialities_array().length)
+            return false;
+        else
+            return true;
+    }
+
     public void InitHospital()
     {
 
@@ -126,11 +154,27 @@ public class Model
         System.out.println("Doctors:");
         for (Doctor doc : doctors) {
             System.out.println("- " + doc.toString());
+            if(SpecinDocSpecArr(doc,n))
+                n.getDoctors_with_spec().add(doc);
+            if(SpecinDocSpecArr(doc,p))
+                p.getDoctors_with_spec().add(doc);
+            if(SpecinDocSpecArr(doc,c))
+                c.getDoctors_with_spec().add(doc);
+            if(SpecinDocSpecArr(doc,v))
+                v.getDoctors_with_spec().add(doc);
         }
 
         System.out.println("Operating Rooms:");
         for (OperatingRoom room : operatingRooms) {
             System.out.println("- " + room);
+            if(SpecinRoomSpecArr(room,n))
+                n.getOperatingRooms_with_spec().add(room);
+            if(SpecinRoomSpecArr(room,p))
+                p.getOperatingRooms_with_spec().add(room);
+            if(SpecinRoomSpecArr(room,c))
+                c.getOperatingRooms_with_spec().add(room);
+            if(SpecinRoomSpecArr(room,v))
+                v.getOperatingRooms_with_spec().add(room);
         }
 // print patients
         System.out.println("\n V Patients:");
@@ -154,6 +198,8 @@ public class Model
         this.specs.add(p);
         this.specs.add(c);
         this.specs.add(v);
+
+
     }
 
     public  ArrayList<Specialization>  StartModel() throws IOException // put values in all patients, doctors rooms and structures
@@ -404,16 +450,20 @@ public class Model
                     patientIterator.remove();
                     doctorHeap.poll();
                     roomHeap.poll();
+
+                    for (Patient patient1 : s.getPatient_queue()) {
+                        Doctor doctor1 = patientDoctorMap.get(patient1);
+                        OperatingRoom room1 = patientRoomMap.get(patient1);
+                        if (doctor1 != null && patient1 != null && room1 != null) {
+                            System.out.println("Patient " + patient1.getId() + " is assigned to Doctor " + doctor1.getId() + " in Room " + room1.getRoom_id());
+                        }
+                    }
                 }
+
+
             }
-            // Print the final assignments
-//            for (Patient patient : s.getPatient_queue()) {
-//                Doctor doctor = patientDoctorMap.get(patient);
-//                OperatingRoom room = patientRoomMap.get(patient);
-//                if (doctor != null && patient != null && room != null) {
-//                    System.out.println("Patient " + patient.getId() + " is assigned to Doctor " + doctor.getId() + " in Room " + room.getRoom_id());
-//                }
-//            }
+           //  Print the final assignments
+
 
         }
         }

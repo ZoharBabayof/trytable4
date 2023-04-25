@@ -61,13 +61,16 @@ public class Specialization {
 
     @Override
     public String toString() {
-        return "Specialization{" +
-                "spec_name='" + spec_name + '\'' +
-                ", patient_queue=" + patient_queue +
-                ", doctors_with_spec=" + doctors_with_spec +
-                ", OperatingRooms_with_spec=" + OperatingRooms_with_spec +
-                '}';
+        return spec_name;
     }
+//    public String toString() {
+//        return "Specialization{" +
+//                "spec_name='" + spec_name + '\'' +
+//                ", patient_queue=" + patient_queue +
+//                ", doctors_with_spec=" + doctors_with_spec +
+//                ", OperatingRooms_with_spec=" + OperatingRooms_with_spec +
+//                '}';
+//    }
     /*
     -spec_name: String
 -patient_queue: <patient> queue

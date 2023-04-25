@@ -105,78 +105,6 @@ public class View extends Application {
 
     }
 
-//    public static void DoctorsInformation(Stage primaryStage,ArrayList<Doctor> specs)
-//    {
-//        // get objects
-////        OperatingRoom a = oprooms.get(0);
-////        OperatingRoom b = oprooms.get(1);
-////        OperatingRoom c = oprooms.get(2);
-////        OperatingRoom d = oprooms.get(3);
-//        Doctor n = specs.get(0);
-//
-//
-//        //create labels
-//        Label label = new Label("Doctors:");
-//        Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
-//        label.setFont(font);
-//        //Creating a table view
-//        TableView<Patient> table = new TableView<Patient>();
-//        final ObservableList<Patient> data = FXCollections.observableArrayList(
-//
-//        );
-//
-//        //Creating columns
-//        TableColumn NameCol = new TableColumn("Name");
-//        NameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
-//        TableColumn IDCol = new TableColumn("id");
-//        IDCol.setCellValueFactory(new PropertyValueFactory("id"));
-//        TableColumn waitCol = new TableColumn("waiting_time");
-//        waitCol.setCellValueFactory(new PropertyValueFactory("waiting_time"));
-//        TableColumn sevCol = new TableColumn("severity_before");
-//        sevCol.setCellValueFactory(new PropertyValueFactory("severity_before"));
-//        TableColumn specCol = new TableColumn("spec_needed");
-//        specCol.setCellValueFactory(new PropertyValueFactory("spec_needed"));
-//        specCol.setPrefWidth(100);
-//        Iterator<Patient> iterator = n.getPatient_queue().iterator();
-//        while(iterator.hasNext()){
-//            Patient q = iterator.next();
-//            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
-//            data.add(q);
-//            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
-//
-//        }
-//
-//        //Adding data to the table
-//        ObservableList<String> list = FXCollections.observableArrayList();
-//        table.setItems(data);
-//        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-//        table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
-//        //Setting the size of the table
-//        table.setMaxSize(500, 400);
-//
-//
-//        // vbox.
-//        AnchorPane pane = new AnchorPane();
-//        AnchorPane.setTopAnchor(tabPane, 15.0);
-//        AnchorPane.setRightAnchor(tabPane, 15.0);
-//        AnchorPane.setBottomAnchor(tabPane, 15.0);
-//        AnchorPane.setLeftAnchor(tabPane, 15.0);
-//        pane.getChildren().addAll(tabPane,label,table);
-//        pane.setStyle("-fx-background-color: BEIGE");
-//
-//
-//        primaryStage.setTitle("TabPane Demo");
-//
-//        Tab tab = new Tab("zohar2");
-//        // Button button = new Button("Button" + Integer.toString(i));
-//        tab.setContent(pane);
-//        tabPane.getTabs().add(tab);
-//
-//
-//    }
-
-
-
 
 
 
@@ -189,7 +117,9 @@ public class View extends Application {
         //   v.getPatient_queue().stream().sorted();
 
         // get all the specilizations objects
+        System.out.println(specs.get(0).toString());
         n = specs.get(0);
+
         p = specs.get(1);
         c = specs.get(2);
         v = specs.get(3);
@@ -314,19 +244,12 @@ public class View extends Application {
         table8.setMaxSize(500, 400);
 
 
-        // patients table creations
-        // for view
-// for vascular surgery
-        //Label for education
+
 
         Label label = new Label("Vascular_surgery:");
         Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
         label.setFont(font);
-//        //Creating a table view
-//        TableView<Patient> table = new TableView<Patient>();
-//        final ObservableList<Patient> data = FXCollections.observableArrayList(
-//
-//        );
+
 
 
 
@@ -375,9 +298,7 @@ public class View extends Application {
         Iterator<Patient> iterator = v.getPatient_queue().iterator();
         while(iterator.hasNext()){
             Patient q = iterator.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data.add(q);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
 
@@ -446,9 +367,6 @@ public class View extends Application {
 
 
 
-        /////////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // for vascular surgery
         //Label for education
@@ -470,20 +388,6 @@ public class View extends Application {
 
 
 
-        //Creating columns
-//        TableColumn NameCol = new TableColumn("Name");
-//        NameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
-//        TableColumn IDCol = new TableColumn("id");
-//        IDCol.setCellValueFactory(new PropertyValueFactory("id"));
-//        TableColumn waitCol = new TableColumn("waiting_time");
-//        waitCol.setCellValueFactory(new PropertyValueFactory("waiting_time"));
-//        TableColumn sevCol = new TableColumn("severity_before");
-//        sevCol.setCellValueFactory(new PropertyValueFactory("severity_before"));
-//        TableColumn specCol = new TableColumn("spec_needed");
-//        specCol.setCellValueFactory(new PropertyValueFactory("spec_needed"));
-//        specCol.setPrefWidth(100);
-
-        // for vascular surgery
 
         Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
         while(iterator2.hasNext()){
@@ -533,7 +437,8 @@ public class View extends Application {
         table4.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table4.getColumns().addAll(NameCol4, IDCol4, waitCol4, sevCol4,specCol4);
         //Setting the size of the table
-        table4.setMaxSize(500, 400);
+        table4.setMaxSize(700, 400);
+
 
         //vbox. // agebox
         //define age box
@@ -646,6 +551,7 @@ public class View extends Application {
 
     public void start(Stage stage) throws IOException, InterruptedException {
         Presenter p = new Presenter();
+        p.startHospital();
         ArrayList<Specialization> specs = p.giveSpec();
         ArrayList<OperatingRoom> oprooms = p.retOprooms();
         RecoveryRoom recoveryRoom = p.retRecoveryRoom();
