@@ -60,7 +60,7 @@ public class OperatingRoom
     {
         for(Specialization s:this.specialities_array)
         {
-            if(s.getSpec_name().equals(patient.getSpec_needed()))
+            if(s.getSpec_name().equals(patient.getSpec_needed().getSpec_name()))
                 return true;
         }
         return false;
