@@ -102,9 +102,8 @@ public class Presenter
         //for(Specialization s : this.giveSpec() )
 
 
-        Specialization s = this.giveSpec().get(3);
 
-            model.schedule(s);
+            model.schedule();
     }
 
 }
