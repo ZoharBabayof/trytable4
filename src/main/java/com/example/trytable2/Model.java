@@ -421,14 +421,14 @@ public class Model
 
     public void searchAvail()
     {
-        for(Doctor d:availDoctors)
+        for(Doctor d:doctors)
         {
             if(d.isIs_available())
             {
                 availDoctors.add(d);
             }
         }
-        for(OperatingRoom op:availOpRooms)
+        for(OperatingRoom op:operatingRooms)
         {
             if(op.isIs_available())
             {
@@ -445,7 +445,7 @@ public class Model
         int flag = 0;
         // if something empty stop
         int doctorCounter = 0;
-        while (!(v.getPatient_queue().isEmpty() &&c.getPatient_queue().isEmpty() &&p.getPatient_queue().isEmpty() &&n.getPatient_queue().isEmpty()||availDoctors.isEmpty()||availOpRooms.isEmpty())&& flag==0)
+        while (!(v.getPatient_queue().isEmpty() &&c.getPatient_queue().isEmpty() &&p.getPatient_queue().isEmpty() &&n.getPatient_queue().isEmpty()||availDoctors.isEmpty()||availOpRooms.isEmpty())&& flag==0&&doctorCounter<availDoctors.size())
         {
             sortDoctorHeap();
             sortRoomHeap();
@@ -464,13 +464,21 @@ public class Model
             {
                 d1.setIs_available(false);
                 availDoctors.remove(d1);
-                for(OperatingRoom op: availOpRooms)
+                int i = 0;
+
+                boolean flagf = false;
+                while(i < availOpRooms.size()&&flagf == false)
                 {
+                    OperatingRoom op = availOpRooms.get(i);
+                    i++;
                     if(op.canOperateOn(chosenP)) {
                         op.surgery(d1, chosenP);
                         op.setIs_available(false);
                         availOpRooms.remove(op);
+                        flagf = true;
+
                     }
+
 
                 }
             }
@@ -497,6 +505,7 @@ public class Model
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
+
 
         if (left < n && calculatePriority(heap.get(left), null) > calculatePriority(heap.get(largest), null)) {
             largest = left;
@@ -577,13 +586,16 @@ public class Model
      */
     private int calculatePriority(Doctor doctor, OperatingRoom room) {
         int priority = 0;
-        if (doctor.getSpecialities_array()[0] == room.getSpecialities_array()[0]) {//!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            priority += 2;
+        if(room!=null&&doctor!=null) {
+            if (doctor.getSpecialities_array()[0] == room.getSpecialities_array()[0]) {//!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                priority += 2;
+            }
+            if (doctor.isIs_available() && room.isIs_available()) {
+                priority += 1;
+            }
         }
-        if (doctor.isIs_available() && room.isIs_available()) {
-            priority += 1;
-        }
-        return priority;
+            return priority;
+
     }
 
     /**

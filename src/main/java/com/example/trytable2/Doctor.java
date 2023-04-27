@@ -101,14 +101,16 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return "Doctor{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                ", Is_available=" + Is_available +
-                ", specialities_array=" + Arrays.toString(specialities_array) +
-                ", current_room_id='" + current_room_id + '\'' +
-                '}';
+        return this.name;
     }
+//        return "Doctor{" +
+//                "name='" + name + '\'' +
+//                ", id='" + id + '\'' +
+//                ", Is_available=" + Is_available +
+//                ", specialities_array=" + Arrays.toString(specialities_array) +
+//                ", current_room_id='" + current_room_id + '\'' +
+//                '}';
+//    }
 
 /*
     -name: String
