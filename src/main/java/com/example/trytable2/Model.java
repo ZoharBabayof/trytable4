@@ -19,7 +19,9 @@ public class Model
     static RecoveryRoom recoveryRoom; //one RecoveryRoom in project
 
     static ArrayList<Doctor> doctors;//ArrayList for every OperatingRoom
+    static ArrayList<Doctor> availDoctors = new ArrayList() ;//ArrayList for every OperatingRoom
 
+    static ArrayList<OperatingRoom> availOpRooms= new ArrayList() ;//ArrayList for every OperatingRoom
 
 
 
@@ -415,32 +417,79 @@ public class Model
     {
         return true;//!!!!!!!1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
+
+
+    public void searchAvail()
+    {
+        for(Doctor d:availDoctors)
+        {
+            if(d.isIs_available())
+            {
+                availDoctors.add(d);
+            }
+        }
+        for(OperatingRoom op:availOpRooms)
+        {
+            if(op.isIs_available())
+            {
+                availOpRooms.add(op);
+            }
+        }
+    }
     public void schedule()
     {
-        sortDoctorHeap();
-        sortRoomHeap();
+
+        searchAvail();
 
 
         int flag = 0;
         // if something empty stop
-        while (!(v.getPatient_queue().isEmpty() &&c.getPatient_queue().isEmpty() &&p.getPatient_queue().isEmpty() &&n.getPatient_queue().isEmpty()||doctors.isEmpty()||operatingRooms.isEmpty())&& flag==0)
+        int doctorCounter = 0;
+        while (!(v.getPatient_queue().isEmpty() &&c.getPatient_queue().isEmpty() &&p.getPatient_queue().isEmpty() &&n.getPatient_queue().isEmpty()||availDoctors.isEmpty()||availOpRooms.isEmpty())&& flag==0)
         {
+            sortDoctorHeap();
+            sortRoomHeap();
+            Doctor d1 = availDoctors.get(doctorCounter);
+            Patient chosenP=null;
+            double maxcalc = d1.getSpecialities_array()[0].getPatient_queue().get(0).getUrgency_level()/d1.getSpecialities_array()[0].getPatient_queue().get(0).getWaiting_time();
+            for(Specialization spec: d1.getSpecialities_array())
+            {
+                if ( spec.getPatient_queue().get(0).getUrgency_level()/spec.getPatient_queue().get(0).getWaiting_time()>=maxcalc&&d1.canOperateOn(spec.getPatient_queue().get(0)))
+                {
+                    maxcalc = spec.getPatient_queue().get(0).getUrgency_level()/spec.getPatient_queue().get(0).getWaiting_time();
+                    chosenP = spec.getPatient_queue().get(0);
+                }
+            }
+            if(chosenP!=null)// if appropriate and most urgent patient found
+            {
+                d1.setIs_available(false);
+                availDoctors.remove(d1);
+                for(OperatingRoom op: availOpRooms)
+                {
+                    if(op.canOperateOn(chosenP)) {
+                        op.surgery(d1, chosenP);
+                        op.setIs_available(false);
+                        availOpRooms.remove(op);
+                    }
 
+                }
+            }
 
+            doctorCounter++;
         }
     }
 
     public void sortDoctorHeap() {
-        int n = doctors.size();
+        int n = availDoctors.size();
         for (int i = n / 2 - 1; i >= 0; i--) {
-            heapifyDoctors(doctors, n, i);
+            heapifyDoctors(availDoctors, n, i);
         }
     }
 
     public void sortRoomHeap() {
-        int n = operatingRooms.size();
+        int n = availOpRooms.size();
         for (int i = n / 2 - 1; i >= 0; i--) {
-            heapifyRooms(operatingRooms, n, i);
+            heapifyRooms(availOpRooms, n, i);
         }
     }
 
@@ -488,9 +537,9 @@ public class Model
 
 
     public void sortPatientHeap(Specialization specialization) {
-        int n = specialization.patientQueue.size();
+        int n = specialization.getPatient_queue().size();
         for (int i = n / 2 - 1; i >= 0; i--) {
-            heapifyPatients(specialization.patientQueue, i);
+            heapifyPatients(specialization.getPatient_queue(), i);
         }
     }
 
@@ -500,11 +549,11 @@ public class Model
         int l = 2 * i + 1;
         int r = 2 * i + 2;
 
-        if (l < n && patientQueue.get(l).getUrgencyLevel() > patientQueue.get(largest).getUrgencyLevel()) {
+        if (l < n && patientQueue.get(l).getUrgency_level() > patientQueue.get(largest).getUrgency_level()) {
             largest = l;
         }
 
-        if (r < n && patientQueue.get(r).getUrgencyLevel() > patientQueue.get(largest).getUrgencyLevel()) {
+        if (r < n && patientQueue.get(r).getUrgency_level() > patientQueue.get(largest).getUrgency_level()) {
             largest = r;
         }
 

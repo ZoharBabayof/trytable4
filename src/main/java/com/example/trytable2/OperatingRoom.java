@@ -10,7 +10,7 @@ public class OperatingRoom
     private static int roomcounter=0;
     private String room_id ;
     private boolean Is_available;
-    private int time_left_evalution;// in clock rounds. if availiable: time_left_evalution = 0.
+    private double time_left_evalution;// in clock rounds. if availiable: time_left_evalution = 0.
     private Specialization [] specialities_array;// dinamic array of specialities the room can treat
     private Doctor doc1;
     // in the future more doctors
@@ -44,7 +44,15 @@ public class OperatingRoom
         return Objects.hash(room_id, Is_available, time_left_evalution, specialities_array, doc1, pat1);
     }
 
-    public void start_operation(int time_left_evalution, Doctor doc1, Patient pat1)
+
+    public void surgery(Doctor d, Patient p)
+    {
+        this.doc1 = d;
+        this.pat1 = p;
+        this.time_left_evalution = p.getWaiting_time();
+        System.out.println("surgetry: spec:"+p.getSpec_needed()+" room_id:"+this.room_id+" doctor:"+this.doc1+" patient:"+this.pat1 + "time left: " + time_left_evalution);
+    }
+    public void start_operation(double time_left_evalution, Doctor doc1, Patient pat1)
             // in the fututure create people class that doctor and patient are inherit in to add
             // unlimited/ undefined shape of people to operation (mabey two doctors and not just one for example)
     {
@@ -87,7 +95,7 @@ public class OperatingRoom
         return Is_available;
     }
 
-    public int getTime_left_evalution() {
+    public double getTime_left_evalution() {
         return time_left_evalution;
     }
 

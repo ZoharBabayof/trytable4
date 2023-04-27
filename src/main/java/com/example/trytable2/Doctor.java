@@ -11,6 +11,8 @@ public class Doctor {
     private Specialization [] specialities_array;// dinamic array of specialities_array
     private String current_room_id;// has id of operation room which is an integer number//
 
+
+
     public Doctor(String name, String id, boolean is_available,  String current_room_id, Specialization [] specialities_array )
     {
         this.name = name;

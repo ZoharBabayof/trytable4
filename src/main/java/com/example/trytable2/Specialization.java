@@ -13,7 +13,7 @@ import java.util.Queue;
 
 public class Specialization {
     private String spec_name;
-        private Queue<Patient> patient_queue;
+        private ArrayList<Patient> patient_queue;
     private ArrayList <Doctor> doctors_with_spec;// dinamic array that contains all docotor who have this specilization.
     private static int count=0;
     private static ArrayList<Specialization> specilities;// dinamic array of all specilizations static - i must
@@ -22,7 +22,7 @@ public class Specialization {
 
     public Specialization(String spec_name) {
         this.spec_name = spec_name;
-        this.patient_queue = new LinkedList<Patient>();
+        this.patient_queue = new ArrayList<Patient>();
         this.doctors_with_spec = new ArrayList<Doctor>();
         this.OperatingRooms_with_spec = new ArrayList<OperatingRoom>();
 
@@ -34,7 +34,7 @@ public class Specialization {
         return this.spec_name;
     }
 
-    public Queue<Patient> getPatient_queue() {
+    public ArrayList<Patient> getPatient_queue() {
         return this.patient_queue;
     }
 
@@ -51,7 +51,7 @@ public class Specialization {
         this.spec_name = spec_name;
     }
 
-    public void setPatient_queue(Queue<Patient> patient_queue) {
+    public void setPatient_queue(ArrayList<Patient> patient_queue) {
         this.patient_queue = patient_queue;
     }
 
