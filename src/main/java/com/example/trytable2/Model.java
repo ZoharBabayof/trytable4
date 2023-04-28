@@ -447,72 +447,78 @@ public class Model
         // if something empty stop
         int doctorCounter = 0;
 
-        while (!(v.getPatient_queue().isEmpty() &&c.getPatient_queue().isEmpty() &&p.getPatient_queue().isEmpty() &&n.getPatient_queue().isEmpty()||availDoctors.isEmpty()||availOpRooms.isEmpty())&& flag==0&&doctorCounter<availDoctors.size())
-        {
+        while (!(v.getPatient_queue().isEmpty() &&c.getPatient_queue().isEmpty() &&p.getPatient_queue().isEmpty() &&n.getPatient_queue().isEmpty())||!(availDoctors.isEmpty()||availOpRooms.isEmpty()|| flag==0)) {
 
             sortDoctorHeapBySpecialityLength();
-            for(int i=0;i<availDoctors.size();i++)
-            {
+            for (int i = 0; i < availDoctors.size(); i++) {
                 System.out.println(availDoctors.get(i));
 
             }
-            for(int i=0;i<availOpRooms.size();i++)
-            {
+            for (int i = 0; i < availOpRooms.size(); i++) {
                 System.out.println(availOpRooms.get(i));
 
             }
             System.out.println("-------------");
             sortRoomHeapBySpecialityLength();
-            Doctor d1 = availDoctors.get(doctorCounter);
-            int i = 0;
-            boolean flagf = false;
-            while(i < availOpRooms.size()&&flagf == false)
-            {
-                sortPatientCollection(v);
-                sortPatientCollection(c);
-                sortPatientCollection(p);
-                sortPatientCollection(n);
-                OperatingRoom op = availOpRooms.get(i);
-                i++;
-                Specialization specConnect = null;
-                 specConnect = op.canOperateOn(d1);
-                Patient chosenP=null;
-                 if(specConnect!=null&&specConnect.getPatient_queue().get(0)!=null) {
-                      chosenP = specConnect.getPatient_queue().get(0);
-                 }
-                if(specConnect!=null)
-                {
-                    double maxcalc = d1.getSpecialities_array()[0].getPatient_queue().get(0).getUrgency_level()/d1.getSpecialities_array()[0].getPatient_queue().get(0).getWaiting_time();
-                    for(Patient p : specConnect.getPatient_queue())
-                    {
-                        if ( p.getUrgency_level()/p.getWaiting_time()>maxcalc)
+
+            if (availDoctors.get(doctorCounter).isIs_available() == true) {
+                Doctor d1 = availDoctors.get(doctorCounter);
+                int i = 0;
+                boolean flagf = false;
+                while (flagf == false) {
+                    sortPatientCollection(v);
+                    sortPatientCollection(c);
+                    sortPatientCollection(p);
+                    sortPatientCollection(n);
+                    if ( availOpRooms.get(i).isIs_available() == true) {
+                        OperatingRoom op = availOpRooms.get(i);
+
+
+                        Specialization specConnect = null;
+                        specConnect = op.canOperateOn(d1);
+                        Patient chosenP = null;
+                        if (specConnect != null && specConnect.getPatient_queue().get(0) != null) {
+                            chosenP = specConnect.getPatient_queue().get(0);
+                        }
+                        if (specConnect != null&&d1.getSpecialities_array()[0].getPatient_queue().size() > 0) {
+                            double maxcalc = d1.getSpecialities_array()[0].getPatient_queue().get(0).getUrgency_level() / d1.getSpecialities_array()[0].getPatient_queue().get(0).getWaiting_time();
+                            for (Patient p : specConnect.getPatient_queue()) {
+                                if (p.getUrgency_level() / p.getWaiting_time() > maxcalc) {
+                                    maxcalc = p.getUrgency_level() / p.getWaiting_time();
+                                    chosenP = p;
+                                }
+                            }
+
+
+                        }
+
+
+                        if (chosenP != null)// if appropriate and most urgent patient found
                         {
-                            maxcalc = p.getUrgency_level()/p.getWaiting_time();
-                            chosenP = p;
+                            Specialization spec2 = chosenP.getSpec_needed();
+                            d1.setIs_available(false);
+                           // availDoctors.remove(d1);
+                            op.surgery(d1, chosenP);
+                            op.setIs_available(false);
+                         //   availOpRooms.remove(op);
+                            spec2.getPatient_queue().remove(chosenP);
+
+                            flagf = true;
+
                         }
                     }
-
-
+                    i++;
+                    if(i>=availOpRooms.size())
+                        flag=1;
                 }
 
 
-                if(chosenP!=null)// if appropriate and most urgent patient found
-                {
-                    Specialization spec2 = chosenP.getSpec_needed();
-                    d1.setIs_available(false);
-                    availDoctors.remove(d1);
-                    op.surgery(d1, chosenP);
-                    op.setIs_available(false);
-                    availOpRooms.remove(op);
-                    spec2.getPatient_queue().remove(chosenP);
 
-                    flagf = true;
-
-                }
             }
-
-
             doctorCounter++;
+
+            if(doctorCounter>=availDoctors.size())
+                flag=1;
         }
     }
 
