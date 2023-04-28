@@ -508,7 +508,7 @@ public class Model
                         }
                     }
                     i++;
-                    if(i>=availOpRooms.size())
+                    if(i>=availOpRooms.size()-1)
                         flag=1;
                 }
 
@@ -516,8 +516,7 @@ public class Model
 
             }
             doctorCounter++;
-
-            if(doctorCounter>=availDoctors.size())
+            if(doctorCounter>=availDoctors.size()-1)
                 flag=1;
         }
     }
