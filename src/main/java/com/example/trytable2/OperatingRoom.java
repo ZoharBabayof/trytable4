@@ -64,15 +64,18 @@ public class OperatingRoom
         this.Is_available = false;
     }
 
-    public boolean canOperateOn(Patient patient)
+    public Specialization canOperateOn(Doctor d)
     {
         for(Specialization s:this.specialities_array)
         {
-            if(s.getSpec_name().equals(patient.getSpec_needed().getSpec_name()))
-                return true;
+            for(Specialization s2:d.getSpecialities_array()) {
+                if (s.getSpec_name().equals(s2.getSpec_name()))
+                    return s2;
+            }
         }
-        return false;
+        return null;
     }
+
 
     public int getPriority()// by the number of specs you treat. the more the less its less urgent to put you with patient because you can treat more kinds
     {
@@ -138,13 +141,14 @@ public class OperatingRoom
 
     @Override
     public String toString() {
-        return "OperatingRoom{" +
-                "room_id='" + room_id + '\'' +
-                ", Is_available=" + Is_available +
-                ", time_left_evalution=" + time_left_evalution +
-                ", specialities_array=" + Arrays.toString(specialities_array) +
-                ", doc1=" + doc1 +
-                ", pat1=" + pat1 +
-                '}';
+        return "room id: "+ room_id;
+//        return "OperatingRoom{" +
+//                "room_id='" + room_id + '\'' +
+//                ", Is_available=" + Is_available +
+//                ", time_left_evalution=" + time_left_evalution +
+//                ", specialities_array=" + Arrays.toString(specialities_array) +
+//                ", doc1=" + doc1 +
+//                ", pat1=" + pat1 +
+//                '}';
     }
 }

@@ -445,6 +445,7 @@ public class Model
         int flag = 0;
         // if something empty stop
         int doctorCounter = 0;
+
         while (!(v.getPatient_queue().isEmpty() &&c.getPatient_queue().isEmpty() &&p.getPatient_queue().isEmpty() &&n.getPatient_queue().isEmpty()||availDoctors.isEmpty()||availOpRooms.isEmpty())&& flag==0&&doctorCounter<availDoctors.size())
         {
             sortDoctorHeapBySpecialityLength();
@@ -453,41 +454,50 @@ public class Model
                 System.out.println(availDoctors.get(i));
 
             }
+            for(int i=0;i<availOpRooms.size();i++)
+            {
+                System.out.println(availOpRooms.get(i));
+
+            }
             System.out.println("-------------");
             sortRoomHeapBySpecialityLength();
             Doctor d1 = availDoctors.get(doctorCounter);
             Patient chosenP=null;
-            double maxcalc = d1.getSpecialities_array()[0].getPatient_queue().get(0).getUrgency_level()/d1.getSpecialities_array()[0].getPatient_queue().get(0).getWaiting_time();
-            for(Specialization spec: d1.getSpecialities_array())
+            int i = 0;
+            boolean flagf = false;
+            while(i < availOpRooms.size()&&flagf == false)
             {
-                if ( spec.getPatient_queue().get(0).getUrgency_level()/spec.getPatient_queue().get(0).getWaiting_time()>=maxcalc&&d1.canOperateOn(spec.getPatient_queue().get(0)))
+                OperatingRoom op = availOpRooms.get(i);
+                i++;
+                Specialization specConnect = null;
+                 specConnect = op.canOperateOn(d1);
+                if(specConnect!=null)
                 {
-                    maxcalc = spec.getPatient_queue().get(0).getUrgency_level()/spec.getPatient_queue().get(0).getWaiting_time();
-                    chosenP = spec.getPatient_queue().get(0);
-                }
-            }
-            if(chosenP!=null)// if appropriate and most urgent patient found
-            {
-                d1.setIs_available(false);
-                availDoctors.remove(d1);
-                int i = 0;
-
-                boolean flagf = false;
-                while(i < availOpRooms.size()&&flagf == false)
-                {
-                    OperatingRoom op = availOpRooms.get(i);
-                    i++;
-                    if(op.canOperateOn(chosenP)) {
-                        op.surgery(d1, chosenP);
-                        op.setIs_available(false);
-                        availOpRooms.remove(op);
-                        flagf = true;
-
+                    double maxcalc = d1.getSpecialities_array()[0].getPatient_queue().get(0).getUrgency_level()/d1.getSpecialities_array()[0].getPatient_queue().get(0).getWaiting_time();
+                    for(Patient p : specConnect.getPatient_queue())
+                    {
+                        if ( specConnect.getPatient_queue().get(0).getUrgency_level()/specConnect.getPatient_queue().get(0).getWaiting_time()>=maxcalc)
+                        {
+                            maxcalc = specConnect.getPatient_queue().get(0).getUrgency_level()/specConnect.getPatient_queue().get(0).getWaiting_time();
+                            chosenP = specConnect.getPatient_queue().get(0);
+                        }
                     }
 
+                }
+
+
+                if(chosenP!=null)// if appropriate and most urgent patient found
+                {
+                    d1.setIs_available(false);
+                    availDoctors.remove(d1);
+                    op.surgery(d1, chosenP);
+                    op.setIs_available(false);
+                    availOpRooms.remove(op);
+                    flagf = true;
 
                 }
             }
+
 
             doctorCounter++;
         }
