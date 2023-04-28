@@ -93,6 +93,10 @@ public class Patient implements Comparable<Patient>
         this.spec_needed = spec_needed;
     }
 
+    public double getEstimated_surgery_time()
+    {
+       return  (this.urgency_level / this.waiting_time)*10;
+    }
     @Override
     public String toString() {
         return "Patient{" +

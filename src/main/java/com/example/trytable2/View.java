@@ -388,7 +388,7 @@ public class View extends Application {
 
 
 
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
         while(iterator2.hasNext()){
             Patient k = iterator2.next();
