@@ -447,8 +447,14 @@ public class Model
         int doctorCounter = 0;
         while (!(v.getPatient_queue().isEmpty() &&c.getPatient_queue().isEmpty() &&p.getPatient_queue().isEmpty() &&n.getPatient_queue().isEmpty()||availDoctors.isEmpty()||availOpRooms.isEmpty())&& flag==0&&doctorCounter<availDoctors.size())
         {
-            sortDoctorHeap();
-            sortRoomHeap();
+            sortDoctorHeapBySpecialityLength();
+            for(int i=0;i<availDoctors.size();i++)
+            {
+                System.out.println(availDoctors.get(i));
+
+            }
+            System.out.println("-------------");
+            sortRoomHeapBySpecialityLength();
             Doctor d1 = availDoctors.get(doctorCounter);
             Patient chosenP=null;
             double maxcalc = d1.getSpecialities_array()[0].getPatient_queue().get(0).getUrgency_level()/d1.getSpecialities_array()[0].getPatient_queue().get(0).getWaiting_time();
@@ -487,31 +493,31 @@ public class Model
         }
     }
 
-    public void sortDoctorHeap() {
+
+
+    public void sortDoctorHeapBySpecialityLength() {
         int n = availDoctors.size();
         for (int i = n / 2 - 1; i >= 0; i--) {
-            heapifyDoctors(availDoctors, n, i);
+            heapifyDoctorsBySpecialityLength(availDoctors, n, i);
+        }
+        for (int i = n - 1; i > 0; i--) {
+            Doctor temp = availDoctors.get(0);
+            availDoctors.set(0, availDoctors.get(i));
+            availDoctors.set(i, temp);
+            heapifyDoctorsBySpecialityLength(availDoctors, i, 0);
         }
     }
 
-    public void sortRoomHeap() {
-        int n = availOpRooms.size();
-        for (int i = n / 2 - 1; i >= 0; i--) {
-            heapifyRooms(availOpRooms, n, i);
-        }
-    }
-
-    private void heapifyDoctors(List<Doctor> heap, int n, int i) {
+    private void heapifyDoctorsBySpecialityLength(List<Doctor> heap, int n, int i) {
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
 
-
-        if (left < n && calculatePriority(heap.get(left), null) > calculatePriority(heap.get(largest), null)) {
+        if (left < n && heap.get(left).getSpecialities_array().length > heap.get(largest).getSpecialities_array().length) {
             largest = left;
         }
 
-        if (right < n && calculatePriority(heap.get(right), null) > calculatePriority(heap.get(largest), null)) {
+        if (right < n && heap.get(right).getSpecialities_array().length > heap.get(largest).getSpecialities_array().length) {
             largest = right;
         }
 
@@ -519,20 +525,33 @@ public class Model
             Doctor temp = heap.get(i);
             heap.set(i, heap.get(largest));
             heap.set(largest, temp);
-            heapifyDoctors(heap, n, largest);
+            heapifyDoctorsBySpecialityLength(heap, n, largest);
         }
     }
 
-    private void heapifyRooms(List<OperatingRoom> heap, int n, int i) {
+    public void sortRoomHeapBySpecialityLength() {
+        int n = availOpRooms.size();
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapifyRoomsBySpecialityLength(availOpRooms, n, i);
+        }
+        for (int i = n - 1; i > 0; i--) {
+            OperatingRoom temp = availOpRooms.get(0);
+            availOpRooms.set(0, availOpRooms.get(i));
+            availOpRooms.set(i, temp);
+            heapifyRoomsBySpecialityLength(availOpRooms, i, 0);
+        }
+    }
+
+    private void heapifyRoomsBySpecialityLength(List<OperatingRoom> heap, int n, int i) {
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
 
-        if (left < n && calculatePriority(null, heap.get(left)) > calculatePriority(null, heap.get(largest))) {
+        if (left < n && heap.get(left).getSpecialities_array().length > heap.get(largest).getSpecialities_array().length) {
             largest = left;
         }
 
-        if (right < n && calculatePriority(null, heap.get(right)) > calculatePriority(null, heap.get(largest))) {
+        if (right < n && heap.get(right).getSpecialities_array().length > heap.get(largest).getSpecialities_array().length) {
             largest = right;
         }
 
@@ -540,63 +559,140 @@ public class Model
             OperatingRoom temp = heap.get(i);
             heap.set(i, heap.get(largest));
             heap.set(largest, temp);
-            heapifyRooms(heap, n, largest);
+            heapifyRoomsBySpecialityLength(heap, n, largest);
         }
     }
 
+//
+//    public void sortDoctorHeap() {
+//        int n = availDoctors.size();
+//        for (int i = n / 2 - 1; i >= 0; i--) {
+//            heapifyDoctors(availDoctors, n, i);
+//        }
+//    }
+//
+//    public void sortRoomHeap() {
+//        int n = availOpRooms.size();
+//        for (int i = n / 2 - 1; i >= 0; i--) {
+//            heapifyRooms(availOpRooms, n, i);
+//        }
+//    }
+//
+//    private void heapifyDoctors(List<Doctor> heap, int n, int i) {
+//        int largest = i;
+//        int left = 2 * i + 1;
+//        int right = 2 * i + 2;
+//
+//
+//        if (left < n && calculatePriority(heap.get(left), null) > calculatePriority(heap.get(largest), null)) {
+//            largest = left;
+//        }
+//
+//        if (right < n && calculatePriority(heap.get(right), null) > calculatePriority(heap.get(largest), null)) {
+//            largest = right;
+//        }
+//
+//        if (largest != i) {
+//            Doctor temp = heap.get(i);
+//            heap.set(i, heap.get(largest));
+//            heap.set(largest, temp);
+//            heapifyDoctors(heap, n, largest);
+//        }
+//    }
+//
+//    private void heapifyRooms(List<OperatingRoom> heap, int n, int i) {
+//        int largest = i;
+//        int left = 2 * i + 1;
+//        int right = 2 * i + 2;
+//
+//        if (left < n && calculatePriority(null, heap.get(left)) > calculatePriority(null, heap.get(largest))) {
+//            largest = left;
+//        }
+//
+//        if (right < n && calculatePriority(null, heap.get(right)) > calculatePriority(null, heap.get(largest))) {
+//            largest = right;
+//        }
+//
+//        if (largest != i) {
+//            OperatingRoom temp = heap.get(i);
+//            heap.set(i, heap.get(largest));
+//            heap.set(largest, temp);
+//            heapifyRooms(heap, n, largest);
+//        }
+//    }
+//
+//
+//    public void sortPatientHeap(Specialization specialization) {
+//        int n = specialization.getPatient_queue().size();
+//        for (int i = n / 2 - 1; i >= 0; i--) {
+//            heapifyPatients(specialization.getPatient_queue(), i);
+//        }
+//    }
+//
+//    private void heapifyPatients(List<Patient> patientQueue, int i) {
+//        int n = patientQueue.size();
+//        int largest = i;
+//        int l = 2 * i + 1;
+//        int r = 2 * i + 2;
+//
+//        if (l < n && patientQueue.get(l).getUrgency_level() > patientQueue.get(largest).getUrgency_level()) {
+//            largest = l;
+//        }
+//
+//        if (r < n && patientQueue.get(r).getUrgency_level() > patientQueue.get(largest).getUrgency_level()) {
+//            largest = r;
+//        }
+//
+//        if (largest != i) {
+//            Patient temp = patientQueue.get(i);
+//            patientQueue.set(i, patientQueue.get(largest));
+//            patientQueue.set(largest, temp);
+//
+//            heapifyPatients(patientQueue, largest);
+//        }
+//    }
+//
+////
+////    /**
+////     * Calculates the priority of assigning a patient to a given doctor and room. The higher the priority value, the better
+////     * the match between the patient, doctor, and room.
+////     *
+////     * @param doctor the doctor to consider
+////     * @param room the room to consider
+////     * @return the priority value
+////     */
+////    private int calculatePriority(Doctor doctor, OperatingRoom room) {
+////        int priority = 0;
+////        if(room!=null&&doctor!=null) {
+////            if (doctor.getSpecialities_array()[0] == room.getSpecialities_array()[0]) {//!!!!!!!!!!!!!!!!!!!!!!!!!!!
+////                priority += 2;
+////            }
+////            if (doctor.isIs_available() && room.isIs_available()) {
+////                priority += 1;
+////            }
+////        }
+////            return priority;
+////
+////    }
+//private int calculatePriority(Doctor doctor, OperatingRoom room) {
+//    int priority = 0;
+//    if(room!=null||doctor!=null) {
+//        if (doctor.isIs_available() && room.isIs_available()) {
+//            int doctorSpecialitySize = doctor.getSpecialities_array().length;
+//            int roomSpecialitySize = room.getSpecialities_array().length;
+//            priority = doctor.getPriority() + room.getPriority();
+//
+//            // Increase priority for doctors and rooms with smaller size of Specialities_array
+//            if (doctorSpecialitySize < roomSpecialitySize) {
+//                priority += (roomSpecialitySize - doctorSpecialitySize) * 5;
+//            } else if (roomSpecialitySize < doctorSpecialitySize) {
+//                priority += (doctorSpecialitySize - roomSpecialitySize) * 5;
+//            }
+//        }
+//    }
+//    return priority;
+//}
 
-    public void sortPatientHeap(Specialization specialization) {
-        int n = specialization.getPatient_queue().size();
-        for (int i = n / 2 - 1; i >= 0; i--) {
-            heapifyPatients(specialization.getPatient_queue(), i);
-        }
-    }
-
-    private void heapifyPatients(List<Patient> patientQueue, int i) {
-        int n = patientQueue.size();
-        int largest = i;
-        int l = 2 * i + 1;
-        int r = 2 * i + 2;
-
-        if (l < n && patientQueue.get(l).getUrgency_level() > patientQueue.get(largest).getUrgency_level()) {
-            largest = l;
-        }
-
-        if (r < n && patientQueue.get(r).getUrgency_level() > patientQueue.get(largest).getUrgency_level()) {
-            largest = r;
-        }
-
-        if (largest != i) {
-            Patient temp = patientQueue.get(i);
-            patientQueue.set(i, patientQueue.get(largest));
-            patientQueue.set(largest, temp);
-
-            heapifyPatients(patientQueue, largest);
-        }
-    }
-
-
-    /**
-     * Calculates the priority of assigning a patient to a given doctor and room. The higher the priority value, the better
-     * the match between the patient, doctor, and room.
-     *
-     * @param doctor the doctor to consider
-     * @param room the room to consider
-     * @return the priority value
-     */
-    private int calculatePriority(Doctor doctor, OperatingRoom room) {
-        int priority = 0;
-        if(room!=null&&doctor!=null) {
-            if (doctor.getSpecialities_array()[0] == room.getSpecialities_array()[0]) {//!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                priority += 2;
-            }
-            if (doctor.isIs_available() && room.isIs_available()) {
-                priority += 1;
-            }
-        }
-            return priority;
-
-    }
 
     /**
      * An enumeration representing the different specializations of doctors.
