@@ -445,11 +445,12 @@ public class Model
 
         int flag = 0;
         // if something empty stop
+        sortDoctorHeapBySpecialityLength();
+
         int doctorCounter = 0;
 
         while (doctorCounter < availDoctors.size() && (!v.getPatient_queue().isEmpty() || !c.getPatient_queue().isEmpty() || !p.getPatient_queue().isEmpty() || !n.getPatient_queue().isEmpty() || !availDoctors.isEmpty() || !availOpRooms.isEmpty())) {
 
-            sortDoctorHeapBySpecialityLength();
             for (int i = 0; i < availDoctors.size(); i++) {
                 System.out.println(availDoctors.get(i));
 
@@ -461,6 +462,7 @@ public class Model
             System.out.println("-------------");
             sortRoomHeapBySpecialityLength();
 
+
             if (availDoctors.get(doctorCounter).isIs_available() == true) {
                 Doctor d1 = availDoctors.get(doctorCounter);
                 int i = 0;
@@ -470,6 +472,7 @@ public class Model
                     sortPatientCollection(c);
                     sortPatientCollection(p);
                     sortPatientCollection(n);
+
                     if ( availOpRooms.get(i).isIs_available() == true) {
                         OperatingRoom op = availOpRooms.get(i);
 
@@ -508,7 +511,7 @@ public class Model
                         }
                     }
                     i++;
-                    if(i>=availOpRooms.size()-1)
+                    if(i<availOpRooms.size())
                         flag=1;
                 }
 
@@ -516,8 +519,7 @@ public class Model
 
             }
             doctorCounter++;
-            if(doctorCounter>=availDoctors.size()-1)
-                flag=1;
+
         }
     }
 
