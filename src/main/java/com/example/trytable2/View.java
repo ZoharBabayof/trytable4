@@ -8,6 +8,8 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -26,11 +29,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.animation.AnimationTimer;
 import javafx.util.Duration;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
 
 public class View extends Application {
 
     // global objects
-    static HBox row = new HBox();
+    static HBox row = new HBox(10);
     static HBox row2 = new HBox();
     static HBox row3 = new HBox();
     static HBox row4 = new HBox();
@@ -345,9 +355,36 @@ public class View extends Application {
         table.setMaxSize(500, 700);
 
 
-        // vbox.
-//        AnchorPane pane = new AnchorPane();
-        row.getChildren().addAll(table,table5);
+//        // vbox.
+////        AnchorPane pane = new AnchorPane();
+//        row.setAlignment(Pos.CENTER);
+//        //row.setPadding(new Insets(10));
+//        TableColumn<Patient, String> label2 = new TableColumn<>("Patients");
+
+//        VBox vbox2 = new VBox();
+//        vbox2.setAlignment(Pos.CENTER);
+//        vbox2.getChildren().addAll(label2, table2);
+//       // table5.setAlignment(Pos.CENTER);
+
+
+        Label Vascular_Patients_label = new Label("Vascular Patients");
+        Font font_Vascular_Patients = new Font("david", 24); // create a new Font object with size 100
+        Vascular_Patients_label.setFont(font_Vascular_Patients); // set the font of zlabel to the new Font object
+        VBox Vascular_Patients_vbox = new VBox();
+        Vascular_Patients_vbox.getChildren().addAll(Vascular_Patients_label, table);
+        Vascular_Patients_vbox.setAlignment(Pos.CENTER);
+
+        Label Vascular_Doctors_label = new Label("Vascular Doctors");
+        Font font_Vascular_Doctors = new Font("david", 24); // create a new Font object with size 100
+        Vascular_Doctors_label.setFont(font_Vascular_Doctors); // set the font of zlabel to the new Font object
+        VBox Vascular_Doctors_vbox = new VBox();
+        Vascular_Doctors_vbox.getChildren().addAll(Vascular_Doctors_label, table5);
+        Vascular_Doctors_vbox.setAlignment(Pos.CENTER);
+
+
+        row.getChildren().addAll(Vascular_Patients_vbox,Vascular_Doctors_vbox);
+        row.setAlignment(Pos.CENTER);
+
         AnchorPane.setTopAnchor(tabPane, 15.0);
         AnchorPane.setRightAnchor(tabPane, 15.0);
         AnchorPane.setBottomAnchor(tabPane, 1000.0);
@@ -542,6 +579,8 @@ public class View extends Application {
         tabPane.getTabs().add(tab5);
     }
 
+
+
     // }
 
 
@@ -586,6 +625,12 @@ public class View extends Application {
         Scene scene = new Scene(root, 800, 500);
         //  scene.add;
         stage2.setScene(scene);
+        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+        stage2.setX(visualBounds.getMinX());
+        stage2.setY(visualBounds.getMinY());
+        stage2.setWidth(visualBounds.getWidth());
+        stage2.setHeight(visualBounds.getHeight());
+        stage2.setTitle("THE EFFICIENT HOSPITAL - ZOHAR BABAYOF");
         stage2.show();
 //        LocalDateTime now = LocalDateTime.now();
 //        int zohar = now.getMinute();
@@ -626,7 +671,7 @@ public class View extends Application {
 
 // good example to how I overcame the problem of javaFX running beside thread://////////////////////////////////////////////////////////////
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+       // Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             // add 3 new patients to the queue
             n.getPatient_queue().add(newPatient);
             n.getPatient_queue().add(newPatient);
@@ -634,7 +679,7 @@ public class View extends Application {
 
             // update the data with the new patients
             data2.clear();
-            Timeline delay = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
+            Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.05), event2 -> {
                 Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
                 while (iterator2.hasNext()) {
                     Patient k = iterator2.next();
@@ -642,10 +687,20 @@ public class View extends Application {
                 }
             }));
             delay.play();
+     //   }));
+
+        Timeline delay2 = new Timeline(new KeyFrame(Duration.seconds(0.05), event2 -> {
+            try {
+                p.Algorithem();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }));
+        delay2.play();
+        System.out.println("ended correctly");
 
 // start the timeline
-        timeline.play();
+      //  timeline.play();
 
 
 
