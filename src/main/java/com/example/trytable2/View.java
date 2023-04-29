@@ -111,10 +111,17 @@ public class View extends Application {
     static Specialization c = new Specialization("Card_surgery");
     static Specialization v = new Specialization("Vascular_surgery");
 
-    public static void opRoomsInformation(Stage primaryStage,ArrayList<Specialization> specs)
+
+    public View()// consturctor
+    {
+    }
+
+    public static void opRoomsInformation(Stage primaryStage, ArrayList<Specialization> specs)
     {
 
     }
+
+
 
 
 
@@ -612,7 +619,13 @@ public class View extends Application {
     }
 
 
+public void showSurgery(Doctor d, Patient p, OperatingRoom op)
+{
+    Surgery surg = new Surgery(p.getSpec_needed(),d,p,op);
+    Tab surgerystab = new Tab("current surgeries");
 
+
+}
     // }
 
 
@@ -637,6 +650,7 @@ public class View extends Application {
         opRoomsInformation(stage, specs); // not finished
         // DoctorsInformation(stage,doctors);// not finished
         // not finished
+        p.Algorithem();
 
         // Button button = new Button("Button" + Integer.toString(i));
         tab.setContent(pane);
@@ -709,16 +723,6 @@ public class View extends Application {
             n.getPatient_queue().add(newPatient);
             n.getPatient_queue().add(newPatient);
 
-            // update the data with the new patients
-            data2.clear();
-            Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.05), event2 -> {
-                Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
-                while (iterator2.hasNext()) {
-                    Patient k = iterator2.next();
-                    data2.add(k);
-                }
-            }));
-            delay.play();
      //   }));
 
         Timeline delay2 = new Timeline(new KeyFrame(Duration.seconds(0.05), event2 -> {
@@ -731,6 +735,17 @@ public class View extends Application {
         delay2.play();
         System.out.println("ended correctly");
 
+
+        // update the data with the new patients
+        data2.clear();
+        Timeline delay = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
+            Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
+            while (iterator2.hasNext()) {
+                Patient k = iterator2.next();
+                data2.add(k);
+            }
+        }));
+        delay.play();
 // start the timeline
       //  timeline.play();
 

@@ -8,8 +8,16 @@ import java.util.LinkedList;
 public class Presenter
 {
     private Model model;
+    private View view;
+    public Presenter(Model model) {
+        this.model = model;
+        this.view = new View();
+    }
     public Presenter() {
+        // Initialize the view
+        this.view = new View();
         this.model = new Model();
+        // ...
     }
 
 
@@ -104,6 +112,11 @@ public class Presenter
 
 
             model.schedule();
+    }
+
+    public void showSurgInView(Doctor d, Patient p, OperatingRoom op)
+    {
+        this.view.showSurgery( d, p,op);
     }
 
 }

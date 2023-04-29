@@ -23,6 +23,7 @@ public class Model
 
     static ArrayList<OperatingRoom> availOpRooms= new ArrayList() ;//ArrayList for every OperatingRoom
 
+    Presenter presenter;
 
 
     public Model()
@@ -31,7 +32,7 @@ public class Model
        this.specs = new ArrayList<Specialization>();
        this.operatingRooms = new ArrayList<OperatingRoom>();
        this.doctors = new ArrayList<Doctor>();
-
+        this.presenter = new Presenter(this);
     }
 
     /*
@@ -500,9 +501,13 @@ public class Model
                         {
                             Specialization spec2 = chosenP.getSpec_needed();
                             d1.setIs_available(false);
+                            d1.setCurrent_room_id(op.getRoom_id());
                            // availDoctors.remove(d1);
                             op.surgery(d1, chosenP);
+                            presenter.showSurgInView(d1,chosenP,op);
+
                             op.setIs_available(false);
+
                          //   availOpRooms.remove(op);
                             spec2.getPatient_queue().remove(chosenP);
 
