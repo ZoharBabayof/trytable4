@@ -152,7 +152,12 @@ public class View extends Application {
         waitCol5.setCellValueFactory(new PropertyValueFactory("is_available"));
         TableColumn sevCol5 = new TableColumn("current_room_id");
         sevCol5.setCellValueFactory(new PropertyValueFactory("current_room_id"));
-        sevCol5.setPrefWidth(100);
+        sevCol5.setPrefWidth(150);
+
+        NameCol5.setPrefWidth(150);
+        IDCol5.setPrefWidth(150);
+        waitCol5.setPrefWidth(150);
+
 
         //
         Iterator<Doctor> iterator5 = v.getDoctors_with_spec().iterator();
@@ -275,7 +280,12 @@ public class View extends Application {
         sevCol.setCellValueFactory(new PropertyValueFactory("severity_before"));
         TableColumn specCol = new TableColumn("spec_needed");
         specCol.setCellValueFactory(new PropertyValueFactory("spec_needed"));
-        specCol.setPrefWidth(100);
+        specCol.setPrefWidth(150);
+
+        NameCol.setPrefWidth(150);
+        IDCol.setPrefWidth(150);
+        waitCol.setPrefWidth(150);
+        sevCol.setPrefWidth(150);
 
 
 
@@ -352,7 +362,9 @@ public class View extends Application {
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
         //Setting the size of the table
-        table.setMaxSize(500, 700);
+        table.setMaxSize(1500, 1000);
+
+
 
 
 //        // vbox.
@@ -380,8 +392,12 @@ public class View extends Application {
         VBox Vascular_Doctors_vbox = new VBox();
         Vascular_Doctors_vbox.getChildren().addAll(Vascular_Doctors_label, table5);
         Vascular_Doctors_vbox.setAlignment(Pos.CENTER);
-
-
+        for (TableColumn column : table.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
+        for (TableColumn column : table.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
         row.getChildren().addAll(Vascular_Patients_vbox,Vascular_Doctors_vbox);
         row.setAlignment(Pos.CENTER);
 
