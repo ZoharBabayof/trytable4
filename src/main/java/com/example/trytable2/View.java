@@ -1,6 +1,7 @@
 
 package com.example.trytable2;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -125,7 +126,95 @@ public class View extends Application {
 
 
 
+    public void refresh()
+    {
+        data.clear();
+        Iterator<Patient> iterator = v.getPatient_queue().iterator();
+        while(iterator.hasNext()){
+            Patient q = iterator.next();
+            data.add(q);
 
+        }
+
+        data2.clear();
+        Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
+        while(iterator2.hasNext()){
+            Patient k = iterator2.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+
+            data2.add(k);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+        data3.clear();
+
+        Iterator<Patient> iterator3 = p.getPatient_queue().iterator();
+        while(iterator3.hasNext()){
+            Patient z = iterator3.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data3.add(z);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+        data4.clear();
+
+        Iterator<Patient> iterator4 = c.getPatient_queue().iterator();
+        while(iterator4.hasNext()){
+            Patient q = iterator4.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data4.add(q);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+
+
+
+
+
+        data5.clear();
+        Iterator<Doctor> iterator5 = v.getDoctors_with_spec().iterator();
+        while(iterator5.hasNext()){
+            Doctor q = iterator5.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data5.add(q);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+
+
+        data6.clear();
+        Iterator<Doctor> iterator6 = n.getDoctors_with_spec().iterator();
+        while(iterator6.hasNext()){
+            Doctor q = iterator6.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data6.add(q);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+
+        data7.clear();
+        Iterator<Doctor> iterator7 = p.getDoctors_with_spec().iterator();
+        while(iterator7.hasNext()){
+            Doctor q = iterator7.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data7.add(q);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+
+        data8.clear();
+
+        Iterator<Doctor> iterator8 = c.getDoctors_with_spec().iterator();
+        while(iterator8.hasNext()){
+            Doctor q = iterator8.next();
+            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
+            data8.add(q);
+            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
+
+        }
+
+
+    }
 
 
     public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs)
@@ -724,16 +813,16 @@ public void showSurgery(Doctor d, Patient p, OperatingRoom op)
             n.getPatient_queue().add(newPatient);
 
      //   }));
-
-        Timeline delay2 = new Timeline(new KeyFrame(Duration.seconds(0.05), event2 -> {
-            try {
-                p.Algorithem();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }));
-        delay2.play();
-        System.out.println("ended correctly");
+//
+//        Timeline delay2 = new Timeline(new KeyFrame(Duration.seconds(0.05), event2 -> {
+//            try {
+//                p.Algorithem();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }));
+//        delay2.play();
+//        System.out.println("ended correctly");
 
 
         // update the data with the new patients
@@ -750,6 +839,12 @@ public void showSurgery(Doctor d, Patient p, OperatingRoom op)
       //  timeline.play();
 
 
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+            // call your refresh() function here
+            refresh();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
 
 
