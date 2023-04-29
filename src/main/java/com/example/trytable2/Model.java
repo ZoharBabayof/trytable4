@@ -447,7 +447,7 @@ public class Model
         // if something empty stop
         int doctorCounter = 0;
 
-        while (!(v.getPatient_queue().isEmpty() &&c.getPatient_queue().isEmpty() &&p.getPatient_queue().isEmpty() &&n.getPatient_queue().isEmpty())||!(availDoctors.isEmpty()||availOpRooms.isEmpty()|| flag==0)) {
+        while (doctorCounter < availDoctors.size() && (!v.getPatient_queue().isEmpty() || !c.getPatient_queue().isEmpty() || !p.getPatient_queue().isEmpty() || !n.getPatient_queue().isEmpty() || !availDoctors.isEmpty() || !availOpRooms.isEmpty())) {
 
             sortDoctorHeapBySpecialityLength();
             for (int i = 0; i < availDoctors.size(); i++) {
