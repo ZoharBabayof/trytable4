@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -173,7 +174,7 @@ public class View extends Application {
         table5.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table5.getColumns().addAll(NameCol5, IDCol5, waitCol5, sevCol5);
         //Setting the size of the table
-        table5.setMaxSize(500, 400);
+        table5.setMaxSize(1500, 1000);
 
 
         // add doctors of neuro surgery
@@ -362,7 +363,7 @@ public class View extends Application {
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
         //Setting the size of the table
-        table.setMaxSize(1500, 1000);
+        table.setMaxSize(1500, 2000);
 
 
 
@@ -381,10 +382,19 @@ public class View extends Application {
 
         Label Vascular_Patients_label = new Label("Vascular Patients");
         Font font_Vascular_Patients = new Font("david", 24); // create a new Font object with size 100
+        Vascular_Patients_label.setTextFill(Color.BLUE);
+
         Vascular_Patients_label.setFont(font_Vascular_Patients); // set the font of zlabel to the new Font object
         VBox Vascular_Patients_vbox = new VBox();
         Vascular_Patients_vbox.getChildren().addAll(Vascular_Patients_label, table);
         Vascular_Patients_vbox.setAlignment(Pos.CENTER);
+
+        for (TableColumn column : table.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
+        for (TableColumn column : table.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
 
         Label Vascular_Doctors_label = new Label("Vascular Doctors");
         Font font_Vascular_Doctors = new Font("david", 24); // create a new Font object with size 100
@@ -392,12 +402,18 @@ public class View extends Application {
         VBox Vascular_Doctors_vbox = new VBox();
         Vascular_Doctors_vbox.getChildren().addAll(Vascular_Doctors_label, table5);
         Vascular_Doctors_vbox.setAlignment(Pos.CENTER);
-        for (TableColumn column : table.getColumns()) {
+
+        Vascular_Doctors_label.setTextFill(Color.BLUE);
+
+        for (TableColumn column : table5.getColumns()) {
             column.setStyle("-fx-font-size: 18px;");
         }
-        for (TableColumn column : table.getColumns()) {
+        for (TableColumn column : table5.getColumns()) {
             column.setStyle("-fx-font-size: 18px;");
         }
+
+
+
         row.getChildren().addAll(Vascular_Patients_vbox,Vascular_Doctors_vbox);
         row.setAlignment(Pos.CENTER);
 
