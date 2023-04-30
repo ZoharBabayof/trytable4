@@ -24,6 +24,8 @@ public class Model
     static ArrayList<OperatingRoom> availOpRooms= new ArrayList() ;//ArrayList for every OperatingRoom
 
     Presenter presenter;
+    private static ArrayList<Surgery> surgeries = new ArrayList<>();
+
 
 
     public Model()
@@ -35,6 +37,13 @@ public class Model
         this.presenter = new Presenter(this);
     }
 
+    public static ArrayList<Surgery> getSurgeries() {
+        return surgeries;
+    }
+
+    public static void setSurgeries(ArrayList<Surgery> surgeries) {
+        Model.surgeries = surgeries;
+    }
     /*
         definitions for the main objects in project: all the Specializations, Doctors, Patients, Rooms
         - define the structs and data structures

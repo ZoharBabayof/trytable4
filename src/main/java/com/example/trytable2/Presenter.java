@@ -13,6 +13,8 @@ public class Presenter
         this.model = model;
         this.view = new View();
     }
+
+
     public Presenter() {
         // Initialize the view
         this.view = new View();
@@ -114,9 +116,13 @@ public class Presenter
             model.schedule();
     }
 
+    public ArrayList<Surgery> retSurges()
+    {
+        return model.getSurgeries();
+    }
     public void showSurgInView(Doctor d, Patient p, OperatingRoom op)
     {
-        this.view.showSurgery( d, p,op);
+        this.view.showSurgery( d, p,op,this.retSurges());
     }
 
 }

@@ -47,13 +47,25 @@ public class View extends Application {
     static HBox row3 = new HBox();
     static HBox row4 = new HBox();
 
+    static HBox surgeries_row = new HBox();
+
     Stage stage2 = new Stage(); // it's the only stage
     static TabPane tabPane = new TabPane();
 
     static AnchorPane pane = new AnchorPane();
 
+    static AnchorPane surgery_pane = new AnchorPane();
+
+
+    static TableView<Surgery> surg_table = new TableView<Surgery>();
+
+    static final ObservableList<Surgery> surgeries_data = FXCollections.observableArrayList(
+
+    );
+
     // patients speciality
     static TableView<Patient> table = new TableView<Patient>();
+
     static final ObservableList<Patient> data = FXCollections.observableArrayList(
 
     );
@@ -102,6 +114,7 @@ public class View extends Application {
     static Tab tab4 = new Tab("Card_surgery");
 
     static Tab tab5 = new Tab("Event_Room");// beacuse I want the tab of clock to be the event room
+    static  Tab surg_tab = new Tab("Surgeries");
 
 
 
@@ -708,13 +721,69 @@ public class View extends Application {
     }
 
 
-public void showSurgery(Doctor d, Patient p, OperatingRoom op)
-{
-    Surgery surg = new Surgery(p.getSpec_needed(),d,p,op);
-    Tab surgerystab = new Tab("current surgeries");
+    public void showSurgery(Doctor d, Patient pat, OperatingRoom op, ArrayList<Surgery> retSurges) {
+        Surgery surg = new Surgery(pat.getSpec_needed(), d, pat, op);
+
+        TableColumn<Surgery, String> surg_ID = new TableColumn<>("surgID");
+        surg_ID.setCellValueFactory(new PropertyValueFactory<>("surgID"));
+
+        TableColumn<Surgery, String> surg_spec = new TableColumn<>("spec");
+        surg_spec.setCellValueFactory(new PropertyValueFactory<>("spec"));
+
+        TableColumn<Surgery, Doctor> surg_doc = new TableColumn<>("surg_doc");
+        surg_doc.setCellValueFactory(new PropertyValueFactory<>("doctor"));
+
+        TableColumn<Surgery, Patient> surg_pat = new TableColumn<>("patient");
+        surg_pat.setCellValueFactory(new PropertyValueFactory<>("patient"));
+
+        TableColumn<Surgery, OperatingRoom> surg_room = new TableColumn<>("room");
+        surg_room.setCellValueFactory(new PropertyValueFactory<>("room"));
+
+        TableColumn<Surgery, Integer> time_left = new TableColumn<>("time_left");
+        time_left.setCellValueFactory(new PropertyValueFactory<>("time_left"));
+
+        time_left.setPrefWidth(150);
+        surg_ID.setPrefWidth(150);
+        surg_spec.setPrefWidth(150);
+        surg_doc.setPrefWidth(150);
+        surg_pat.setPrefWidth(150);
+        surg_room.setPrefWidth(150);
+
+        Iterator<Surgery> surg_iterator = retSurges.iterator();
+        while (surg_iterator.hasNext()) {
+            Surgery s = surg_iterator.next();
+            surgeries_data.add(s);
+        }
+        surg_table.setItems(surgeries_data);
+
+        surg_table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        surg_table.getColumns().addAll(surg_ID, surg_spec, surg_doc, surg_pat, surg_room, time_left);
+        surg_table.setMaxSize(1500, 1000);
+
+        Label surg_label = new Label("Surgeries");
+        Font font_surgeries = new Font("david", 24);
+        surg_label.setFont(font_surgeries);
+        surg_label.setTextFill(Color.BLUE);
+
+        for (TableColumn<Surgery, ?> column : surg_table.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
 
 
-}
+        surgeries_row.getChildren().clear();
+        surgeries_row.getChildren().add(surg_table);
+
+        surgery_pane.getChildren().clear();
+        AnchorPane.setTopAnchor(tabPane, 15.0);
+        AnchorPane.setRightAnchor(tabPane, 15.0);
+        AnchorPane.setBottomAnchor(tabPane, 1000.0);
+        AnchorPane.setLeftAnchor(tabPane, 1000.0);
+
+        surgery_pane.getChildren().addAll( surg_label, surgeries_row);
+        surgery_pane.setStyle("-fx-background-color: BEIGE");
+    }
+
+
     // }
 
 
@@ -723,15 +792,17 @@ public void showSurgery(Doctor d, Patient p, OperatingRoom op)
     @Override
 
     public void start(Stage stage) throws IOException, InterruptedException {
-        Presenter p = new Presenter();
-        p.startHospital();
-        ArrayList<Specialization> specs = p.giveSpec();
-        ArrayList<OperatingRoom> oprooms = p.retOprooms();
-        RecoveryRoom recoveryRoom = p.retRecoveryRoom();
-        ArrayList<Doctor> doctors = p.retDoctors();
+        Presenter presenter = new Presenter();
+
+        presenter.startHospital();
+        ArrayList<Specialization> specs = presenter.giveSpec();
+        ArrayList<OperatingRoom> oprooms = presenter.retOprooms();
+        RecoveryRoom recoveryRoom = presenter.retRecoveryRoom();
+        ArrayList<Doctor> doctors = presenter.retDoctors();
 
 
         BorderPane root = new BorderPane();
+
 
 
         CreateTimer(stage);
@@ -739,12 +810,16 @@ public void showSurgery(Doctor d, Patient p, OperatingRoom op)
         opRoomsInformation(stage, specs); // not finished
         // DoctorsInformation(stage,doctors);// not finished
         // not finished
-        p.Algorithem();
-//        p.Algorithem();
+        presenter.Algorithem();
+//        presenter.Algorithem();
 
         // Button button = new Button("Button" + Integer.toString(i));
         tab.setContent(pane);
         tabPane.getTabs().add(tab);
+
+
+        surg_tab.setContent(surgery_pane);
+        tabPane.getTabs().add(surg_tab);
 
         // Button button = new Button("Button" + Integer.toString(i));
         tab2.setContent(pane2);
@@ -856,7 +931,7 @@ public void showSurgery(Doctor d, Patient p, OperatingRoom op)
         Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
         try {
             System.out.println("made it!!!!!!!!!!");
-            p.Algorithem();
+            presenter.Algorithem();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
