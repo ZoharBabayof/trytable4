@@ -120,9 +120,15 @@ public class Presenter
     {
         return model.getSurgeries();
     }
-    public void showSurgInView(Doctor d, Patient p, OperatingRoom op)
+
+
+    public void showSurgTable(Doctor d, Patient p, OperatingRoom op)
     {
-        this.view.showSurgery( d, p,op,this.retSurges());
+     this.view.showSurgerytable( this.retSurges());
+    }
+     public void showSurgInView(Doctor d, Patient p, OperatingRoom op)
+    {
+        this.view.showSurgery( d, p,op);
     }
 
 }

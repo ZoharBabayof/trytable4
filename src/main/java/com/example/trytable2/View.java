@@ -62,6 +62,7 @@ public class View extends Application {
     static final ObservableList<Surgery> surgeries_data = FXCollections.observableArrayList(
 
     );
+    static  ArrayList<Surgery> surgeries = new ArrayList<>();
 
     // patients speciality
     static TableView<Patient> table = new TableView<Patient>();
@@ -139,8 +140,17 @@ public class View extends Application {
 
 
 
-    public void refresh()
+    public void refresh(ArrayList<Surgery> retSurges)
     {
+        surgeries_data.clear();
+        Iterator<Surgery> surg_iterator = surgeries.iterator();
+        while(surg_iterator.hasNext()){
+            Surgery s = surg_iterator.next();
+            surgeries_data.add(s);
+
+        }
+
+
         data.clear();
         Iterator<Patient> iterator = v.getPatient_queue().iterator();
         while(iterator.hasNext()){
@@ -721,8 +731,15 @@ public class View extends Application {
     }
 
 
-    public void showSurgery(Doctor d, Patient pat, OperatingRoom op, ArrayList<Surgery> retSurges) {
-        Surgery surg = new Surgery(pat.getSpec_needed(), d, pat, op);
+    public void showSurgery(Doctor d, Patient pat, OperatingRoom op)
+    {
+        Surgery surg = new Surgery(pat.getSpec_needed(), d, pat, op,0);
+        surgeries.add(surg);
+    }
+
+
+    public void showSurgerytable( ArrayList<Surgery> retSurges) {
+
 
         TableColumn<Surgery, String> surg_ID = new TableColumn<>("surgID");
         surg_ID.setCellValueFactory(new PropertyValueFactory<>("surgID"));
@@ -739,7 +756,7 @@ public class View extends Application {
         TableColumn<Surgery, OperatingRoom> surg_room = new TableColumn<>("room");
         surg_room.setCellValueFactory(new PropertyValueFactory<>("room"));
 
-        TableColumn<Surgery, Integer> time_left = new TableColumn<>("time_left");
+        TableColumn<Surgery, String> time_left = new TableColumn<>("time_left");
         time_left.setCellValueFactory(new PropertyValueFactory<>("time_left"));
 
         time_left.setPrefWidth(150);
@@ -814,12 +831,15 @@ public class View extends Application {
 //        presenter.Algorithem();
 
         // Button button = new Button("Button" + Integer.toString(i));
+        showSurgerytable( presenter.retSurges());
+        surg_tab.setContent(surgery_pane);
+        tabPane.getTabs().add(surg_tab);
+
         tab.setContent(pane);
         tabPane.getTabs().add(tab);
 
 
-        surg_tab.setContent(surgery_pane);
-        tabPane.getTabs().add(surg_tab);
+
 
         // Button button = new Button("Button" + Integer.toString(i));
         tab2.setContent(pane2);
@@ -917,8 +937,9 @@ public class View extends Application {
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             // call your refresh() function here
-
-            refresh();
+           
+            surgeries = presenter.retSurges();
+            refresh(surgeries);
 
         }));
         timeline.setCycleCount(Animation.INDEFINITE);

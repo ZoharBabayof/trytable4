@@ -3,24 +3,37 @@ package com.example.trytable2;
 import java.util.ArrayList;
 
 public class Surgery {
-    private static int surgID = 0;
+    private static int IDcouter = 0;
+
+    private int surgID;
+
     private Specialization spec;
     private Doctor doctor;
     private Patient patient;
     private OperatingRoom room;
-    private double time_left;
+    private String time_left;
 
-    public Surgery(Specialization spec, Doctor doctor, Patient patient, OperatingRoom room) {
-        this.surgID++;
+    public Surgery(Specialization spec, Doctor doctor, Patient patient, OperatingRoom room,double time_left) {
+        IDcouter++;
+        this.surgID= IDcouter;
         this.spec = spec;
         this.doctor = doctor;
         this.patient = patient;
         this.room = room;
-        this.time_left = room.getTime_left_evalution();
+       // this.time_left = time_left;
+        this.time_left = String.valueOf(room.getTime_left_evalution());
 
     }
 
-    public static int getSurgID() {
+    public String getTime_left() {
+        return time_left;
+    }
+
+    public void setTime_left(String time_left) {
+        this.time_left = time_left;
+    }
+
+    public  int getSurgID() {
         return surgID;
     }
 
