@@ -832,6 +832,7 @@ public class trygui extends Application {
         p.startHospital();
 
         p.Algorithem();
+        p.Algorithem();
         //Stage newstage = new Stage();
         // idan(newstage,"z");
         //idan();

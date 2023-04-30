@@ -740,6 +740,7 @@ public void showSurgery(Doctor d, Patient p, OperatingRoom op)
         // DoctorsInformation(stage,doctors);// not finished
         // not finished
         p.Algorithem();
+//        p.Algorithem();
 
         // Button button = new Button("Button" + Integer.toString(i));
         tab.setContent(pane);
@@ -825,23 +826,25 @@ public void showSurgery(Doctor d, Patient p, OperatingRoom op)
 //        System.out.println("ended correctly");
 
 
-        // update the data with the new patients
-        data2.clear();
-        Timeline delay = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
-            Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
-            while (iterator2.hasNext()) {
-                Patient k = iterator2.next();
-                data2.add(k);
-            }
-        }));
-        delay.play();
+//        // update the data with the new patients
+//        data2.clear();
+//        Timeline delay = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
+//            Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
+//            while (iterator2.hasNext()) {
+//                Patient k = iterator2.next();
+//                data2.add(k);
+//            }
+//        }));
+//        delay.play();
 // start the timeline
       //  timeline.play();
 
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             // call your refresh() function here
+
             refresh();
+
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -850,7 +853,16 @@ public void showSurgery(Doctor d, Patient p, OperatingRoom op)
 
 
 
-//
+        Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
+        try {
+            System.out.println("made it!!!!!!!!!!");
+            p.Algorithem();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        }));
+        timeline2.setCycleCount(Animation.INDEFINITE);
+        timeline2.play();
 //        new Thread(() -> {
 //            try {
 //        Thread.sleep(5000);

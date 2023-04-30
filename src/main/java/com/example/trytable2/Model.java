@@ -204,6 +204,7 @@ public class Model
         this.specs.add(c);
         this.specs.add(v);
 
+        searchAvail();
 
     }
 
@@ -441,7 +442,6 @@ public class Model
     {
 
 
-        searchAvail();
 
 
         int flag = 0;
@@ -450,17 +450,17 @@ public class Model
 
         int doctorCounter = 0;
 
-        while (doctorCounter < availDoctors.size() && (!v.getPatient_queue().isEmpty() || !c.getPatient_queue().isEmpty() || !p.getPatient_queue().isEmpty() || !n.getPatient_queue().isEmpty() || !availDoctors.isEmpty() || !availOpRooms.isEmpty())) {
+        while (doctorCounter < availDoctors.size() && (v.getPatient_queue().size() > 0 || c.getPatient_queue().size() > 0 || p.getPatient_queue().size() > 0 || n.getPatient_queue().size() > 0) && !availDoctors.isEmpty() && !availOpRooms.isEmpty()) {//
 
-            for (int i = 0; i < availDoctors.size(); i++) {
-                System.out.println(availDoctors.get(i));
-
-            }
-            for (int i = 0; i < availOpRooms.size(); i++) {
-                System.out.println(availOpRooms.get(i));
-
-            }
-            System.out.println("-------------");
+//            for (int i = 0; i < availDoctors.size(); i++) {
+//                System.out.println(availDoctors.get(i));
+//
+//            }
+//            for (int i = 0; i < availOpRooms.size(); i++) {
+//                System.out.println(availOpRooms.get(i));
+//
+//            }
+//            System.out.println("-------------");
             sortRoomHeapBySpecialityLength();
 
 
@@ -468,23 +468,23 @@ public class Model
                 Doctor d1 = availDoctors.get(doctorCounter);
                 int i = 0;
                 boolean flagf = false;
-                while (flagf == false) {
+                while (flagf == false&&i < availOpRooms.size() ) {
                     sortPatientCollection(v);
                     sortPatientCollection(c);
                     sortPatientCollection(p);
                     sortPatientCollection(n);
 
-                    if ( availOpRooms.get(i).isIs_available() == true) {
+                    if ( availOpRooms.get(i).isIs_available() == true) {//
                         OperatingRoom op = availOpRooms.get(i);
 
 
                         Specialization specConnect = null;
                         specConnect = op.canOperateOn(d1);
                         Patient chosenP = null;
-                        if (specConnect != null && specConnect.getPatient_queue().get(0) != null) {
+                        if (specConnect != null && specConnect.getPatient_queue().size() > 0) {//////////
                             chosenP = specConnect.getPatient_queue().get(0);
                         }
-                        if (specConnect != null&&d1.getSpecialities_array()[0].getPatient_queue().size() > 0) {
+                        if (specConnect != null&&d1.getSpecialities_array().length>0&&d1.getSpecialities_array()[0].getPatient_queue().size() > 0) {/////////
                             double maxcalc = d1.getSpecialities_array()[0].getPatient_queue().get(0).getUrgency_level() / d1.getSpecialities_array()[0].getPatient_queue().get(0).getWaiting_time();
                             for (Patient p : specConnect.getPatient_queue()) {
                                 if (p.getUrgency_level() / p.getWaiting_time() > maxcalc) {
@@ -516,8 +516,7 @@ public class Model
                         }
                     }
                     i++;
-                    if(i<availOpRooms.size())
-                        flag=1;
+
                 }
 
 
@@ -526,6 +525,10 @@ public class Model
             doctorCounter++;
 
         }
+        for(Doctor d:availDoctors)
+            d.setIs_available(true);
+        for (OperatingRoom op:availOpRooms)
+            op.setIs_available(true);
     }
 
 
