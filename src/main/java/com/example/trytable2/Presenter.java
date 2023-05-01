@@ -9,12 +9,17 @@ public class Presenter
 {
     private Model model;
     private View view;
+    /**
+     * constructor
+     */
     public Presenter(Model model) {
         this.model = model;
         this.view = new View();
     }
 
-
+    /**
+     * constructor
+     */
     public Presenter() {
         // Initialize the view
         this.view = new View();
@@ -22,7 +27,10 @@ public class Presenter
         // ...
     }
 
-
+    /**
+     *
+     * @param not used. egnore.
+     */
     public static void main(String[] args)
     {
 
@@ -69,33 +77,53 @@ public class Presenter
 
 
     }
-    // ret all possible specs of hospital in  array list
+
+    /**
+     * returns the specializations array from model
+     * @return ArrayList<Specialization> spec array
+     * @throws IOException
+     */
     public ArrayList<Specialization> giveSpec() throws IOException {
         return (this.model.StartModel());
     }
 
     // ret all OperatingRooms of hospital in  array list
+
+    /**
+     * returns the opRooms arraylist from model
+     * @return ArrayList<OperatingRoom >oprooms
+     */
     public ArrayList<OperatingRoom > retOprooms()
     {
         return (this.model.retOprooms());
     }
 
     // ret retRecoveryRoom of hospital in  array list
+
+    /**
+     * not used. ignore.
+     * @return
+     */
     public RecoveryRoom retRecoveryRoom()
     {
         return this.model.retRecoveryRoom();
     }
 
     // ret Doctors of hospital in  array list
+
+    /**
+     * returns the doctors ArrayList from model
+     * @return ArrayList<Doctor > doctors
+     */
     public ArrayList<Doctor > retDoctors()
     {
         return this.model.retDoctors();
     }
 
 
-
-
-
+    /**
+     * call the InitHospital function from model
+     */
     public void startHospital() {
         model.InitHospital();
     }
@@ -106,7 +134,10 @@ public class Presenter
         // start main algorithm of project.
 
 
-
+    /**
+     * call the schedule function from model
+     * @throws IOException
+     */
     public void Algorithem() throws IOException {
 
         //for(Specialization s : this.giveSpec() )
@@ -116,16 +147,31 @@ public class Presenter
             model.schedule();
     }
 
+    /**
+     * return the ArrayList surgeries from model
+     * @return ArrayList<Surgery> surgeries
+     */
+
     public ArrayList<Surgery> retSurges()
     {
         return model.getSurgeries();
     }
 
-
+    /**
+     * ignore. not relevant
+     */
     public void showSurgTable(Doctor d, Patient p, OperatingRoom op)
     {
      this.view.showSurgerytable( this.retSurges());
     }
+
+    /**
+     *
+     * @param d - Doctor d
+     * @param p - Patient p
+     * @param op- OperatingRoom op
+     * call to the showSurgery function in view
+     */
      public void showSurgInView(Doctor d, Patient p, OperatingRoom op)
     {
         this.view.showSurgery( d, p,op);

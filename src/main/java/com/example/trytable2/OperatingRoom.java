@@ -49,7 +49,7 @@ public class OperatingRoom
     {
         this.doc1 = d;
         this.pat1 = p;
-        this.time_left_evalution = p.getWaiting_time();
+        this.time_left_evalution = (p.getUrgency_level())/5;
         System.out.println("surgery: spec:"+p.getSpec_needed()+" room_id:"+this.room_id+" doctor:"+this.doc1+" patient:"+this.pat1 + "time left: " + time_left_evalution);
     }
     public void start_operation(double time_left_evalution, Doctor doc1, Patient pat1)

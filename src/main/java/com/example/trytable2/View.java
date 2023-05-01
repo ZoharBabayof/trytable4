@@ -5,11 +5,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -26,10 +23,9 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.TabPane;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javafx.animation.AnimationTimer;
+
 import javafx.util.Duration;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -127,9 +123,17 @@ public class View extends Application {
     static Specialization v = new Specialization("Vascular_surgery");
 
 
+    /**
+     * constructor
+     */
     public View()// consturctor
     {
     }
+
+    /**
+     *
+     * not used. egnore.
+     */
 
     public static void opRoomsInformation(Stage primaryStage, ArrayList<Specialization> specs)
     {
@@ -138,8 +142,10 @@ public class View extends Application {
 
 
 
-
-
+    /**
+     *
+     * @param retSurges
+     */
     public void refresh(ArrayList<Surgery> retSurges)
     {
         surgeries_data.clear();
@@ -827,7 +833,9 @@ public class View extends Application {
         opRoomsInformation(stage, specs); // not finished
         // DoctorsInformation(stage,doctors);// not finished
         // not finished
-        presenter.Algorithem();
+
+
+
 //        presenter.Algorithem();
 
         // Button button = new Button("Button" + Integer.toString(i));
@@ -869,6 +877,8 @@ public class View extends Application {
 //            if (i == 999)
 //                changepane();
 //        }
+
+
         Patient newPatient = new Patient("John", "123", 10, 5, n); // need to put in view also reading the file
 //        new Thread(() -> {
 //            try {
@@ -935,15 +945,7 @@ public class View extends Application {
       //  timeline.play();
 
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
-            // call your refresh() function here
 
-            surgeries = presenter.retSurges();
-            refresh(surgeries);
-
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
 
 
 
@@ -959,6 +961,16 @@ public class View extends Application {
         }));
         timeline2.setCycleCount(Animation.INDEFINITE);
         timeline2.play();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            // call your refresh() function here
+
+            surgeries = presenter.retSurges();
+            refresh(surgeries);
+
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 //        new Thread(() -> {
 //            try {
 //        Thread.sleep(5000);

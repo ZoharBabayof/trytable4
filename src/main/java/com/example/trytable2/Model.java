@@ -16,7 +16,7 @@ public class Model
 
     static ArrayList<Specialization> specs;//ArrayList for every kind of specialization
     static ArrayList<OperatingRoom> operatingRooms;//ArrayList for every OperatingRoom
-     static RecoveryRoom recoveryRoom; //one RecoveryRoom in project
+     static RecoveryRoom recoveryRoom; //ignore. not relevant
 
     static ArrayList<Doctor> doctors;//ArrayList for every OperatingRoom
     static ArrayList<Doctor> availDoctors = new ArrayList() ;//ArrayList for every OperatingRoom
@@ -27,7 +27,9 @@ public class Model
     private static ArrayList<Surgery> surgeries = new ArrayList<>();
 
 
-
+    /**
+     * constructor
+     */
     public Model()
     {
         // init the ArrayLists:
@@ -44,17 +46,13 @@ public class Model
     public static void setSurgeries(ArrayList<Surgery> surgeries) {
         Model.surgeries = surgeries;
     }
-    /*
-        definitions for the main objects in project: all the Specializations, Doctors, Patients, Rooms
-        - define the structs and data structures
-         */
+
 
     /**
      *
-     * @return
+     * @param specializationStr - String.
+     * @return the specialization the apripriate to string
      */
-
-
 
     public Specialization StrToSpec(String specializationStr) {
 
@@ -79,7 +77,12 @@ public class Model
      * It has no parameters and no returns.
      */
 
-
+    /**
+     *
+     * @param room - OperatingRoom room
+     * @param s - Specialization s
+     * @return if spec in specialization array
+     */
     public boolean SpecinRoomSpecArr(OperatingRoom room, Specialization s)
     {
         int counter = 0;
@@ -93,6 +96,12 @@ public class Model
             return true;
     }
 
+    /**
+     *
+     * @param doc - Doctor doc
+     * @param s - Specialization s
+     * @return - if spec in specialization array
+     */
     public boolean SpecinDocSpecArr(Doctor doc, Specialization s)
     {
         int counter = 0;
@@ -106,6 +115,9 @@ public class Model
             return true;
     }
 
+    /**
+     * read the info from HospitalInfo.txt file and put the objects that in it in the project structures.
+     */
     public void InitHospital()
     {
 
@@ -217,6 +229,11 @@ public class Model
 
     }
 
+    /**
+     *
+     * @return ArrayList<Specialization> specs that contains the four specialities.
+     * @throws IOException
+     */
     public  ArrayList<Specialization>  StartModel() throws IOException // put values in all patients, doctors rooms and structures
     {
 
@@ -424,12 +441,19 @@ public class Model
     // i do in the begining in order from the most urgent spec to less
 
     // find the spec in rooms
+
+    /**
+     * ignore. not relevant.
+     * @return
+     */
     public boolean SearchSpecInRooms()
     {
         return true;//!!!!!!!1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
-
+    /**
+     * search availiable doctors and operating rooms and put them in the structures of the availiable.
+     */
     public void searchAvail()
     {
         for(Doctor d:doctors)
@@ -438,6 +462,7 @@ public class Model
             {
                 availDoctors.add(d);
             }
+
         }
         for(OperatingRoom op:operatingRooms)
         {
@@ -446,12 +471,18 @@ public class Model
                 availOpRooms.add(op);
             }
         }
+
+
+
     }
+
+    /**
+     * schedule the Operating rooms, Doctors an patients to the surgeries while considering the specialization, urgency  and waiting time in patient and
+     * number of specialization in rooms and doctors.
+     * also calling to the sorting the heaps of them.
+     */
     public void schedule()
     {
-
-
-
 
         int flag = 0;
         // if something empty stop
@@ -459,7 +490,8 @@ public class Model
 
         int doctorCounter = 0;
 
-        while (doctorCounter < availDoctors.size() && (v.getPatient_array_list().size() > 0 || c.getPatient_array_list().size() > 0 || p.getPatient_array_list().size() > 0 || n.getPatient_array_list().size() > 0) && !availDoctors.isEmpty() && !availOpRooms.isEmpty()) {//
+        while (doctorCounter < availDoctors.size() && (v.getPatient_array_list().size() > 0 || c.getPatient_array_list().size() > 0 ||
+                p.getPatient_array_list().size() > 0 || n.getPatient_array_list().size() > 0) && !availDoctors.isEmpty() && !availOpRooms.isEmpty()) {//
 
 
             sortRoomHeapBySpecialityLength();
@@ -486,10 +518,10 @@ public class Model
                             chosenP = specConnect.getPatient_array_list().get(0);
                         }
                         if (specConnect != null&&d1.getSpecialities_array().length>0&&d1.getSpecialities_array()[0].getPatient_array_list().size() > 0) {/////////
-                            double maxcalc = d1.getSpecialities_array()[0].getPatient_array_list().get(0).getUrgency_level() / d1.getSpecialities_array()[0].getPatient_array_list().get(0).getWaiting_time();
-                            for (Patient p : specConnect.getPatient_array_list()) {
-                                if (p.getUrgency_level() / p.getWaiting_time() > maxcalc) {
-                                    maxcalc = p.getUrgency_level() / p.getWaiting_time();
+                            double maxcalc = d1.getSpecialities_array()[0].getPatient_array_list().get(0).getUrgency_level();
+                            for (Patient p : specConnect.getPatient_array_list()) {// compare between the most urgent patient in every spec
+                                if (p.getUrgency_level() > maxcalc) {
+                                    maxcalc = p.getUrgency_level() ;
                                     chosenP = p;
                                 }
                             }
@@ -525,35 +557,54 @@ public class Model
             doctorCounter++;
 
         }
-        for(Doctor d:availDoctors)
-            d.setIs_available(true);
-        for (OperatingRoom op:availOpRooms)
-            op.setIs_available(true);
+        for(Surgery s :surgeries)
+        {
+            s.setTime_left(Double.toString(Double.parseDouble(s.getTime_left())-1));
+            if(Double.parseDouble(s.getTime_left())<=0) {
+                s.setTime_left(Double.toString(0.0));
+                s.getDoctor().setIs_available(true);
+                s.getRoom().setIs_available(true);
+
+
+            }
+        }
+
     }
 
 
-    public void sortPatientCollection(Specialization spec)
-
-    {
-        ArrayList<Patient> patientList = spec.getPatient_array_list();
-        Collections.sort(patientList, new Comparator<Patient>() {
+    /**
+     *
+     * @param spec sorting by considering severity in patient and waiting time and.
+     */
+    public void sortPatientCollection(Specialization spec) {
+        //ArrayList<Patient> patientList = spec.getPatient_array_list();
+        Collections.sort(spec.getPatient_array_list(), new Comparator<Patient>() {
             @Override
             public int compare(Patient p1, Patient p2) {
-                double p1Value = p1.getUrgency_level() / p1.getWaiting_time();
-                double p2Value = p2.getUrgency_level() / p2.getWaiting_time();
+                double p1Urgency = p1.getUrgency_level();
+                double p2Urgency = p2.getUrgency_level();
+                double p1Time = p1.getEstimated_surgery_time();
+                double p2Time = p2.getEstimated_surgery_time();
 
-                if (p1Value > p2Value) {
+                if (p1Urgency > p2Urgency) {
                     return -1;
-                } else if (p1Value < p2Value) {
+                } else if (p1Urgency < p2Urgency) {
                     return 1;
-                } else {
-                    return Double.compare(p1.getEstimated_surgery_time(), p2.getEstimated_surgery_time());
+                } else if (Math.abs(p1.getSeverity_before() - p2.getSeverity_before()) < 2 && p1Time > p2Time && (p1Time - p2Time) <= 10) {
+                    return 1;
+                } else if (Math.abs(p1.getSeverity_before() - p2.getSeverity_before()) < 2 && p1Time < p2Time && (p2Time - p1Time) <= 10) {
+                    return -1;
+                } else {// if equal
+                    return Double.compare(p1Time, p2Time);
                 }
             }
         });
     }
 
 
+    /**
+     * sort doctor heap by specialities number
+     */
     public void sortDoctorHeapBySpecialityLength() {
         int n = availDoctors.size();
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -567,6 +618,10 @@ public class Model
         }
     }
 
+
+    /**
+     * heapify on  doctor heap by specialities number
+     */
     private void heapifyDoctorsBySpecialityLength(List<Doctor> heap, int n, int i) {
         int largest = i;
         int left = 2 * i + 1;
@@ -588,6 +643,10 @@ public class Model
         }
     }
 
+
+    /**
+     * sort Operating rooms heap by specialities number
+     */
     public void sortRoomHeapBySpecialityLength() {
         int n = availOpRooms.size();
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -600,6 +659,9 @@ public class Model
             heapifyRoomsBySpecialityLength(availOpRooms, i, 0);
         }
     }
+    /**
+     * heapify on  Operating rooms heap by specialities number
+     */
 
     private void heapifyRoomsBySpecialityLength(List<OperatingRoom> heap, int n, int i) {
         int largest = i;

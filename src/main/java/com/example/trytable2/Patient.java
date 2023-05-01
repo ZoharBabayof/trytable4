@@ -17,21 +17,33 @@ public class Patient implements Comparable<Patient>
 
     private String name;
     private String id;
-    private double waiting_time; // *5 minutes
-    private double severity_before; // 1-resuscitation 5 - non urgency
+    private double waiting_time; // *5 minutes //0-10 in double
+    private double severity_before; // 1-resuscitation 5 - non urgency//0-10 in double
     private double urgency_level;
     private Specialization spec_needed;//every
 
+    /**
+     *
+     * @param name - String name
+     * @param id-String id
+     * @param waiting_time-double. the waiting time
+     * @param severity_before-double. the  severity before
+     * @param spec_needed-Specialization. the  spec that needed
+     */
     public Patient(String name, String id, double waiting_time, double severity_before, Specialization spec_needed) {
         this.name = name;
         this.id = id;
         this.waiting_time = waiting_time;
         this.severity_before = severity_before;
-        this.urgency_level = pow(2,(5-this.severity_before))*waiting_time;// 2^(5-severity_before)*waiting_time is the time from 120 he can wait
+        this.urgency_level = this.severity_before*this.waiting_time;//in 0-100//pow(2,(5-this.severity_before))*waiting_time;// 2^(5-severity_before)*waiting_time is the time from 120 he can wait
         this.spec_needed = spec_needed;
     }
 
-
+    /**
+     * not relevant. ignore
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,6 +52,9 @@ public class Patient implements Comparable<Patient>
         return Double.compare(patient.waiting_time, waiting_time) == 0 && Double.compare(patient.severity_before, severity_before) == 0 && Double.compare(patient.urgency_level, urgency_level) == 0 && name.equals(patient.name) && id.equals(patient.id) && spec_needed.equals(patient.spec_needed);
     }
 
+    /**
+     not relevant. ignore
+     **/
     @Override
     public int hashCode() {
         return Objects.hash(name, id, waiting_time, severity_before, urgency_level, spec_needed);
