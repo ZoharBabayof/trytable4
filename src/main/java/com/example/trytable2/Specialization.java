@@ -8,21 +8,20 @@ package com.example.trytable2;
 
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+
 
 public class Specialization {
     private String spec_name;
-        private ArrayList<Patient> patient_queue;
+        private ArrayList<Patient> patient_array_list;
     private ArrayList <Doctor> doctors_with_spec;// dinamic array that contains all docotor who have this specilization.
-    private static int count=0;
-    private static ArrayList<Specialization> specilities;// dinamic array of all specilizations static - i must
+    //private static int count=0;
+   // private static ArrayList<Specialization> specilities;// dinamic array of all specilizations static - i must
     private ArrayList <OperatingRoom> OperatingRooms_with_spec;// dinamic array that contains all docotor who have this specilization.
 
 
     public Specialization(String spec_name) {
         this.spec_name = spec_name;
-        this.patient_queue = new ArrayList<Patient>();
+        this.patient_array_list = new ArrayList<Patient>();
         this.doctors_with_spec = new ArrayList<Doctor>();
         this.OperatingRooms_with_spec = new ArrayList<OperatingRoom>();
 
@@ -34,8 +33,8 @@ public class Specialization {
         return this.spec_name;
     }
 
-    public ArrayList<Patient> getPatient_queue() {
-        return this.patient_queue;
+    public ArrayList<Patient> getPatient_array_list() {
+        return this.patient_array_list;
     }
 
 
@@ -51,8 +50,8 @@ public class Specialization {
         this.spec_name = spec_name;
     }
 
-    public void setPatient_queue(ArrayList<Patient> patient_queue) {
-        this.patient_queue = patient_queue;
+    public void setPatient_array_list(ArrayList<Patient> patient_queue) {
+        this.patient_array_list = patient_queue;
     }
 
     public void setDoctors_with_spec(ArrayList<Doctor> doctors_with_spec) {

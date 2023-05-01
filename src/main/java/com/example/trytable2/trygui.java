@@ -1,12 +1,10 @@
 package com.example.trytable2;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
+
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -20,16 +18,10 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.TabPane;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
 
-import javafx.animation.AnimationTimer;
-import javafx.util.Duration;
 
 public class trygui extends Application {
 
@@ -371,7 +363,7 @@ public class trygui extends Application {
         specCol3.setCellValueFactory(new PropertyValueFactory("spec_needed"));
         specCol3.setPrefWidth(100);
 
-        Iterator<Patient> iterator = v.getPatient_queue().iterator();
+        Iterator<Patient> iterator = v.getPatient_array_list().iterator();
         while(iterator.hasNext()){
             Patient q = iterator.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -484,7 +476,7 @@ public class trygui extends Application {
 
         // for vascular surgery
 
-        Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
+        Iterator<Patient> iterator2 = n.getPatient_array_list().iterator();
         while(iterator2.hasNext()){
             Patient k = iterator2.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -494,7 +486,7 @@ public class trygui extends Application {
 
         }
 
-        Iterator<Patient> iterator3 = p.getPatient_queue().iterator();
+        Iterator<Patient> iterator3 = p.getPatient_array_list().iterator();
         while(iterator3.hasNext()){
             Patient z = iterator3.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -502,7 +494,7 @@ public class trygui extends Application {
             //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
-        Iterator<Patient> iterator4 = c.getPatient_queue().iterator();
+        Iterator<Patient> iterator4 = c.getPatient_array_list().iterator();
         while(iterator4.hasNext()){
             Patient q = iterator4.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());

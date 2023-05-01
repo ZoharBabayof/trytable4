@@ -16,7 +16,7 @@ public class Model
 
     static ArrayList<Specialization> specs;//ArrayList for every kind of specialization
     static ArrayList<OperatingRoom> operatingRooms;//ArrayList for every OperatingRoom
-    static RecoveryRoom recoveryRoom; //one RecoveryRoom in project
+     static RecoveryRoom recoveryRoom; //one RecoveryRoom in project
 
     static ArrayList<Doctor> doctors;//ArrayList for every OperatingRoom
     static ArrayList<Doctor> availDoctors = new ArrayList() ;//ArrayList for every OperatingRoom
@@ -141,7 +141,7 @@ public class Model
                     if (data.length == 6) {
                         Patient patient = new Patient(data[1], data[2], Double.parseDouble(data[3]), Double.parseDouble(data[4]), StrToSpec(data[5]));
                         Specialization s = patient.getSpec_needed();
-                        s.getPatient_queue().add(patient);
+                        s.getPatient_array_list().add(patient);
                     }
                     else
                     {
@@ -192,19 +192,19 @@ public class Model
         }
 // print patients
         System.out.println("\n V Patients:");
-        for (Patient patient : v.getPatient_queue()) {
+        for (Patient patient : v.getPatient_array_list()) {
             System.out.println("- " + patient.toString());
         }
         System.out.println("\n N Patients:");
-        for (Patient patient : n.getPatient_queue()) {
+        for (Patient patient : n.getPatient_array_list()) {
             System.out.println("- " + patient.toString());
         }
         System.out.println("\n C Patients:");
-        for (Patient patient : c.getPatient_queue()) {
+        for (Patient patient : c.getPatient_array_list()) {
             System.out.println("- " + patient.toString());
         }
         System.out.println("\n P Patients:");
-        for (Patient patient : p.getPatient_queue()) {
+        for (Patient patient : p.getPatient_array_list()) {
             System.out.println("- " + patient.toString());
         }
 
@@ -459,17 +459,9 @@ public class Model
 
         int doctorCounter = 0;
 
-        while (doctorCounter < availDoctors.size() && (v.getPatient_queue().size() > 0 || c.getPatient_queue().size() > 0 || p.getPatient_queue().size() > 0 || n.getPatient_queue().size() > 0) && !availDoctors.isEmpty() && !availOpRooms.isEmpty()) {//
+        while (doctorCounter < availDoctors.size() && (v.getPatient_array_list().size() > 0 || c.getPatient_array_list().size() > 0 || p.getPatient_array_list().size() > 0 || n.getPatient_array_list().size() > 0) && !availDoctors.isEmpty() && !availOpRooms.isEmpty()) {//
 
-//            for (int i = 0; i < availDoctors.size(); i++) {
-//                System.out.println(availDoctors.get(i));
-//
-//            }
-//            for (int i = 0; i < availOpRooms.size(); i++) {
-//                System.out.println(availOpRooms.get(i));
-//
-//            }
-//            System.out.println("-------------");
+
             sortRoomHeapBySpecialityLength();
 
 
@@ -490,12 +482,12 @@ public class Model
                         Specialization specConnect = null;
                         specConnect = op.canOperateOn(d1);
                         Patient chosenP = null;
-                        if (specConnect != null && specConnect.getPatient_queue().size() > 0) {//////////
-                            chosenP = specConnect.getPatient_queue().get(0);
+                        if (specConnect != null && specConnect.getPatient_array_list().size() > 0) {//////////
+                            chosenP = specConnect.getPatient_array_list().get(0);
                         }
-                        if (specConnect != null&&d1.getSpecialities_array().length>0&&d1.getSpecialities_array()[0].getPatient_queue().size() > 0) {/////////
-                            double maxcalc = d1.getSpecialities_array()[0].getPatient_queue().get(0).getUrgency_level() / d1.getSpecialities_array()[0].getPatient_queue().get(0).getWaiting_time();
-                            for (Patient p : specConnect.getPatient_queue()) {
+                        if (specConnect != null&&d1.getSpecialities_array().length>0&&d1.getSpecialities_array()[0].getPatient_array_list().size() > 0) {/////////
+                            double maxcalc = d1.getSpecialities_array()[0].getPatient_array_list().get(0).getUrgency_level() / d1.getSpecialities_array()[0].getPatient_array_list().get(0).getWaiting_time();
+                            for (Patient p : specConnect.getPatient_array_list()) {
                                 if (p.getUrgency_level() / p.getWaiting_time() > maxcalc) {
                                     maxcalc = p.getUrgency_level() / p.getWaiting_time();
                                     chosenP = p;
@@ -517,8 +509,7 @@ public class Model
 
                             op.setIs_available(false);
 
-                         //   availOpRooms.remove(op);
-                            spec2.getPatient_queue().remove(chosenP);
+                            spec2.getPatient_array_list().remove(chosenP);
 
                             flagf = true;
 
@@ -544,7 +535,7 @@ public class Model
     public void sortPatientCollection(Specialization spec)
 
     {
-        ArrayList<Patient> patientList = spec.getPatient_queue();
+        ArrayList<Patient> patientList = spec.getPatient_array_list();
         Collections.sort(patientList, new Comparator<Patient>() {
             @Override
             public int compare(Patient p1, Patient p2) {
@@ -631,237 +622,7 @@ public class Model
         }
     }
 
-//
-//    public void sortDoctorHeap() {
-//        int n = availDoctors.size();
-//        for (int i = n / 2 - 1; i >= 0; i--) {
-//            heapifyDoctors(availDoctors, n, i);
-//        }
-//    }
-//
-//    public void sortRoomHeap() {
-//        int n = availOpRooms.size();
-//        for (int i = n / 2 - 1; i >= 0; i--) {
-//            heapifyRooms(availOpRooms, n, i);
-//        }
-//    }
-//
-//    private void heapifyDoctors(List<Doctor> heap, int n, int i) {
-//        int largest = i;
-//        int left = 2 * i + 1;
-//        int right = 2 * i + 2;
-//
-//
-//        if (left < n && calculatePriority(heap.get(left), null) > calculatePriority(heap.get(largest), null)) {
-//            largest = left;
-//        }
-//
-//        if (right < n && calculatePriority(heap.get(right), null) > calculatePriority(heap.get(largest), null)) {
-//            largest = right;
-//        }
-//
-//        if (largest != i) {
-//            Doctor temp = heap.get(i);
-//            heap.set(i, heap.get(largest));
-//            heap.set(largest, temp);
-//            heapifyDoctors(heap, n, largest);
-//        }
-//    }
-//
-//    private void heapifyRooms(List<OperatingRoom> heap, int n, int i) {
-//        int largest = i;
-//        int left = 2 * i + 1;
-//        int right = 2 * i + 2;
-//
-//        if (left < n && calculatePriority(null, heap.get(left)) > calculatePriority(null, heap.get(largest))) {
-//            largest = left;
-//        }
-//
-//        if (right < n && calculatePriority(null, heap.get(right)) > calculatePriority(null, heap.get(largest))) {
-//            largest = right;
-//        }
-//
-//        if (largest != i) {
-//            OperatingRoom temp = heap.get(i);
-//            heap.set(i, heap.get(largest));
-//            heap.set(largest, temp);
-//            heapifyRooms(heap, n, largest);
-//        }
-//    }
-//
-//
-//    public void sortPatientHeap(Specialization specialization) {
-//        int n = specialization.getPatient_queue().size();
-//        for (int i = n / 2 - 1; i >= 0; i--) {
-//            heapifyPatients(specialization.getPatient_queue(), i);
-//        }
-//    }
-//
-//    private void heapifyPatients(List<Patient> patientQueue, int i) {
-//        int n = patientQueue.size();
-//        int largest = i;
-//        int l = 2 * i + 1;
-//        int r = 2 * i + 2;
-//
-//        if (l < n && patientQueue.get(l).getUrgency_level() > patientQueue.get(largest).getUrgency_level()) {
-//            largest = l;
-//        }
-//
-//        if (r < n && patientQueue.get(r).getUrgency_level() > patientQueue.get(largest).getUrgency_level()) {
-//            largest = r;
-//        }
-//
-//        if (largest != i) {
-//            Patient temp = patientQueue.get(i);
-//            patientQueue.set(i, patientQueue.get(largest));
-//            patientQueue.set(largest, temp);
-//
-//            heapifyPatients(patientQueue, largest);
-//        }
-//    }
-//
-////
-////    /**
-////     * Calculates the priority of assigning a patient to a given doctor and room. The higher the priority value, the better
-////     * the match between the patient, doctor, and room.
-////     *
-////     * @param doctor the doctor to consider
-////     * @param room the room to consider
-////     * @return the priority value
-////     */
-////    private int calculatePriority(Doctor doctor, OperatingRoom room) {
-////        int priority = 0;
-////        if(room!=null&&doctor!=null) {
-////            if (doctor.getSpecialities_array()[0] == room.getSpecialities_array()[0]) {//!!!!!!!!!!!!!!!!!!!!!!!!!!!
-////                priority += 2;
-////            }
-////            if (doctor.isIs_available() && room.isIs_available()) {
-////                priority += 1;
-////            }
-////        }
-////            return priority;
-////
-////    }
-//private int calculatePriority(Doctor doctor, OperatingRoom room) {
-//    int priority = 0;
-//    if(room!=null||doctor!=null) {
-//        if (doctor.isIs_available() && room.isIs_available()) {
-//            int doctorSpecialitySize = doctor.getSpecialities_array().length;
-//            int roomSpecialitySize = room.getSpecialities_array().length;
-//            priority = doctor.getPriority() + room.getPriority();
-//
-//            // Increase priority for doctors and rooms with smaller size of Specialities_array
-//            if (doctorSpecialitySize < roomSpecialitySize) {
-//                priority += (roomSpecialitySize - doctorSpecialitySize) * 5;
-//            } else if (roomSpecialitySize < doctorSpecialitySize) {
-//                priority += (doctorSpecialitySize - roomSpecialitySize) * 5;
-//            }
-//        }
-//    }
-//    return priority;
-//}
 
-
-    /**
-     * An enumeration representing the different specializations of doctors.
-     */
-
-
-
-//    class Patient implements Comparable<Patient> {
-//        private int id;
-//        private int priority;
-//
-//        public Patient(int id, int priority) {
-//            this.id = id;
-//            this.priority = priority;
-//        }
-//
-//        public int getId() {
-//            return id;
-//        }
-//
-//        public int getPriority() {
-//            return priority;
-//        }
-//    class Patient implements Comparable<Patient> {
-//        private int id;
-//        private int priority;
-//        private ArrayList<String> requiredSpecialties;
-//        private int duration;
-//
-//        public Patient(int id, int priority, ArrayList<String> requiredSpecialties, int duration) {
-//            this.id = id;
-//            this.priority = priority;
-//            this.requiredSpecialties = requiredSpecialties;
-//            this.duration = duration;
-//        }
-//
-//        public int getId() {
-//            return id;
-//        }
-//
-//        public int getPriority() {
-//            return priority;
-//        }
-//
-//        public ArrayList<String> getRequiredSpecialties() {
-//            return requiredSpecialties;
-//        }
-//
-//        public int getDuration() {
-//            return duration;
-//        }
-//
-//        // Define the compareTo method to compare patients by priority
-//        @Override
-//        public int compareTo(Patient other) {
-//            return Integer.compare(other.priority, this.priority);
-//        }
-//    }
-
-
-//class Patient implements Comparable<Patient> {
-//    private int id;
-//    private int priority;
-//    private ArrayList<String> requiredSpecial
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // 5 seconds to sorting
-    // i must to
-    // i can work with iterator but i dont
 
 
 }

@@ -17,7 +17,7 @@ public class OperatingRoom
     private Patient pat1;
 
 
-    public OperatingRoom(Specialization [] arryscep)
+    public OperatingRoom(Specialization [] arryspec)
     {
         this.specialities_array = specialities_array;
         roomcounter++;
@@ -27,7 +27,7 @@ public class OperatingRoom
         this.room_id = room_id;// mispur of operation rooms from 1 to number of rooms
         this.Is_available = true;
         this.time_left_evalution = time_left_evalution;
-        this.specialities_array = arryscep;
+        this.specialities_array = arryspec;
 
     }
 

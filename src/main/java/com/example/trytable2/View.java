@@ -114,7 +114,7 @@ public class View extends Application {
     static Tab tab3 = new Tab("Pediatric_surgery");
     static Tab tab4 = new Tab("Card_surgery");
 
-    static Tab tab5 = new Tab("Event_Room");// beacuse I want the tab of clock to be the event room
+    static Tab tab5 = new Tab("Time");// beacuse I want the tab of clock to be the event room
     static  Tab surg_tab = new Tab("Surgeries");
 
 
@@ -152,7 +152,7 @@ public class View extends Application {
 
 
         data.clear();
-        Iterator<Patient> iterator = v.getPatient_queue().iterator();
+        Iterator<Patient> iterator = v.getPatient_array_list().iterator();
         while(iterator.hasNext()){
             Patient q = iterator.next();
             data.add(q);
@@ -160,7 +160,7 @@ public class View extends Application {
         }
 
         data2.clear();
-        Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
+        Iterator<Patient> iterator2 = n.getPatient_array_list().iterator();
         while(iterator2.hasNext()){
             Patient k = iterator2.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -171,7 +171,7 @@ public class View extends Application {
         }
         data3.clear();
 
-        Iterator<Patient> iterator3 = p.getPatient_queue().iterator();
+        Iterator<Patient> iterator3 = p.getPatient_array_list().iterator();
         while(iterator3.hasNext()){
             Patient z = iterator3.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -181,7 +181,7 @@ public class View extends Application {
         }
         data4.clear();
 
-        Iterator<Patient> iterator4 = c.getPatient_queue().iterator();
+        Iterator<Patient> iterator4 = c.getPatient_array_list().iterator();
         while(iterator4.hasNext()){
             Patient q = iterator4.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -435,7 +435,7 @@ public class View extends Application {
         specCol3.setCellValueFactory(new PropertyValueFactory("spec_needed"));
         specCol3.setPrefWidth(100);
 
-        Iterator<Patient> iterator = v.getPatient_queue().iterator();
+        Iterator<Patient> iterator = v.getPatient_array_list().iterator();
         while(iterator.hasNext()){
             Patient q = iterator.next();
             data.add(q);
@@ -577,7 +577,7 @@ public class View extends Application {
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
+        Iterator<Patient> iterator2 = n.getPatient_array_list().iterator();
         while(iterator2.hasNext()){
             Patient k = iterator2.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -587,7 +587,7 @@ public class View extends Application {
 
         }
 
-        Iterator<Patient> iterator3 = p.getPatient_queue().iterator();
+        Iterator<Patient> iterator3 = p.getPatient_array_list().iterator();
         while(iterator3.hasNext()){
             Patient z = iterator3.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -595,7 +595,7 @@ public class View extends Application {
             //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
-        Iterator<Patient> iterator4 = c.getPatient_queue().iterator();
+        Iterator<Patient> iterator4 = c.getPatient_array_list().iterator();
         while(iterator4.hasNext()){
             Patient q = iterator4.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -904,9 +904,9 @@ public class View extends Application {
 
        // Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             // add 3 new patients to the queue
-            n.getPatient_queue().add(newPatient);
-            n.getPatient_queue().add(newPatient);
-            n.getPatient_queue().add(newPatient);
+            n.getPatient_array_list().add(newPatient);
+            n.getPatient_array_list().add(newPatient);
+            n.getPatient_array_list().add(newPatient);
 
      //   }));
 //
@@ -937,7 +937,7 @@ public class View extends Application {
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             // call your refresh() function here
-           
+
             surgeries = presenter.retSurges();
             refresh(surgeries);
 

@@ -99,14 +99,15 @@ public class Patient implements Comparable<Patient>
     }
     @Override
     public String toString() {
-        return "Patient{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                ", waiting_time=" + waiting_time +
-                ", severity_before=" + severity_before +
-                ", urgency_level=" + urgency_level +
-                ", spec_needed='" + spec_needed.getSpec_name() + '\'' +
-                '}';
+        return name;
+//                "Patient{" +
+//                "name='" + name + '\'' +
+//                ", id='" + id + '\'' +
+//                ", waiting_time=" + waiting_time +
+//                ", severity_before=" + severity_before +
+//                ", urgency_level=" + urgency_level +
+//                ", spec_needed='" + spec_needed.getSpec_name() + '\'' +
+//                '}';
     }
 
     // Define the compareTo method to compare patients by priority
