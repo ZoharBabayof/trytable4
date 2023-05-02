@@ -132,7 +132,7 @@ public class View extends Application {
 
     /**
      *
-     * not used. egnore.
+     * not relevant. ignore.
      */
 
     public static void opRoomsInformation(Stage primaryStage, ArrayList<Specialization> specs)
@@ -144,9 +144,9 @@ public class View extends Application {
 
     /**
      *
-     * @param retSurges
+     * refresh all the data variables information(refresh their collection) by clear all and fill them again
      */
-    public void refresh(ArrayList<Surgery> retSurges)
+    public void refresh(ArrayList<Surgery> retSurges)// parameter not relevant
     {
         surgeries_data.clear();
         Iterator<Surgery> surg_iterator = surgeries.iterator();
@@ -245,7 +245,12 @@ public class View extends Application {
 
     }
 
-
+    /**
+     *
+     * we call this function in the beginning. it creates all tables and put in them the information from collections
+     * in them.
+     *
+     */
     public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs)
     {
 
@@ -707,7 +712,10 @@ public class View extends Application {
 
     }
 
-
+    /**
+     *
+     * to all the preparations a timer to the user in javafx.
+     */
     public static void CreateTimer(Stage primaryStage )
     {
         // Button btStart = new Button("Start");
@@ -737,6 +745,10 @@ public class View extends Application {
     }
 
 
+    /**
+    show add the surgeries to the surgeries collection to show to user in future.
+     gets doctor, patient, operating room to connect in a one new surgery.
+     **/
     public void showSurgery(Doctor d, Patient pat, OperatingRoom op)
     {
         Surgery surg = new Surgery(pat.getSpec_needed(), d, pat, op,0);
@@ -744,6 +756,11 @@ public class View extends Application {
     }
 
 
+    /**
+     *
+     * @param retSurges - arraylist, collection of surgeries.
+     * this function create the surgeries table to user in javafx.
+     */
     public void showSurgerytable( ArrayList<Surgery> retSurges) {
 
 
@@ -811,7 +828,9 @@ public class View extends Application {
 
 
 
-
+/**
+    Stage stage
+ **/
     @Override
 
     public void start(Stage stage) throws IOException, InterruptedException {
@@ -998,11 +1017,12 @@ public class View extends Application {
     }
 
 
-
-
-
-
-
+    /**
+     *
+     * @param args
+     * @throws IOException
+     * launch the View.
+     */
     public static void main(String[] args) throws IOException {
         launch();
         //Stage newstage = new Stage();

@@ -32,6 +32,16 @@ public class Doctor {
         return false;
     }
 
+    public boolean specinSpecialities(Specialization s1)
+    {
+        for(Specialization s:this.specialities_array)
+        {
+            if (s.getSpec_name().equals(s1.getSpec_name()))
+                return true;
+
+        }
+        return false;
+    }
     public int getPriority()// by the number of specs you treat. the more the less its less urgent to put you with patient because you can treat more kinds
     {
 //        if(this.specialities_array==null)

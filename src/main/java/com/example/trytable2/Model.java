@@ -501,11 +501,11 @@ public class Model
                 Doctor d1 = availDoctors.get(doctorCounter);
                 int i = 0;
                 boolean flagf = false;
+                //search and connect availiable oproom to doctor while not finish seraching in
+                // avail oproooms and an aproppriate patient and room not found
                 while (flagf == false&&i < availOpRooms.size() ) {
-                    sortPatientCollection(v);
-                    sortPatientCollection(c);
-                    sortPatientCollection(p);
-                    sortPatientCollection(n);
+                    for(Specialization s:specs )
+                        sortPatientCollection(s);
 
                     if ( availOpRooms.get(i).isIs_available() == true) {//
                         OperatingRoom op = availOpRooms.get(i);
@@ -518,11 +518,14 @@ public class Model
                             chosenP = specConnect.getPatient_array_list().get(0);
                         }
                         if (specConnect != null&&d1.getSpecialities_array().length>0&&d1.getSpecialities_array()[0].getPatient_array_list().size() > 0) {/////////
-                            double maxcalc = d1.getSpecialities_array()[0].getPatient_array_list().get(0).getUrgency_level();
-                            for (Patient p : specConnect.getPatient_array_list()) {// compare between the most urgent patient in every spec
-                                if (p.getUrgency_level() > maxcalc) {
-                                    maxcalc = p.getUrgency_level() ;
-                                    chosenP = p;
+                            double maxcalc = 0;//d1.getSpecialities_array()[0].getPatient_array_list().get(0).getUrgency_level();
+                            // search the most urgent patient from each spec the doctor can treat
+                            // the most urgent pati
+                            for (Specialization s : specs)
+                            {// compare between the most urgent patient in every spec
+                                if (s.getPatient_array_list().size() > 0&&s.getPatient_array_list().get(0).getUrgency_level() > specConnect.getPatient_array_list().get(0).getUrgency_level()&&op.specinSpecialities(s)&& d1.specinSpecialities(s)) {//)
+                                    specConnect = s;
+                                    chosenP = specConnect.getPatient_array_list().get(0);
                                 }
                             }
 
@@ -557,6 +560,7 @@ public class Model
             doctorCounter++;
 
         }
+        // for every surgery reduce in 1 the time_left and set doctors Oproom to availiable if time_left<=0
         for(Surgery s :surgeries)
         {
             s.setTime_left(Double.toString(Double.parseDouble(s.getTime_left())-1));
@@ -610,7 +614,7 @@ public class Model
         for (int i = n / 2 - 1; i >= 0; i--) {
             heapifyDoctorsBySpecialityLength(availDoctors, n, i);
         }
-        for (int i = n - 1; i > 0; i--) {
+        for (int i = n - 1; i > 0; i--) {// this part try to "lehavtih et hamiyun" but it doesnt seems necesery
             Doctor temp = availDoctors.get(0);
             availDoctors.set(0, availDoctors.get(i));
             availDoctors.set(i, temp);
@@ -652,7 +656,7 @@ public class Model
         for (int i = n / 2 - 1; i >= 0; i--) {
             heapifyRoomsBySpecialityLength(availOpRooms, n, i);
         }
-        for (int i = n - 1; i > 0; i--) {
+        for (int i = n - 1; i > 0; i--) {// this part try to "lehavtih et hamiyun" but it doesnt seems necesery
             OperatingRoom temp = availOpRooms.get(0);
             availOpRooms.set(0, availOpRooms.get(i));
             availOpRooms.set(i, temp);

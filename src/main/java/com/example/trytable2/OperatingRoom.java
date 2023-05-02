@@ -69,11 +69,21 @@ public class OperatingRoom
         for(Specialization s:this.specialities_array)
         {
             for(Specialization s2:d.getSpecialities_array()) {
-                if (s.getSpec_name().equals(s2.getSpec_name()))
+                if (s.getSpec_name().equals(s2.getSpec_name())&&s.getPatient_array_list().size()>0)
                     return s2;
             }
         }
         return null;
+    }
+    public boolean specinSpecialities(Specialization s1)
+    {
+        for(Specialization s:this.specialities_array)
+        {
+                if (s.getSpec_name().equals(s1.getSpec_name()))
+                    return true;
+
+        }
+        return false;
     }
 
 
