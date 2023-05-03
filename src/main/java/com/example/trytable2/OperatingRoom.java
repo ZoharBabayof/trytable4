@@ -64,6 +64,11 @@ public class OperatingRoom
         this.Is_available = false;
     }
 
+    /**
+     *
+     * @param - doctor d
+     * @return if the operating room have spec of the doctor
+     */
     public Specialization canOperateOn(Doctor d)
     {
         for(Specialization s:this.specialities_array)
@@ -75,6 +80,12 @@ public class OperatingRoom
         }
         return null;
     }
+
+    /**
+     *
+     * @param- Specialization  s1
+     * @return if the spec in the specialities_array
+     */
     public boolean specinSpecialities(Specialization s1)
     {
         for(Specialization s:this.specialities_array)
@@ -87,6 +98,8 @@ public class OperatingRoom
     }
 
 
+
+// not relevant. ignore.
     public int getPriority()// by the number of specs you treat. the more the less its less urgent to put you with patient because you can treat more kinds
     {
 

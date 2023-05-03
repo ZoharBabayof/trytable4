@@ -150,15 +150,16 @@ public class View extends Application {
     {
         surgeries_data.clear();
         Iterator<Surgery> surg_iterator = surgeries.iterator();
+        // add all objects of surgery to the data
         while(surg_iterator.hasNext()){
             Surgery s = surg_iterator.next();
             surgeries_data.add(s);
 
         }
 
-
         data.clear();
         Iterator<Patient> iterator = v.getPatient_array_list().iterator();
+        //add all objects of patient in the spec to the data
         while(iterator.hasNext()){
             Patient q = iterator.next();
             data.add(q);
@@ -167,32 +168,28 @@ public class View extends Application {
 
         data2.clear();
         Iterator<Patient> iterator2 = n.getPatient_array_list().iterator();
+        //add all objects of patient in the spec to the data
         while(iterator2.hasNext()){
             Patient k = iterator2.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
 
             data2.add(k);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
-
         }
         data3.clear();
 
         Iterator<Patient> iterator3 = p.getPatient_array_list().iterator();
+        //add all objects of patient in the spec to the data
         while(iterator3.hasNext()){
             Patient z = iterator3.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data3.add(z);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
         data4.clear();
 
         Iterator<Patient> iterator4 = c.getPatient_array_list().iterator();
+        //add all objects of patient in the spec to the data
         while(iterator4.hasNext()){
             Patient q = iterator4.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data4.add(q);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
 
@@ -202,44 +199,39 @@ public class View extends Application {
 
         data5.clear();
         Iterator<Doctor> iterator5 = v.getDoctors_with_spec().iterator();
+        //add all objects of doctor in the spec to the data
         while(iterator5.hasNext()){
             Doctor q = iterator5.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data5.add(q);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
 
 
         data6.clear();
         Iterator<Doctor> iterator6 = n.getDoctors_with_spec().iterator();
+        //add all objects of doctor in the spec to the data
         while(iterator6.hasNext()){
             Doctor q = iterator6.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data6.add(q);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
 
         data7.clear();
         Iterator<Doctor> iterator7 = p.getDoctors_with_spec().iterator();
+        //add all objects of doctor in the spec to the data
         while(iterator7.hasNext()){
             Doctor q = iterator7.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data7.add(q);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
 
         data8.clear();
 
         Iterator<Doctor> iterator8 = c.getDoctors_with_spec().iterator();
+        //add all objects of doctor in the spec to the data
         while(iterator8.hasNext()){
             Doctor q = iterator8.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data8.add(q);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
-
         }
 
 
@@ -253,10 +245,6 @@ public class View extends Application {
      */
     public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs)
     {
-
-
-        //   v.getPatient_queue().stream().sorted();
-
         // get all the specilizations objects
         System.out.println(specs.get(0).toString());
         n = specs.get(0);
@@ -271,9 +259,7 @@ public class View extends Application {
 
 
         //Creating columns
-        //name id is_available current_room_id
 
-        // add doctors of neuro surgery
 
         TableColumn NameCol5 = new TableColumn("Name");
         NameCol5.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -292,11 +278,10 @@ public class View extends Application {
 
         //
         Iterator<Doctor> iterator5 = v.getDoctors_with_spec().iterator();
+        //add all objects of doctor in the spec to the data
         while(iterator5.hasNext()){
             Doctor q = iterator5.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data5.add(q);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
         table5.setItems(data5);
@@ -320,6 +305,7 @@ public class View extends Application {
 
         //
         Iterator<Doctor> iterator6 = n.getDoctors_with_spec().iterator();
+        //add all objects of doctor in the spec to the data
         while(iterator6.hasNext()){
             Doctor q = iterator6.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -348,6 +334,7 @@ public class View extends Application {
 
         //
         Iterator<Doctor> iterator7 = p.getDoctors_with_spec().iterator();
+        //add all objects of doctor in the spec to the data
         while(iterator7.hasNext()){
             Doctor q = iterator7.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -375,6 +362,7 @@ public class View extends Application {
 
         //
         Iterator<Doctor> iterator8 = c.getDoctors_with_spec().iterator();
+        //add all objects of doctor in the spec to the data
         while(iterator8.hasNext()){
             Doctor q = iterator8.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
@@ -447,6 +435,7 @@ public class View extends Application {
         specCol3.setPrefWidth(100);
 
         Iterator<Patient> iterator = v.getPatient_array_list().iterator();
+        //add all objects of patient in the spec to the data
         while(iterator.hasNext()){
             Patient q = iterator.next();
             data.add(q);
@@ -589,30 +578,26 @@ public class View extends Application {
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         Iterator<Patient> iterator2 = n.getPatient_array_list().iterator();
+        //add all objects of patient in the spec to the data
         while(iterator2.hasNext()){
             Patient k = iterator2.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
 
             data2.add(k);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
 
         Iterator<Patient> iterator3 = p.getPatient_array_list().iterator();
+        //add all objects of patient in the spec to the data
         while(iterator3.hasNext()){
             Patient z = iterator3.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data3.add(z);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
 
         }
         Iterator<Patient> iterator4 = c.getPatient_array_list().iterator();
+        //add all objects of patient in the spec to the data
         while(iterator4.hasNext()){
             Patient q = iterator4.next();
-            //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data4.add(q);
-            //    FileData l =  new FileData(q.getName(), q.getId(), String.valueOf(q.getSeverity_before()), String.valueOf(q.getWaiting_time()),q.getSpec_needed());
-
         }
         //Adding data to the table
         ObservableList<String> list2 = FXCollections.observableArrayList();
@@ -718,12 +703,7 @@ public class View extends Application {
      */
     public static void CreateTimer(Stage primaryStage )
     {
-        // Button btStart = new Button("Start");
-        //  Button btClear = new Button("Clear");
-        // Create a hbox for buttons
-        //HBox paneForButtons = new HBox(5);
-        // paneForButtons.setAlignment(Pos.CENTER);
-        // paneForButtons.getChildren().addAll(btStart, btClear);
+
         tabPane = new TabPane();
         tabPane.setSide(Side.BOTTOM);
         // Create a Stopwatch
@@ -737,9 +717,7 @@ public class View extends Application {
         Scene scene = new Scene(pane);
         primaryStage.setTitle("CLOCK");
         primaryStage.setScene(scene);
-        //  primaryStage.show();
 
-        // Button button = new Button("Button" + Integer.toString(i));
         tab5.setContent(pane);
         tabPane.getTabs().add(tab5);
     }
@@ -868,20 +846,16 @@ public class View extends Application {
 
 
 
-        // Button button = new Button("Button" + Integer.toString(i));
         tab2.setContent(pane2);
         tabPane.getTabs().add(tab2);
 
-        // Button button = new Button("Button" + Integer.toString(i));
         tab3.setContent(pane3);
         tabPane.getTabs().add(tab3);
 
-        // Button button = new Button("Button" + Integer.toString(i));
         tab4.setContent(pane4);
         tabPane.getTabs().add(tab4);
         root.setCenter(tabPane);
         Scene scene = new Scene(root, 800, 500);
-        //  scene.add;
         stage2.setScene(scene);
         Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
         stage2.setX(visualBounds.getMinX());
@@ -890,79 +864,6 @@ public class View extends Application {
         stage2.setHeight(visualBounds.getHeight());
         stage2.setTitle("THE EFFICIENT HOSPITAL - ZOHAR BABAYOF");
         stage2.show();
-//        LocalDateTime now = LocalDateTime.now();
-//        int zohar = now.getMinute();
-//        for (int i = 0; i < 10000; i++) {
-//            if (i == 999)
-//                changepane();
-//        }
-
-
-        Patient newPatient = new Patient("John", "123", 10, 5, n); // need to put in view also reading the file
-//        new Thread(() -> {
-//            try {
-//                // Wait for 5 seconds
-//                Thread.sleep(5000);
-//
-//                // Add a new patient to the data list
-//
-//                data2.add(newPatient);
-//
-//                // Update the table with the new data
-//                Platform.runLater(() -> {
-//                    table2.setItems(data2);
-//
-//                    // Select the new row in the table
-//                    table2.getSelectionModel().select(newPatient);
-//
-//                    // Update the UI to show the new data in the tab
-//                    tab2.setContent(pane2);
-//                });
-//
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }).start();
-
-
-
-
-
-
-// good example to how I overcame the problem of javaFX running beside thread://////////////////////////////////////////////////////////////
-
-       // Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
-            // add 3 new patients to the queue
-            n.getPatient_array_list().add(newPatient);
-            n.getPatient_array_list().add(newPatient);
-            n.getPatient_array_list().add(newPatient);
-
-     //   }));
-//
-//        Timeline delay2 = new Timeline(new KeyFrame(Duration.seconds(0.05), event2 -> {
-//            try {
-//                p.Algorithem();
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }));
-//        delay2.play();
-//        System.out.println("ended correctly");
-
-
-//        // update the data with the new patients
-//        data2.clear();
-//        Timeline delay = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
-//            Iterator<Patient> iterator2 = n.getPatient_queue().iterator();
-//            while (iterator2.hasNext()) {
-//                Patient k = iterator2.next();
-//                data2.add(k);
-//            }
-//        }));
-//        delay.play();
-// start the timeline
-      //  timeline.play();
-
 
 
 
@@ -982,7 +883,6 @@ public class View extends Application {
         timeline2.play();
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            // call your refresh() function here
 
             surgeries = presenter.retSurges();
             refresh(surgeries);
@@ -990,43 +890,18 @@ public class View extends Application {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-//        new Thread(() -> {
-//            try {
-//        Thread.sleep(5000);
-//
-//        }
-//
-//        // Update the table with the new data
-//        table2.setItems(data2);
-//
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }).start();
 
-//        //Thread.sleep(5000L);
-//        while (true) {
-//            zohar = now.getSecond();
-//            if (zohar == 59) {
-//                pane2.getChildren().addAll(row);
-//                break;
-//            }
-//
-//            //
-        //    }
     }
 
 
     /**
      *
-     * @param args
+     * @param - String[] args
      * @throws IOException
      * launch the View.
      */
     public static void main(String[] args) throws IOException {
         launch();
-        //Stage newstage = new Stage();
-        // idan(newstage,"z");
-        //idan();
+
     }
 }

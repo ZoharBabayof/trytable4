@@ -86,6 +86,7 @@ public class Model
     public boolean SpecinRoomSpecArr(OperatingRoom room, Specialization s)
     {
         int counter = 0;
+        //run until speciality found or until counter = room.getSpecialities_array()
         while(counter!=room.getSpecialities_array().length&&s!=room.getSpecialities_array()[counter])
         {
             counter++;
@@ -105,6 +106,7 @@ public class Model
     public boolean SpecinDocSpecArr(Doctor doc, Specialization s)
     {
         int counter = 0;
+        //run until speciality found or until counter = doc.getSpecialities_array()
         while(counter!=doc.getSpecialities_array().length&&s!=doc.getSpecialities_array()[counter])
         {
             counter++;
@@ -128,6 +130,7 @@ public class Model
         try {
             File file = new File("C:\\Users\\User\\IdeaProjects\\trytable2\\src\\main\\java\\com\\example\\trytable2\\HospitalInfo.txt");
             Scanner scanner = new Scanner(file);
+            // while there is next line in file read the line information
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.contains("OperatingRoom")) {
@@ -237,140 +240,6 @@ public class Model
     public  ArrayList<Specialization>  StartModel() throws IOException // put values in all patients, doctors rooms and structures
     {
 
-
-
-
-
-
-
-
-        //---------------------------------------------------------------------------
-        // create all patients:
-
-//
-//        // add patients to their aproppriate spec needed:
-//        n.getPatient_queue().add(a);
-//        p.getPatient_queue().add(b);
-//        c.getPatient_queue().add(f);
-//        v.getPatient_queue().add(d);
-//        v.getPatient_queue().add(e);
-//        v.getPatient_queue().add(e1);
-//        v.getPatient_queue().add(e2);
-//        v.getPatient_queue().add(e3);
-//        v.getPatient_queue().add(e4);
-//
-//        // add all specs to the ArrayList
-//        this.specs.add(n);
-//        this.specs.add(p);
-//        this.specs.add(c);
-//        this.specs.add(v);
-//
-
-//        OperatingRoom op1 = new OperatingRoom();
-//        OperatingRoom op2 = new OperatingRoom();
-//        OperatingRoom op3 = new OperatingRoom();
-//        OperatingRoom op4 = new OperatingRoom();
-//        // add specialities to specialities_array in OperatingRooms
-//        op1.getSpecialities_array().add(n); // add Neurosurgery
-//        op1.getSpecialities_array().add(v);// add Vascular_surgery
-//
-//        op2.getSpecialities_array().add(p); // add Pediatric_surgery
-//        op2.getSpecialities_array().add(c);// add Card_surgery
-//
-//        op3.getSpecialities_array().add(c); // add Card_surgery
-//        op4.getSpecialities_array().add(n); // add Neurosurgery
-
-        // add all OperatingRooms to oprooms(array list of all OperatingRooms)
-//        this.oprooms.add(op1);
-//        this.oprooms.add(op1);
-//        this.oprooms.add(op1);
-//        this.oprooms.add(op1);
-
-//-------------------------------------------------------------------------------
-
-        //create the RecoveryRooms
-//
-//        // init ArrayList:
-//        this.recoveryRoom = new RecoveryRoom();
-//
-//        // adding patients to the recovery room that will be in the beginning :
-//
-//        Patient p7 = new Patient("e3","1",4,-1,"Vascular_surgery");
-//        Patient p8 = new Patient("e4","222",4,-1,"Neurosurgery");
-//        Patient p77 = new Patient("e33","12",22,-1,"Pediatric_surgery");
-//        Patient p87 = new Patient("e43","22",4,-1,"Neurosurgery");
-//
-//        //  add all Resting_patients to recoveryRoom
-//        this.recoveryRoom.getResting_patients().add(p7);
-//        this.recoveryRoom.getResting_patients().add(p8);
-//        this.recoveryRoom.getResting_patients().add(p77);
-//        this.recoveryRoom.getResting_patients().add(p87);
-//
-
-        //--------------------------------------------------------
-        //create the doctors objects
-
-
-
-
-//        //add doctors objects to arraylist of doctors
-//        this.doctors.add(d1);
-//        this.doctors.add(d2);
-//        this.doctors.add(d3);
-//        this.doctors.add(d4);
-//        this.doctors.add(d5);
-//
-//
-//        d1.getSpecialities_array().add(v);
-//        v.getDoctors_with_spec().add(d1);
-
-
-
-
-//
-//        // try diffrent way: add doctors to a spec:
-//        n.getDoctors_with_spec().add(d1);
-//        n.getDoctors_with_spec().add(d2);
-//        n.getDoctors_with_spec().add(d3);
-//        n.getDoctors_with_spec().add(d4);
-//        v.getDoctors_with_spec().add(d5);
-//----------------------------------------------------------------------
-
-//        // same with OperatingRooms:
-//        ArrayList<Specialization> specsforrooms = new ArrayList<>();
-//        specsforrooms.add(n);
-//        specsforrooms.add(v);
-//        specsforrooms.add(c);
-//        specsforrooms.remove(n);
-//
-//        n.getOperatingRooms_with_spec().add(r1);
-//        n.getOperatingRooms_with_spec().add(r2);
-//
-//        v.getOperatingRooms_with_spec().add(r3);
-//        v.getOperatingRooms_with_spec().add(r2);
-//
-//        c.getOperatingRooms_with_spec().add(r2);
-//        c.getOperatingRooms_with_spec().add(r3);
-//
-//
-//
-//
-//
-//        r1.getSpecialities_array().add(v);
-//        r1.getSpecialities_array().add(n);
-//        r1.getSpecialities_array().add(c);
-//        r1.getSpecialities_array().add(p);
-//        r2.getSpecialities_array().add(n);
-//
-//        v.getOperatingRooms_with_spec().add(r1);
-//        n.getOperatingRooms_with_spec().add(r1);
-//        c.getOperatingRooms_with_spec().add(r1);
-//        p.getOperatingRooms_with_spec().add(r1);
-//        n.getOperatingRooms_with_spec().add(r2);
-
-
-
-
         return(this.specs);
        // ;//,this.O,recoveryRoom);
     }
@@ -388,59 +257,9 @@ public class Model
     {
         return this.doctors;
     }
-//    public void galeSheplyAlgoritem()
-//    {
-//
-//    }
 
 
 
-
-// functions I need to add to try gui and model
-    // gui
-            // show tables for the operatingrooms, for the resting room after surgery. title for each table in specilization
-            // updatetable -   for every single table in gui create apropriate function. in the functoin clear table and new insertions
-            //
-    // model
-            // finish the function galeSheplyAlgoritem and maybe make an array of available doctors to make it simple
-            // sortpatientqueue -   for every single queue in specilizations
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    public class OperatingRoomScheduler {
-//
-//        // Define data structures for patients, doctors, and operating rooms
-//        PriorityQueue<Patient> patientQueue;
-//        ArrayList<Doctor> doctorList;
-//        ArrayList<OperatingRoom> roomList;
-//
-//        // Constructor to initialize the scheduler with the input data
-//        public OperatingRoomScheduler(PriorityQueue<Patient> patients, ArrayList<Doctor> doctors, ArrayList<OperatingRoom> rooms) {
-//            patientQueue = patients;
-//            doctorList = doctors;
-//            roomList = rooms;
-//        }
-
-        // Method to run the scheduling algorithm
-
-    // i do in the begining in order from the most urgent spec to less
-
-    // find the spec in rooms
 
     /**
      * ignore. not relevant.
@@ -484,12 +303,10 @@ public class Model
     public void schedule()
     {
 
-        int flag = 0;
-        // if something empty stop
         sortDoctorHeapBySpecialityLength();
 
         int doctorCounter = 0;
-
+        // while the terms of availiability of rooms,doctors,patients allow to do surgery
         while (doctorCounter < availDoctors.size() && (v.getPatient_array_list().size() > 0 || c.getPatient_array_list().size() > 0 ||
                 p.getPatient_array_list().size() > 0 || n.getPatient_array_list().size() > 0) && !availDoctors.isEmpty() && !availOpRooms.isEmpty()) {//
 
@@ -514,16 +331,15 @@ public class Model
                         Specialization specConnect = null;
                         specConnect = op.canOperateOn(d1);
                         Patient chosenP = null;
-                        if (specConnect != null && specConnect.getPatient_array_list().size() > 0) {//////////
+                        if (specConnect != null && specConnect.getPatient_array_list().size() > 0) {
                             chosenP = specConnect.getPatient_array_list().get(0);
                         }
-                        if (specConnect != null&&d1.getSpecialities_array().length>0&&d1.getSpecialities_array()[0].getPatient_array_list().size() > 0) {/////////
-                            double maxcalc = 0;//d1.getSpecialities_array()[0].getPatient_array_list().get(0).getUrgency_level();
-                            // search the most urgent patient from each spec the doctor can treat
-                            // the most urgent pati
+                        if (specConnect != null&&d1.getSpecialities_array().length>0&&d1.getSpecialities_array()[0].getPatient_array_list().size() > 0) {
+
+                            // search the most urgent patient from each spec the doctors and rooms can treat
                             for (Specialization s : specs)
-                            {// compare between the most urgent patient in every spec
-                                if (s.getPatient_array_list().size() > 0&&s.getPatient_array_list().get(0).getUrgency_level() > specConnect.getPatient_array_list().get(0).getUrgency_level()&&op.specinSpecialities(s)&& d1.specinSpecialities(s)) {//)
+                            {
+                                if (s.getPatient_array_list().size() > 0&&s.getPatient_array_list().get(0).getUrgency_level() > specConnect.getPatient_array_list().get(0).getUrgency_level()&&op.specinSpecialities(s)&& d1.specinSpecialities(s)) {
                                     specConnect = s;
                                     chosenP = specConnect.getPatient_array_list().get(0);
                                 }
@@ -531,7 +347,6 @@ public class Model
 
 
                         }
-
 
                         if (chosenP != null)// if appropriate and most urgent patient found
                         {
@@ -553,8 +368,6 @@ public class Model
                     i++;
 
                 }
-
-
 
             }
             doctorCounter++;
@@ -578,7 +391,8 @@ public class Model
 
     /**
      *
-     * @param spec sorting by considering severity in patient and waiting time and.
+     * @param - Speicalization  spec
+     * sorting by considering severity in patient and waiting time and.
      */
     public void sortPatientCollection(Specialization spec) {
         //ArrayList<Patient> patientList = spec.getPatient_array_list();
@@ -590,17 +404,23 @@ public class Model
                 double p1Time = p1.getEstimated_surgery_time();
                 double p2Time = p2.getEstimated_surgery_time();
 
+
+                int result = 0;
+
                 if (p1Urgency > p2Urgency) {
-                    return -1;
+                    result = -1;
                 } else if (p1Urgency < p2Urgency) {
-                    return 1;
-                } else if (Math.abs(p1.getSeverity_before() - p2.getSeverity_before()) < 2 && p1Time > p2Time && (p1Time - p2Time) <= 10) {
-                    return 1;
-                } else if (Math.abs(p1.getSeverity_before() - p2.getSeverity_before()) < 2 && p1Time < p2Time && (p2Time - p1Time) <= 10) {
-                    return -1;
+                    result = 1;
+                } else if (Math.abs(p1.getSeverity_before() - p2.getSeverity_before()) < 2 && p1Time > p2Time && (p1Time - p2Time) >= 10) {
+                    result = 1;
+                } else if (Math.abs(p1.getSeverity_before() - p2.getSeverity_before()) < 2 && p1Time < p2Time && (p2Time - p1Time) >= 10) {
+                    result = -1;
                 } else {// if equal
-                    return Double.compare(p1Time, p2Time);
+                    result = Double.compare(p1Time, p2Time);
                 }
+
+                return result;
+
             }
         });
     }
@@ -625,6 +445,9 @@ public class Model
 
     /**
      * heapify on  doctor heap by specialities number
+     * @param heap -
+     * @param n -
+     * @param i -
      */
     private void heapifyDoctorsBySpecialityLength(List<Doctor> heap, int n, int i) {
         int largest = i;
@@ -662,6 +485,8 @@ public class Model
             availOpRooms.set(i, temp);
             heapifyRoomsBySpecialityLength(availOpRooms, i, 0);
         }
+
+
     }
     /**
      * heapify on  Operating rooms heap by specialities number

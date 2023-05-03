@@ -22,6 +22,9 @@ public class Doctor {
         this.current_room_id = current_room_id;
     }
 
+    /**
+     *not used. ignore.
+     */
     public boolean canOperateOn(Patient patient) // search if have the spec
     {
         for(Specialization s:this.specialities_array)
@@ -32,6 +35,11 @@ public class Doctor {
         return false;
     }
 
+    /**
+     *
+     * @param- Specialization  s1
+     * @return if the speciality in the specialities_array
+     */
     public boolean specinSpecialities(Specialization s1)
     {
         for(Specialization s:this.specialities_array)
