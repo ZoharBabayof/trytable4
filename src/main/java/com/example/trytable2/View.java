@@ -301,7 +301,7 @@ public class View extends Application {
         waitCol6.setCellValueFactory(new PropertyValueFactory("is_available"));
         TableColumn sevCol6 = new TableColumn("current_room_id");
         sevCol6.setCellValueFactory(new PropertyValueFactory("current_room_id"));
-        sevCol6.setPrefWidth(100);
+        sevCol6.setPrefWidth(150);
 
         //
         Iterator<Doctor> iterator6 = n.getDoctors_with_spec().iterator();
@@ -319,7 +319,7 @@ public class View extends Application {
         table6.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table6.getColumns().addAll(NameCol6, IDCol6, waitCol6, sevCol6);
         //Setting the size of the table
-        table6.setMaxSize(500, 400);
+        //table6.setMaxSize(500, 400);
 
         // add doctors of neuro surgery
         TableColumn NameCol7 = new TableColumn("Name");
@@ -330,7 +330,7 @@ public class View extends Application {
         waitCol7.setCellValueFactory(new PropertyValueFactory("is_available"));
         TableColumn sevCol7 = new TableColumn("current_room_id");
         sevCol7.setCellValueFactory(new PropertyValueFactory("current_room_id"));
-        sevCol7.setPrefWidth(100);
+        sevCol7.setPrefWidth(150);
 
         //
         Iterator<Doctor> iterator7 = p.getDoctors_with_spec().iterator();
@@ -348,7 +348,7 @@ public class View extends Application {
         table7.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table7.getColumns().addAll(NameCol7, IDCol7, waitCol7, sevCol7);
         //Setting the size of the table
-        table7.setMaxSize(500, 400);
+        //table7.setMaxSize(500, 400);
         // add doctors of neuro surgery
         TableColumn NameCol8 = new TableColumn("Name");
         NameCol8.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -358,7 +358,7 @@ public class View extends Application {
         waitCol8.setCellValueFactory(new PropertyValueFactory("is_available"));
         TableColumn sevCol8 = new TableColumn("current_room_id");
         sevCol8.setCellValueFactory(new PropertyValueFactory("current_room_id"));
-        sevCol8.setPrefWidth(100);
+        sevCol8.setPrefWidth(150);
 
         //
         Iterator<Doctor> iterator8 = c.getDoctors_with_spec().iterator();
@@ -375,7 +375,7 @@ public class View extends Application {
         table8.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table8.getColumns().addAll(NameCol8, IDCol8, waitCol8, sevCol8);
         //Setting the size of the table
-        table8.setMaxSize(500, 400);
+       // table8.setMaxSize(500, 400);
 
 
 
@@ -419,7 +419,7 @@ public class View extends Application {
         sevCol2.setCellValueFactory(new PropertyValueFactory("severity_before"));
         TableColumn specCol2 = new TableColumn("spec_needed");
         specCol2.setCellValueFactory(new PropertyValueFactory("spec_needed"));
-        specCol2.setPrefWidth(100);
+        specCol2.setPrefWidth(150);
 
         //Creating columns
         TableColumn NameCol3 = new TableColumn("Name");
@@ -432,7 +432,7 @@ public class View extends Application {
         sevCol3.setCellValueFactory(new PropertyValueFactory("severity_before"));
         TableColumn specCol3 = new TableColumn("spec_needed");
         specCol3.setCellValueFactory(new PropertyValueFactory("spec_needed"));
-        specCol3.setPrefWidth(100);
+        specCol3.setPrefWidth(150);
 
         Iterator<Patient> iterator = v.getPatient_array_list().iterator();
         //add all objects of patient in the spec to the data
@@ -455,7 +455,8 @@ public class View extends Application {
         sevCol4.setCellValueFactory(new PropertyValueFactory("severity_before"));
         TableColumn specCol4 = new TableColumn("spec_needed");
         specCol4.setCellValueFactory(new PropertyValueFactory("spec_needed"));
-        specCol4.setPrefWidth(100);
+        specCol4.setPrefWidth(150
+        );
 
 
 
@@ -477,14 +478,61 @@ public class View extends Application {
 
 
         //Adding data to the table
-        ObservableList<String> list = FXCollections.observableArrayList();
+ //       ObservableList<String> list = FXCollections.observableArrayList();
         table.setItems(data);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
-        //Setting the size of the table
-        table.setMaxSize(1500, 2000);
 
 
+        //Setting the size of the tables
+        table.setMaxSize(1500, 1000);
+        table2.setMaxSize(1500, 1000);
+        table3.setMaxSize(1500, 1000);
+        table4.setMaxSize(1500, 1000);
+        table6.setMaxSize(1500, 1000);
+        table7.setMaxSize(1500, 1000);
+        table8.setMaxSize(1500, 1000);
+
+
+
+
+        for (TableColumn column : table2.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
+
+        for (TableColumn column : table6.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
+
+        Label Neuro_Doctors_label = new Label("Neurologist");
+        Font font_Neuro_Doctors = new Font("david", 24); // create a new Font object with size 100
+        Neuro_Doctors_label.setFont(font_Neuro_Doctors); // set the font of zlabel to the new Font object
+        VBox Neuro_Doctors_vbox = new VBox();
+        Neuro_Doctors_vbox.getChildren().addAll(Neuro_Doctors_label, table6);
+        Neuro_Doctors_vbox.setAlignment(Pos.CENTER);
+
+        Neuro_Doctors_label.setTextFill(Color.BLUE);
+
+        Label Neuro_Patient_label = new Label("Neuro Patient");
+        Font font_Neuro_Patients = new Font("david", 24); // create a new Font object with size 100
+        Neuro_Doctors_label.setFont(font_Neuro_Patients); // set the font of zlabel to the new Font object
+        VBox Neuro_Patients_vbox = new VBox();
+        Neuro_Patients_vbox.getChildren().addAll(Neuro_Patient_label, table2);
+        Neuro_Patients_vbox.setAlignment(Pos.CENTER);
+
+        Neuro_Doctors_label.setTextFill(Color.BLUE);
+
+
+
+
+        Label Vascular_Doctors_label = new Label("Vascular Doctors");
+        Font font_Vascular_Doctors = new Font("david", 24); // create a new Font object with size 100
+        Vascular_Doctors_label.setFont(font_Vascular_Doctors); // set the font of zlabel to the new Font object
+        VBox Vascular_Doctors_vbox = new VBox();
+        Vascular_Doctors_vbox.getChildren().addAll(Vascular_Doctors_label, table5);
+        Vascular_Doctors_vbox.setAlignment(Pos.CENTER);
+
+        Vascular_Doctors_label.setTextFill(Color.BLUE);
 
 
 //        // vbox.
@@ -511,22 +559,10 @@ public class View extends Application {
         for (TableColumn column : table.getColumns()) {
             column.setStyle("-fx-font-size: 18px;");
         }
-        for (TableColumn column : table.getColumns()) {
-            column.setStyle("-fx-font-size: 18px;");
-        }
 
-        Label Vascular_Doctors_label = new Label("Vascular Doctors");
-        Font font_Vascular_Doctors = new Font("david", 24); // create a new Font object with size 100
-        Vascular_Doctors_label.setFont(font_Vascular_Doctors); // set the font of zlabel to the new Font object
-        VBox Vascular_Doctors_vbox = new VBox();
-        Vascular_Doctors_vbox.getChildren().addAll(Vascular_Doctors_label, table5);
-        Vascular_Doctors_vbox.setAlignment(Pos.CENTER);
 
-        Vascular_Doctors_label.setTextFill(Color.BLUE);
 
-        for (TableColumn column : table5.getColumns()) {
-            column.setStyle("-fx-font-size: 18px;");
-        }
+
         for (TableColumn column : table5.getColumns()) {
             column.setStyle("-fx-font-size: 18px;");
         }
@@ -606,7 +642,7 @@ public class View extends Application {
         table2.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table2.getColumns().addAll(NameCol2, IDCol2, waitCol2, sevCol2,specCol2);
         //Setting the size of the table
-        table2.setMaxSize(400, 600);
+       // table2.setMaxSize(400, 600);
 
 
         table3.setItems(data3);
@@ -614,21 +650,23 @@ public class View extends Application {
         table3.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table3.getColumns().addAll(NameCol3, IDCol3, waitCol3, sevCol3,specCol3);
         //Setting the size of the table
-        table3.setMaxSize(500, 400);
+        //table3.setMaxSize(500, 400);
 
         table4.setItems(data4);
 
         table4.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table4.getColumns().addAll(NameCol4, IDCol4, waitCol4, sevCol4,specCol4);
         //Setting the size of the table
-        table4.setMaxSize(700, 400);
+        //table4.setMaxSize(700, 400);
 
 
         //vbox. // agebox
         //define age box
 
 
-        row2.getChildren().addAll(table2,table6);
+       // row2.getChildren().addAll(table2,table6);
+        row2.getChildren().addAll(Neuro_Patients_vbox,Neuro_Doctors_vbox);
+        row2.setAlignment(Pos.CENTER);
 
 
         AnchorPane.setTopAnchor(tabPane, 15.0);
