@@ -496,32 +496,6 @@ public class View extends Application {
 
 
 
-        for (TableColumn column : table2.getColumns()) {
-            column.setStyle("-fx-font-size: 18px;");
-        }
-
-        for (TableColumn column : table6.getColumns()) {
-            column.setStyle("-fx-font-size: 18px;");
-        }
-
-        Label Neuro_Doctors_label = new Label("Neurologist");
-        Font font_Neuro_Doctors = new Font("david", 24); // create a new Font object with size 100
-        Neuro_Doctors_label.setFont(font_Neuro_Doctors); // set the font of zlabel to the new Font object
-        VBox Neuro_Doctors_vbox = new VBox();
-        Neuro_Doctors_vbox.getChildren().addAll(Neuro_Doctors_label, table6);
-        Neuro_Doctors_vbox.setAlignment(Pos.CENTER);
-
-        Neuro_Doctors_label.setTextFill(Color.BLUE);
-
-        Label Neuro_Patient_label = new Label("Neuro Patient");
-        Font font_Neuro_Patients = new Font("david", 24); // create a new Font object with size 100
-        Neuro_Doctors_label.setFont(font_Neuro_Patients); // set the font of zlabel to the new Font object
-        VBox Neuro_Patients_vbox = new VBox();
-        Neuro_Patients_vbox.getChildren().addAll(Neuro_Patient_label, table2);
-        Neuro_Patients_vbox.setAlignment(Pos.CENTER);
-
-        Neuro_Doctors_label.setTextFill(Color.BLUE);
-
 
 
 
@@ -636,7 +610,7 @@ public class View extends Application {
             data4.add(q);
         }
         //Adding data to the table
-        ObservableList<String> list2 = FXCollections.observableArrayList();
+       // ObservableList<String> list2 = FXCollections.observableArrayList();
         table2.setItems(data2);
 
         table2.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -663,6 +637,35 @@ public class View extends Application {
         //vbox. // agebox
         //define age box
 
+
+
+
+
+        for (TableColumn column : table2.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
+
+        for (TableColumn column : table6.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
+
+        Label Neuro_Doctors_label = new Label("Neurologist");
+        Font font_Neuro_Doctors = new Font("david", 24); // create a new Font object with size 100
+        Neuro_Doctors_label.setFont(font_Neuro_Doctors); // set the font of zlabel to the new Font object
+        VBox Neuro_Doctors_vbox = new VBox();
+        Neuro_Doctors_vbox.getChildren().addAll(Neuro_Doctors_label, table6);
+        Neuro_Doctors_vbox.setAlignment(Pos.CENTER);
+
+        Neuro_Doctors_label.setTextFill(Color.BLUE);
+
+        Label Neuro_Patient_label = new Label("Neuro Patient");
+        Font font_Neuro_Patients = new Font("david", 24); // create a new Font object with size 100
+        Neuro_Doctors_label.setFont(font_Neuro_Patients); // set the font of zlabel to the new Font object
+        VBox Neuro_Patients_vbox = new VBox();
+        Neuro_Patients_vbox.getChildren().addAll(Neuro_Patient_label, table2);
+        Neuro_Patients_vbox.setAlignment(Pos.CENTER);
+
+        Neuro_Doctors_label.setTextFill(Color.BLUE);
 
        // row2.getChildren().addAll(table2,table6);
         row2.getChildren().addAll(Neuro_Patients_vbox,Neuro_Doctors_vbox);
