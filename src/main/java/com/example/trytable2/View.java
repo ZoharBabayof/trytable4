@@ -39,11 +39,11 @@ public class View extends Application {
 
     // global objects
     static HBox row = new HBox(10);
-    static HBox row2 = new HBox();
-    static HBox row3 = new HBox();
-    static HBox row4 = new HBox();
+    static HBox row2 = new HBox(10);
+    static HBox row3 = new HBox(10);
+    static HBox row4 = new HBox(10);
 
-    static HBox surgeries_row = new HBox();
+    static HBox surgeries_row = new HBox(10);
 
     Stage stage2 = new Stage(); // it's the only stage
     static TabPane tabPane = new TabPane();
@@ -139,6 +139,7 @@ public class View extends Application {
     {
 
     }
+
 
 
 
@@ -649,7 +650,7 @@ public class View extends Application {
             column.setStyle("-fx-font-size: 18px;");
         }
 
-        Label Neuro_Doctors_label = new Label("Neurologist");
+        Label Neuro_Doctors_label = new Label("Neurologists");
         Font font_Neuro_Doctors = new Font("david", 24); // create a new Font object with size 100
         Neuro_Doctors_label.setFont(font_Neuro_Doctors); // set the font of zlabel to the new Font object
         VBox Neuro_Doctors_vbox = new VBox();
@@ -658,14 +659,14 @@ public class View extends Application {
 
         Neuro_Doctors_label.setTextFill(Color.BLUE);
 
-        Label Neuro_Patient_label = new Label("Neuro Patient");
+        Label Neuro_Patient_label = new Label("Neuro Patients");
         Font font_Neuro_Patients = new Font("david", 24); // create a new Font object with size 100
-        Neuro_Doctors_label.setFont(font_Neuro_Patients); // set the font of zlabel to the new Font object
+        Neuro_Patient_label.setFont(font_Neuro_Patients); // set the font of zlabel to the new Font object
         VBox Neuro_Patients_vbox = new VBox();
         Neuro_Patients_vbox.getChildren().addAll(Neuro_Patient_label, table2);
         Neuro_Patients_vbox.setAlignment(Pos.CENTER);
 
-        Neuro_Doctors_label.setTextFill(Color.BLUE);
+        Neuro_Patient_label.setTextFill(Color.BLUE);
 
        // row2.getChildren().addAll(table2,table6);
         row2.getChildren().addAll(Neuro_Patients_vbox,Neuro_Doctors_vbox);
@@ -683,9 +684,42 @@ public class View extends Application {
         // pane2.getChildren().add(table);
         pane2.setStyle("-fx-background-color: BEIGE");
 
+
+//--------------------------------------------------------------------------------------
+
+        for (TableColumn column : table3.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
+
+        for (TableColumn column : table7.getColumns()) {
+            column.setStyle("-fx-font-size: 18px;");
+        }
+
+        Label Pediatric_Doctors_label = new Label("pediatricians");
+        Font font_ped_Doctors = new Font("david", 24); // create a new Font object with size 100
+        Pediatric_Doctors_label.setFont(font_ped_Doctors); // set the font of zlabel to the new Font object
+        VBox ped_Doctors_vbox = new VBox();
+        ped_Doctors_vbox.getChildren().addAll(Pediatric_Doctors_label, table7);
+        ped_Doctors_vbox.setAlignment(Pos.CENTER);
+
+        Pediatric_Doctors_label.setTextFill(Color.BLUE);
+
+        Label ped_Patient_label = new Label("Pediatric Patients");
+        Font font_ped_Patients = new Font("david", 24); // create a new Font object with size 100
+        ped_Patient_label.setFont(font_ped_Patients); // set the font of zlabel to the new Font object
+        VBox ped_Patients_vbox = new VBox();
+        ped_Patients_vbox.getChildren().addAll(ped_Patient_label, table3);
+        ped_Patients_vbox.setAlignment(Pos.CENTER);
+
+        ped_Patient_label.setTextFill(Color.BLUE);
+
+
 //        AnchorPane pane3 = new AnchorPane();
         // row.getChildren().removeAll(table2,table5);////////////////////////////////////////////////////////////////////////////////////////////
-        row3.getChildren().addAll(table3,table7);////////////////////////////////////////////////////////////////////////////////////////////
+      //  row3.getChildren().addAll(table3,table7);////////////////////////////////////////////////////////////////////////////////////////////
+
+        row3.getChildren().addAll(ped_Patients_vbox,ped_Doctors_vbox);
+        row3.setAlignment(Pos.CENTER);
 
         AnchorPane.setTopAnchor(tabPane, 15.0);
         AnchorPane.setRightAnchor(tabPane, 15.0);
@@ -765,7 +799,7 @@ public class View extends Application {
 
 
     /**
-    show add the surgeries to the surgeries collection to show to user in future.
+    show add the surgeries to the surgeries collection to show to user in the future.
      gets doctor, patient, operating room to connect in a one new surgery.
      **/
     public void showSurgery(Doctor d, Patient pat, OperatingRoom op)
