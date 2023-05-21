@@ -722,33 +722,40 @@ public class View extends Application {
         public static void CreateTimer(Stage primaryStage) {
 
 
-            TimerTask timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    convertTime();
+//            TimerTask timerTask = new TimerTask() {
+//                @Override
+//                public void run() {
+//                    convertTime();
+//
+//                }
+//            };
+//            Timer timer = new Timer();
+//            timer.schedule(timerTask,0,1000);
 
-                }
-            };
-            Timer timer = new Timer();
-            timer.schedule(timerTask,0,1000);
-
-
-            // Your existing code
+// Your existing code
             tabPane = new TabPane();
             tabPane.setSide(Side.BOTTOM);
 
-            // Create a border pane
+// Create a border pane
             BorderPane pane = new BorderPane();
             pane.setCenter(stopWatch);
-            // stopWatch.start();
-            // Create a scene and place it in the stage
-            Scene scene = new Scene(pane);
-            primaryStage.setTitle("CLOCK");
-            primaryStage.setScene(scene);
+            stopWatch.start();
 
+// Create a scene and place it in the stage
+            StopwatchApp stopwatchApp = new StopwatchApp();
+            stopwatchApp.start(primaryStage);
+            BorderPane pane_clock = stopwatchApp.getScene();
+            pane.setCenter(pane_clock);
+
+            Tab tab5 = new Tab("CLOCK");
             tab5.setContent(pane);
             tabPane.getTabs().add(tab5);
+
+            primaryStage.setTitle("Clock");
+            Scene scene = new Scene(tabPane);
+            primaryStage.setScene(scene);
             }
+
 
 
 

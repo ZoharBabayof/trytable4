@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -16,34 +17,40 @@ import javafx.scene.layout.HBox;
 
 public class StopwatchApp extends Application {
     private Timeline timeline;
+
     private int secondsElapsed = 0;
+    static Scene scene;
+
+    static VBox root;
 
     @Override
     public void start(Stage primaryStage) {
 
-        Label daysLabel = new Label("Days");
-        Label hoursLabel = new Label("Hours");
-        Label minutesLabel = new Label("Minutes");
-        Label secondsLabel = new Label("Seconds");
+        Label daysLabel = new Label("Days:");
+        Label hoursLabel = new Label("Hours:");
+        Label minutesLabel = new Label("Minutes:");
+        Label secondsLabel = new Label("Seconds:");
 
-        Label explain1 = new Label("The time spent in the hospital since the program was run: ");
-        explain1.setStyle("-fx-font-size: 50px;-fx-text-fill: black;");
+        Label explain1 = new Label("Time that passed in the hospital: ");
+        explain1.setStyle("-fx-font-size: 50px;-fx-text-fill: blue; -fx-font-weight: bold;");
         Label explain2 = new Label("");
+        Label explain3 = new Label("");
+
         explain2.setStyle("-fx-font-size: 50px;-fx-text-fill: blue;");
 
 
         Label timerLabel = new Label();
-        timerLabel.setStyle("-fx-font-size: 100px;");
+        timerLabel.setStyle("-fx-font-size: 200px;");
 
         //timerLabel.setStyle("-fx-font-size: 300px;");
         double labelWidth = timerLabel.getFont().getSize()*10; // Adjust the multiplier as needed
 
-        daysLabel.setStyle("-fx-font-size: 50px;-fx-text-fill: black;");
-        hoursLabel.setStyle("-fx-font-size: 50px;-fx-text-fill: black;");
-        minutesLabel.setStyle("-fx-font-size: 50px;-fx-text-fill: black;");
-        secondsLabel.setStyle("-fx-font-size: 50px;-fx-text-fill: black;");
+        daysLabel.setStyle("-fx-font-size: 50px;-fx-text-fill: black; -fx-font-weight: bold;");
+        hoursLabel.setStyle("-fx-font-size: 50px;-fx-text-fill: black; -fx-font-weight: bold;");
+        minutesLabel.setStyle("-fx-font-size: 50px;-fx-text-fill: black; -fx-font-weight: bold;");
+        secondsLabel.setStyle("-fx-font-size: 50px;-fx-text-fill: black; -fx-font-weight: bold;");
 
-
+        timerLabel.setText(formatTime(secondsElapsed));
         timeline = new Timeline(
                 new KeyFrame(Duration.seconds(5), event -> {
                     secondsElapsed+=3600;
@@ -68,12 +75,13 @@ public class StopwatchApp extends Application {
         HBox root_labels = new HBox(90, daysLabel , hoursLabel , minutesLabel , secondsLabel);
         root_labels.setAlignment(Pos.CENTER);
 
-        VBox root = new VBox(30,explain1,explain2, root_labels,timerLabel);
+        root = new VBox(30,explain1,explain2, root_labels,explain3,timerLabel);
         root.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(root, 1500, 600);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Stopwatch App");
-        primaryStage.show();
+       // scene = new Scene(root, 1500, 600);
+       // primaryStage.setScene(scene);
+        //return
+      //  primaryStage.setTitle("Stopwatch App");
+       // primaryStage.show();
 
         timeline.play();
     }
@@ -87,6 +95,13 @@ public class StopwatchApp extends Application {
     }
 
 
+
+    public BorderPane getScene()
+    {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(root);
+        return borderPane;
+    }
     private void addTime(int secondsToAdd) {
         secondsElapsed += secondsToAdd;
     }
