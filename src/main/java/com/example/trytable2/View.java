@@ -25,6 +25,9 @@ import javafx.scene.control.TabPane;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import javafx.util.Duration;
 import javafx.geometry.Rectangle2D;
@@ -58,7 +61,7 @@ public class View extends Application {
     static final ObservableList<Surgery> surgeries_data = FXCollections.observableArrayList(
 
     );
-    static  ArrayList<Surgery> surgeries = new ArrayList<>();
+    static ArrayList<Surgery> surgeries = new ArrayList<>();
 
     // patients speciality
     static TableView<Patient> table = new TableView<Patient>();
@@ -75,7 +78,7 @@ public class View extends Application {
     );
 
     static AnchorPane pane3 = new AnchorPane();
-    static TableView<Patient> table3= new TableView<Patient>();
+    static TableView<Patient> table3 = new TableView<Patient>();
     static final ObservableList<Patient> data3 = FXCollections.observableArrayList(
 
     );
@@ -111,10 +114,12 @@ public class View extends Application {
     static Tab tab4 = new Tab("Card_surgery");
 
     static Tab tab5 = new Tab("Time");// beacuse I want the tab of clock to be the event room
-    static  Tab surg_tab = new Tab("Surgeries");
+    static Tab surg_tab = new Tab("Surgeries");
 
 
-
+    // Create a Stopwatch
+    static StopWatch stopWatch = new StopWatch();
+    static long startTime = System.currentTimeMillis();
 
 
     static Specialization n = new Specialization("Neurosurgery");
@@ -122,6 +127,9 @@ public class View extends Application {
     static Specialization c = new Specialization("Card_surgery");
     static Specialization v = new Specialization("Vascular_surgery");
 
+
+
+    static long min, sec, hr, totalSec = 0;
 
     /**
      * constructor
@@ -131,20 +139,15 @@ public class View extends Application {
     }
 
     /**
-     *
      * not relevant. ignore.
      */
 
-    public static void opRoomsInformation(Stage primaryStage, ArrayList<Specialization> specs)
-    {
+    public static void opRoomsInformation(Stage primaryStage, ArrayList<Specialization> specs) {
 
     }
 
 
-
-
     /**
-     *
      * refresh all the data variables information(refresh their collection) by clear all and fill them again
      */
     public void refresh(ArrayList<Surgery> retSurges)// parameter not relevant
@@ -152,7 +155,7 @@ public class View extends Application {
         surgeries_data.clear();
         Iterator<Surgery> surg_iterator = surgeries.iterator();
         // add all objects of surgery to the data
-        while(surg_iterator.hasNext()){
+        while (surg_iterator.hasNext()) {
             Surgery s = surg_iterator.next();
             surgeries_data.add(s);
 
@@ -161,7 +164,7 @@ public class View extends Application {
         data.clear();
         Iterator<Patient> iterator = v.getPatient_array_list().iterator();
         //add all objects of patient in the spec to the data
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Patient q = iterator.next();
             data.add(q);
 
@@ -170,7 +173,7 @@ public class View extends Application {
         data2.clear();
         Iterator<Patient> iterator2 = n.getPatient_array_list().iterator();
         //add all objects of patient in the spec to the data
-        while(iterator2.hasNext()){
+        while (iterator2.hasNext()) {
             Patient k = iterator2.next();
 
             data2.add(k);
@@ -179,7 +182,7 @@ public class View extends Application {
 
         Iterator<Patient> iterator3 = p.getPatient_array_list().iterator();
         //add all objects of patient in the spec to the data
-        while(iterator3.hasNext()){
+        while (iterator3.hasNext()) {
             Patient z = iterator3.next();
             data3.add(z);
 
@@ -188,20 +191,17 @@ public class View extends Application {
 
         Iterator<Patient> iterator4 = c.getPatient_array_list().iterator();
         //add all objects of patient in the spec to the data
-        while(iterator4.hasNext()){
+        while (iterator4.hasNext()) {
             Patient q = iterator4.next();
             data4.add(q);
 
         }
 
 
-
-
-
         data5.clear();
         Iterator<Doctor> iterator5 = v.getDoctors_with_spec().iterator();
         //add all objects of doctor in the spec to the data
-        while(iterator5.hasNext()){
+        while (iterator5.hasNext()) {
             Doctor q = iterator5.next();
             data5.add(q);
 
@@ -211,7 +211,7 @@ public class View extends Application {
         data6.clear();
         Iterator<Doctor> iterator6 = n.getDoctors_with_spec().iterator();
         //add all objects of doctor in the spec to the data
-        while(iterator6.hasNext()){
+        while (iterator6.hasNext()) {
             Doctor q = iterator6.next();
             data6.add(q);
 
@@ -220,7 +220,7 @@ public class View extends Application {
         data7.clear();
         Iterator<Doctor> iterator7 = p.getDoctors_with_spec().iterator();
         //add all objects of doctor in the spec to the data
-        while(iterator7.hasNext()){
+        while (iterator7.hasNext()) {
             Doctor q = iterator7.next();
             data7.add(q);
 
@@ -230,7 +230,7 @@ public class View extends Application {
 
         Iterator<Doctor> iterator8 = c.getDoctors_with_spec().iterator();
         //add all objects of doctor in the spec to the data
-        while(iterator8.hasNext()){
+        while (iterator8.hasNext()) {
             Doctor q = iterator8.next();
             data8.add(q);
         }
@@ -239,13 +239,10 @@ public class View extends Application {
     }
 
     /**
-     *
      * we call this function in the beginning. it creates all tables and put in them the information from collections
      * in them.
-     *
      */
-    public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs)
-    {
+    public static void SpecsInformation(Stage stage, ArrayList<Specialization> specs) {
         // get all the specilizations objects
         System.out.println(specs.get(0).toString());
         n = specs.get(0);
@@ -256,7 +253,6 @@ public class View extends Application {
 
 
         // doctors table creations
-
 
 
         //Creating columns
@@ -280,7 +276,7 @@ public class View extends Application {
         //
         Iterator<Doctor> iterator5 = v.getDoctors_with_spec().iterator();
         //add all objects of doctor in the spec to the data
-        while(iterator5.hasNext()){
+        while (iterator5.hasNext()) {
             Doctor q = iterator5.next();
             data5.add(q);
 
@@ -307,7 +303,7 @@ public class View extends Application {
         //
         Iterator<Doctor> iterator6 = n.getDoctors_with_spec().iterator();
         //add all objects of doctor in the spec to the data
-        while(iterator6.hasNext()){
+        while (iterator6.hasNext()) {
             Doctor q = iterator6.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data6.add(q);
@@ -336,7 +332,7 @@ public class View extends Application {
         //
         Iterator<Doctor> iterator7 = p.getDoctors_with_spec().iterator();
         //add all objects of doctor in the spec to the data
-        while(iterator7.hasNext()){
+        while (iterator7.hasNext()) {
             Doctor q = iterator7.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data7.add(q);
@@ -364,7 +360,7 @@ public class View extends Application {
         //
         Iterator<Doctor> iterator8 = c.getDoctors_with_spec().iterator();
         //add all objects of doctor in the spec to the data
-        while(iterator8.hasNext()){
+        while (iterator8.hasNext()) {
             Doctor q = iterator8.next();
             //FileData g = new FileData(q.getName(),q.getId(),q.getSpec_needed(),q.getSpec_needed());
             data8.add(q);
@@ -376,17 +372,12 @@ public class View extends Application {
         table8.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table8.getColumns().addAll(NameCol8, IDCol8, waitCol8, sevCol8);
         //Setting the size of the table
-       // table8.setMaxSize(500, 400);
-
-
+        // table8.setMaxSize(500, 400);
 
 
         Label label = new Label("Vascular_surgery:");
         Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
         label.setFont(font);
-
-
-
 
 
         //Creating columns
@@ -406,7 +397,6 @@ public class View extends Application {
         IDCol.setPrefWidth(150);
         waitCol.setPrefWidth(150);
         sevCol.setPrefWidth(150);
-
 
 
         //Creating columns
@@ -437,12 +427,11 @@ public class View extends Application {
 
         Iterator<Patient> iterator = v.getPatient_array_list().iterator();
         //add all objects of patient in the spec to the data
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Patient q = iterator.next();
             data.add(q);
 
         }
-
 
 
         //Creating columns
@@ -460,29 +449,14 @@ public class View extends Application {
         );
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // for vascular surgery
 
 
-
         //Adding data to the table
- //       ObservableList<String> list = FXCollections.observableArrayList();
+        //       ObservableList<String> list = FXCollections.observableArrayList();
         table.setItems(data);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol,specCol);
+        table.getColumns().addAll(NameCol, IDCol, waitCol, sevCol, specCol);
 
 
         //Setting the size of the tables
@@ -493,11 +467,6 @@ public class View extends Application {
         table6.setMaxSize(1500, 1000);
         table7.setMaxSize(1500, 1000);
         table8.setMaxSize(1500, 1000);
-
-
-
-
-
 
 
         Label Vascular_Doctors_label = new Label("Vascular Doctors");
@@ -536,35 +505,24 @@ public class View extends Application {
         }
 
 
-
-
         for (TableColumn column : table5.getColumns()) {
             column.setStyle("-fx-font-size: 18px;");
         }
 
 
-
-        row.getChildren().addAll(Vascular_Patients_vbox,Vascular_Doctors_vbox);
+        row.getChildren().addAll(Vascular_Patients_vbox, Vascular_Doctors_vbox);
         row.setAlignment(Pos.CENTER);
 
         AnchorPane.setTopAnchor(tabPane, 15.0);
         AnchorPane.setRightAnchor(tabPane, 15.0);
         AnchorPane.setBottomAnchor(tabPane, 1000.0);
         AnchorPane.setLeftAnchor(tabPane, 1000.0);
-        pane.getChildren().addAll(tabPane,row);
+        pane.getChildren().addAll(tabPane, row);
         // add more child
         pane.setStyle("-fx-background-color: BEIGE");
 
 
         stage.setTitle("TabPane Demo");
-
-
-
-
-
-
-
-
 
 
 // for vascular surgery
@@ -585,12 +543,10 @@ public class View extends Application {
 //        );
 
 
-
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         Iterator<Patient> iterator2 = n.getPatient_array_list().iterator();
         //add all objects of patient in the spec to the data
-        while(iterator2.hasNext()){
+        while (iterator2.hasNext()) {
             Patient k = iterator2.next();
 
             data2.add(k);
@@ -599,47 +555,44 @@ public class View extends Application {
 
         Iterator<Patient> iterator3 = p.getPatient_array_list().iterator();
         //add all objects of patient in the spec to the data
-        while(iterator3.hasNext()){
+        while (iterator3.hasNext()) {
             Patient z = iterator3.next();
             data3.add(z);
 
         }
         Iterator<Patient> iterator4 = c.getPatient_array_list().iterator();
         //add all objects of patient in the spec to the data
-        while(iterator4.hasNext()){
+        while (iterator4.hasNext()) {
             Patient q = iterator4.next();
             data4.add(q);
         }
         //Adding data to the table
-       // ObservableList<String> list2 = FXCollections.observableArrayList();
+        // ObservableList<String> list2 = FXCollections.observableArrayList();
         table2.setItems(data2);
 
         table2.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        table2.getColumns().addAll(NameCol2, IDCol2, waitCol2, sevCol2,specCol2);
+        table2.getColumns().addAll(NameCol2, IDCol2, waitCol2, sevCol2, specCol2);
         //Setting the size of the table
-       // table2.setMaxSize(400, 600);
+        // table2.setMaxSize(400, 600);
 
 
         table3.setItems(data3);
 
         table3.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        table3.getColumns().addAll(NameCol3, IDCol3, waitCol3, sevCol3,specCol3);
+        table3.getColumns().addAll(NameCol3, IDCol3, waitCol3, sevCol3, specCol3);
         //Setting the size of the table
         //table3.setMaxSize(500, 400);
 
         table4.setItems(data4);
 
         table4.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        table4.getColumns().addAll(NameCol4, IDCol4, waitCol4, sevCol4,specCol4);
+        table4.getColumns().addAll(NameCol4, IDCol4, waitCol4, sevCol4, specCol4);
         //Setting the size of the table
         //table4.setMaxSize(700, 400);
 
 
         //vbox. // agebox
         //define age box
-
-
-
 
 
         for (TableColumn column : table2.getColumns()) {
@@ -668,8 +621,8 @@ public class View extends Application {
 
         Neuro_Patient_label.setTextFill(Color.BLUE);
 
-       // row2.getChildren().addAll(table2,table6);
-        row2.getChildren().addAll(Neuro_Patients_vbox,Neuro_Doctors_vbox);
+        // row2.getChildren().addAll(table2,table6);
+        row2.getChildren().addAll(Neuro_Patients_vbox, Neuro_Doctors_vbox);
         row2.setAlignment(Pos.CENTER);
 
 
@@ -678,7 +631,7 @@ public class View extends Application {
         AnchorPane.setBottomAnchor(tabPane, 15.0);
         AnchorPane.setLeftAnchor(tabPane, 15.0);
         // pane2.getChildren().addAll(tabPane,label,table2);
-        pane2.getChildren().addAll(tabPane,row2);
+        pane2.getChildren().addAll(tabPane, row2);
 
 
         // pane2.getChildren().add(table);
@@ -716,25 +669,25 @@ public class View extends Application {
 
 //        AnchorPane pane3 = new AnchorPane();
         // row.getChildren().removeAll(table2,table5);////////////////////////////////////////////////////////////////////////////////////////////
-      //  row3.getChildren().addAll(table3,table7);////////////////////////////////////////////////////////////////////////////////////////////
+        //  row3.getChildren().addAll(table3,table7);////////////////////////////////////////////////////////////////////////////////////////////
 
-        row3.getChildren().addAll(ped_Patients_vbox,ped_Doctors_vbox);
+        row3.getChildren().addAll(ped_Patients_vbox, ped_Doctors_vbox);
         row3.setAlignment(Pos.CENTER);
 
         AnchorPane.setTopAnchor(tabPane, 15.0);
         AnchorPane.setRightAnchor(tabPane, 15.0);
         AnchorPane.setBottomAnchor(tabPane, 15.0);
         AnchorPane.setLeftAnchor(tabPane, 15.0);
-        pane3.getChildren().addAll(tabPane,row3);
+        pane3.getChildren().addAll(tabPane, row3);
         pane3.setStyle("-fx-background-color: BEIGE");
 
-        row4.getChildren().addAll(table4,table8);
+        row4.getChildren().addAll(table4, table8);
 //        AnchorPane pane4 = new AnchorPane();
         AnchorPane.setTopAnchor(tabPane, 15.0);
         AnchorPane.setRightAnchor(tabPane, 15.0);
         AnchorPane.setBottomAnchor(tabPane, 15.0);
         AnchorPane.setLeftAnchor(tabPane, 15.0);
-        pane4.getChildren().addAll(tabPane,row4);
+        pane4.getChildren().addAll(tabPane, row4);
         pane4.setStyle("-fx-background-color: BEIGE");
         //  stage.setTitle("TabPane Demo");
         //   BorderPane root2 = new BorderPane();
@@ -746,237 +699,237 @@ public class View extends Application {
 ////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //  root.setCenter(tabPane2);
 
 
-
-
-
-
-    }
-
-    /**
-     *
-     * to all the preparations a timer to the user in javafx.
-     */
-    public static void CreateTimer(Stage primaryStage )
-    {
-
-        tabPane = new TabPane();
-        tabPane.setSide(Side.BOTTOM);
-        // Create a Stopwatch
-        StopWatch stopWatch = new StopWatch();
-
-        // Create a border pane
-        BorderPane pane = new BorderPane();
-        pane.setCenter(stopWatch);
-        stopWatch.start();
-        // Create a scene and place it in the stage
-        Scene scene = new Scene(pane);
-        primaryStage.setTitle("CLOCK");
-        primaryStage.setScene(scene);
-
-        tab5.setContent(pane);
-        tabPane.getTabs().add(tab5);
     }
 
 
-    /**
-    show add the surgeries to the surgeries collection to show to user in the future.
-     gets doctor, patient, operating room to connect in a one new surgery.
-     **/
-    public void showSurgery(Doctor d, Patient pat, OperatingRoom op)
-    {
-        Surgery surg = new Surgery(pat.getSpec_needed(), d, pat, op,0);
-        surgeries.add(surg);
-    }
 
 
-    /**
-     *
-     * @param retSurges - arraylist, collection of surgeries.
-     * this function create the surgeries table to user in javafx.
-     */
-    public void showSurgerytable( ArrayList<Surgery> retSurges) {
+        /**
+         * to all the preparations a timer to the user in javafx.
+         */
 
-
-        TableColumn<Surgery, String> surg_ID = new TableColumn<>("surgID");
-        surg_ID.setCellValueFactory(new PropertyValueFactory<>("surgID"));
-
-        TableColumn<Surgery, String> surg_spec = new TableColumn<>("spec");
-        surg_spec.setCellValueFactory(new PropertyValueFactory<>("spec"));
-
-        TableColumn<Surgery, Doctor> surg_doc = new TableColumn<>("surg_doc");
-        surg_doc.setCellValueFactory(new PropertyValueFactory<>("doctor"));
-
-        TableColumn<Surgery, Patient> surg_pat = new TableColumn<>("patient");
-        surg_pat.setCellValueFactory(new PropertyValueFactory<>("patient"));
-
-        TableColumn<Surgery, OperatingRoom> surg_room = new TableColumn<>("room");
-        surg_room.setCellValueFactory(new PropertyValueFactory<>("room"));
-
-        TableColumn<Surgery, String> time_left = new TableColumn<>("time_left");
-        time_left.setCellValueFactory(new PropertyValueFactory<>("time_left"));
-
-        time_left.setPrefWidth(150);
-        surg_ID.setPrefWidth(150);
-        surg_spec.setPrefWidth(150);
-        surg_doc.setPrefWidth(150);
-        surg_pat.setPrefWidth(150);
-        surg_room.setPrefWidth(150);
-
-        Iterator<Surgery> surg_iterator = retSurges.iterator();
-        while (surg_iterator.hasNext()) {
-            Surgery s = surg_iterator.next();
-            surgeries_data.add(s);
+        public static void convertTime()
+        {
+            min = TimeUnit.SECONDS.toMinutes(totalSec);
+            sec = totalSec - (min*60);
+            hr = TimeUnit.MINUTES.toHours(min);
+            min = min-(hr*60);
+            System.out.println(hr+""+min+""+sec);
         }
-        surg_table.setItems(surgeries_data);
+        public static void CreateTimer(Stage primaryStage) {
 
-        surg_table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        surg_table.getColumns().addAll(surg_ID, surg_spec, surg_doc, surg_pat, surg_room, time_left);
-        surg_table.setMaxSize(1500, 1000);
 
-        Label surg_label = new Label("Surgeries");
-        Font font_surgeries = new Font("david", 24);
-        surg_label.setFont(font_surgeries);
-        surg_label.setTextFill(Color.BLUE);
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    convertTime();
 
-        for (TableColumn<Surgery, ?> column : surg_table.getColumns()) {
-            column.setStyle("-fx-font-size: 18px;");
+                }
+            };
+            Timer timer = new Timer();
+            timer.schedule(timerTask,0,1000);
+
+
+            // Your existing code
+            tabPane = new TabPane();
+            tabPane.setSide(Side.BOTTOM);
+
+            // Create a border pane
+            BorderPane pane = new BorderPane();
+            pane.setCenter(stopWatch);
+            // stopWatch.start();
+            // Create a scene and place it in the stage
+            Scene scene = new Scene(pane);
+            primaryStage.setTitle("CLOCK");
+            primaryStage.setScene(scene);
+
+            tab5.setContent(pane);
+            tabPane.getTabs().add(tab5);
+            }
+
+
+
+
+
+
+
+        /**
+         * show add the surgeries to the surgeries collection to show to user in the future.
+         * gets doctor, patient, operating room to connect in a one new surgery.
+         **/
+        public void showSurgery(Doctor d, Patient pat, OperatingRoom op) {
+            Surgery surg = new Surgery(pat.getSpec_needed(), d, pat, op, 0);
+            surgeries.add(surg);
         }
 
 
-        surgeries_row.getChildren().clear();
-        surgeries_row.getChildren().add(surg_table);
-
-        surgery_pane.getChildren().clear();
-        AnchorPane.setTopAnchor(tabPane, 15.0);
-        AnchorPane.setRightAnchor(tabPane, 15.0);
-        AnchorPane.setBottomAnchor(tabPane, 1000.0);
-        AnchorPane.setLeftAnchor(tabPane, 1000.0);
-
-        surgery_pane.getChildren().addAll( surg_label, surgeries_row);
-        surgery_pane.setStyle("-fx-background-color: BEIGE");
-    }
+        /**
+         * @param retSurges - arraylist, collection of surgeries.
+         *                  this function create the surgeries table to user in javafx.
+         */
+        public void showSurgerytable(ArrayList<Surgery> retSurges) {
 
 
-    // }
+            TableColumn<Surgery, String> surg_ID = new TableColumn<>("surgID");
+            surg_ID.setCellValueFactory(new PropertyValueFactory<>("surgID"));
+
+            TableColumn<Surgery, String> surg_spec = new TableColumn<>("spec");
+            surg_spec.setCellValueFactory(new PropertyValueFactory<>("spec"));
+
+            TableColumn<Surgery, Doctor> surg_doc = new TableColumn<>("surg_doc");
+            surg_doc.setCellValueFactory(new PropertyValueFactory<>("doctor"));
+
+            TableColumn<Surgery, Patient> surg_pat = new TableColumn<>("patient");
+            surg_pat.setCellValueFactory(new PropertyValueFactory<>("patient"));
+
+            TableColumn<Surgery, OperatingRoom> surg_room = new TableColumn<>("room");
+            surg_room.setCellValueFactory(new PropertyValueFactory<>("room"));
+
+            TableColumn<Surgery, String> time_left = new TableColumn<>("time_left");
+            time_left.setCellValueFactory(new PropertyValueFactory<>("time_left"));
+
+            time_left.setPrefWidth(150);
+            surg_ID.setPrefWidth(150);
+            surg_spec.setPrefWidth(150);
+            surg_doc.setPrefWidth(150);
+            surg_pat.setPrefWidth(150);
+            surg_room.setPrefWidth(150);
+
+            Iterator<Surgery> surg_iterator = retSurges.iterator();
+            while (surg_iterator.hasNext()) {
+                Surgery s = surg_iterator.next();
+                surgeries_data.add(s);
+            }
+            surg_table.setItems(surgeries_data);
+
+            surg_table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            surg_table.getColumns().addAll(surg_ID, surg_spec, surg_doc, surg_pat, surg_room, time_left);
+            surg_table.setMaxSize(1500, 1000);
+
+            Label surg_label = new Label("Surgeries");
+            Font font_surgeries = new Font("david", 24);
+            surg_label.setFont(font_surgeries);
+            surg_label.setTextFill(Color.BLUE);
+
+            for (TableColumn<Surgery, ?> column : surg_table.getColumns()) {
+                column.setStyle("-fx-font-size: 18px;");
+            }
 
 
+            surgeries_row.getChildren().clear();
+            surgeries_row.getChildren().add(surg_table);
 
-/**
-    Stage stage
- **/
-    @Override
+            surgery_pane.getChildren().clear();
+            AnchorPane.setTopAnchor(tabPane, 15.0);
+            AnchorPane.setRightAnchor(tabPane, 15.0);
+            AnchorPane.setBottomAnchor(tabPane, 1000.0);
+            AnchorPane.setLeftAnchor(tabPane, 1000.0);
 
-    public void start(Stage stage) throws IOException, InterruptedException {
-        Presenter presenter = new Presenter();
-
-        presenter.startHospital();
-        ArrayList<Specialization> specs = presenter.giveSpec();
-        ArrayList<OperatingRoom> oprooms = presenter.retOprooms();
-        RecoveryRoom recoveryRoom = presenter.retRecoveryRoom();
-        ArrayList<Doctor> doctors = presenter.retDoctors();
+            surgery_pane.getChildren().addAll(surg_label, surgeries_row);
+            surgery_pane.setStyle("-fx-background-color: BEIGE");
+        }
 
 
-        BorderPane root = new BorderPane();
+        // }
 
 
+        /**
+         * Stage stage
+         **/
+        @Override
 
-        CreateTimer(stage);
-        SpecsInformation(stage, specs); // in the future I'll give the function +4 specializations from model
-        opRoomsInformation(stage, specs); // not finished
-        // DoctorsInformation(stage,doctors);// not finished
-        // not finished
+        public void start(Stage stage) throws IOException, InterruptedException {
+            Presenter presenter = new Presenter();
 
+            presenter.startHospital();
+            ArrayList<Specialization> specs = presenter.giveSpec();
+            ArrayList<OperatingRoom> oprooms = presenter.retOprooms();
+            RecoveryRoom recoveryRoom = presenter.retRecoveryRoom();
+            ArrayList<Doctor> doctors = presenter.retDoctors();
+
+
+            BorderPane root = new BorderPane();
+
+
+            CreateTimer(stage);
+            SpecsInformation(stage, specs); // in the future I'll give the function +4 specializations from model
+            opRoomsInformation(stage, specs); // not finished
+            // DoctorsInformation(stage,doctors);// not finished
+            // not finished
 
 
 //        presenter.Algorithem();
 
-        // Button button = new Button("Button" + Integer.toString(i));
-        showSurgerytable( presenter.retSurges());
-        surg_tab.setContent(surgery_pane);
-        tabPane.getTabs().add(surg_tab);
+            // Button button = new Button("Button" + Integer.toString(i));
+            showSurgerytable(presenter.retSurges());
+            surg_tab.setContent(surgery_pane);
+            tabPane.getTabs().add(surg_tab);
 
-        tab.setContent(pane);
-        tabPane.getTabs().add(tab);
-
-
+            tab.setContent(pane);
+            tabPane.getTabs().add(tab);
 
 
-        tab2.setContent(pane2);
-        tabPane.getTabs().add(tab2);
+            tab2.setContent(pane2);
+            tabPane.getTabs().add(tab2);
 
-        tab3.setContent(pane3);
-        tabPane.getTabs().add(tab3);
+            tab3.setContent(pane3);
+            tabPane.getTabs().add(tab3);
 
-        tab4.setContent(pane4);
-        tabPane.getTabs().add(tab4);
-        root.setCenter(tabPane);
-        Scene scene = new Scene(root, 800, 500);
-        stage2.setScene(scene);
-        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-        stage2.setX(visualBounds.getMinX());
-        stage2.setY(visualBounds.getMinY());
-        stage2.setWidth(visualBounds.getWidth());
-        stage2.setHeight(visualBounds.getHeight());
-        stage2.setTitle("THE EFFICIENT HOSPITAL - ZOHAR BABAYOF");
-        stage2.show();
-
-
+            tab4.setContent(pane4);
+            tabPane.getTabs().add(tab4);
+            root.setCenter(tabPane);
+            Scene scene = new Scene(root, 800, 500);
+            stage2.setScene(scene);
+            Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+            stage2.setX(visualBounds.getMinX());
+            stage2.setY(visualBounds.getMinY());
+            stage2.setWidth(visualBounds.getWidth());
+            stage2.setHeight(visualBounds.getHeight());
+            stage2.setTitle("THE EFFICIENT HOSPITAL - ZOHAR BABAYOF");
+            stage2.show();
 
 
+            Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
+                try {
+                    System.out.println("made it!!!!!!!!!!");
+                    presenter.Algorithem();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }));
+            timeline2.setCycleCount(Animation.INDEFINITE);
+            timeline2.play();
+
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+
+                surgeries = presenter.retSurges();
+                refresh(surgeries);
+
+            }));
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.play();
 
 
+            // Schedule a task to increment stopwatch time every 5 seconds
 
-        Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
-        try {
-            System.out.println("made it!!!!!!!!!!");
-            presenter.Algorithem();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            // Schedule a task to add 1 minute to the stopwatch every 5 seconds
+
         }
-        }));
-        timeline2.setCycleCount(Animation.INDEFINITE);
-        timeline2.play();
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
 
-            surgeries = presenter.retSurges();
-            refresh(surgeries);
 
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        // Create a Timeline to increment the time every 5 seconds
 
+
+        /**
+         * @param - String[] args
+         * @throws IOException launch the View.
+         */
+        public static void main(String[] args) throws IOException {
+            launch();
+
+        }
     }
-
-
-    /**
-     *
-     * @param - String[] args
-     * @throws IOException
-     * launch the View.
-     */
-    public static void main(String[] args) throws IOException {
-        launch();
-
-    }
-}
