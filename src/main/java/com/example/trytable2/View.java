@@ -762,7 +762,9 @@ public class View extends Application {
          * gets doctor, patient, operating room to connect in a one new surgery.
          **/
         public void showSurgery(Doctor d, Patient pat, OperatingRoom op, ArrayList<Surgery> allsurgeries) {
-            Surgery surg = new Surgery(pat.getSpec_needed(), d, pat, op, op.getTime_left_evalution());
+            double time = pat.getEstimated_surgery_time();
+
+            Surgery surg = new Surgery(pat.getSpec_needed(), d, pat, op,time);
             surgeries.add(surg);
             allsurgeries.add(surg);
             all_the_surgeries = allsurgeries;

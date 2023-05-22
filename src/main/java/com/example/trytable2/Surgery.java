@@ -23,7 +23,7 @@ public class Surgery {
         this.patient = patient;
         this.room = room;
        // this.time_left = time_left;
-        this.time_left = String.valueOf(room.getTime_left_evalution());
+        this.time_left = String.valueOf(time_left);
 
     }
 
