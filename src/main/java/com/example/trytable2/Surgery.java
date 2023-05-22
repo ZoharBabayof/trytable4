@@ -69,4 +69,16 @@ public class Surgery {
     public void setRoom(OperatingRoom room) {
         this.room = room;
     }
+
+    @Override
+    public String toString() {
+        return "Surgery{" +
+                "surgID=" + surgID +
+                ", spec=" + spec +
+                ", doctor=" + doctor +
+                ", patient=" + patient +
+                ", room=" + room +
+                ", time_left='" + time_left + '\'' +
+                '}';
+    }
 }

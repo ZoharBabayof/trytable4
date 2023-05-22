@@ -899,6 +899,7 @@ public class View extends Application {
             stage2.show();
 
 
+
             Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(5), event2 -> {
                 try {
                     System.out.println("made it!!!!!!!!!!");
@@ -910,7 +911,9 @@ public class View extends Application {
             timeline2.setCycleCount(Animation.INDEFINITE);
             timeline2.play();
 
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+
+
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.02), event -> {
 
                 surgeries = presenter.retSurges();
                 refresh(surgeries);
@@ -918,6 +921,7 @@ public class View extends Application {
             }));
             timeline.setCycleCount(Animation.INDEFINITE);
             timeline.play();
+
 
 
             // Schedule a task to increment stopwatch time every 5 seconds

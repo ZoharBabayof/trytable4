@@ -147,6 +147,7 @@ public class Presenter
             model.schedule();
     }
 
+
     /**
      * return the ArrayList surgeries from model
      * @return ArrayList<Surgery> surgeries
@@ -177,4 +178,11 @@ public class Presenter
         this.view.showSurgery( d, p,op);
     }
 
+
+    public void refreshSurgeries()
+{
+    this.view.refresh(retSurges());
 }
+}
+
+

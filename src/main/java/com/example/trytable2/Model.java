@@ -120,6 +120,9 @@ public class Model
     /**
      * read the info from HospitalInfo.txt file and put the objects that in it in the project structures.
      */
+
+
+
     public void InitHospital()
     {
 
@@ -303,7 +306,7 @@ public class Model
     public void schedule()
     {
 
-        sortDoctorHeapBySpecialityLength();
+        sortDoctorHeapBySpecialityLength(); // sort the available doctors arraylist-min heap by number of specs
 
         int doctorCounter = 0;
         // while the terms of availiability of rooms,doctors,patients allow to do surgery
@@ -317,13 +320,14 @@ public class Model
             if (availDoctors.get(doctorCounter).isIs_available() == true) {
                 Doctor d1 = availDoctors.get(doctorCounter);
                 int i = 0;
-                boolean flagf = false;
+                boolean flagf = false; //chosen patient true
+
                 //search and connect availiable oproom to doctor while not finish seraching in
                 // avail oproooms and an aproppriate patient and room not found
                 while (flagf == false&&i < availOpRooms.size() ) {
                     for(Specialization s:specs )
                         sortPatientCollection(s);
-
+                // avail doctors
                     if ( availOpRooms.get(i).isIs_available() == true) {//
                         OperatingRoom op = availOpRooms.get(i);
 
@@ -334,10 +338,10 @@ public class Model
                         if (specConnect != null && specConnect.getPatient_array_list().size() > 0) {
                             chosenP = specConnect.getPatient_array_list().get(0);
                         }
-                        if (specConnect != null&&d1.getSpecialities_array().length>0&&d1.getSpecialities_array()[0].getPatient_array_list().size() > 0) {
+                        if (specConnect != null&&d1.getSpecialities_array().length>0&&d1.getSpecialities_array()[0].getPatient_array_list().size() > 0) { // אמור להיות בלי
 
                             // search the most urgent patient from each spec the doctors and rooms can treat
-                            for (Specialization s : specs)
+                            for (Specialization s : specs) // התייחסות להכי דחוף מכל ההתמחויות
                             {
                                 if (s.getPatient_array_list().size() > 0&&s.getPatient_array_list().get(0).getUrgency_level() > specConnect.getPatient_array_list().get(0).getUrgency_level()&&op.specinSpecialities(s)&& d1.specinSpecialities(s)) {
                                     specConnect = s;
@@ -349,19 +353,14 @@ public class Model
                         }
 
                         if (chosenP != null)// if appropriate and most urgent patient found
-                        {
-                            Specialization spec2 = chosenP.getSpec_needed();
+                        {   Specialization spec2 = chosenP.getSpec_needed();
                             d1.setIs_available(false);
                             d1.setCurrent_room_id(op.getRoom_id());
-                           // availDoctors.remove(d1);
                             op.surgery(d1, chosenP);
                             presenter.showSurgInView(d1,chosenP,op);
-
                             op.setIs_available(false);
-
                             spec2.getPatient_array_list().remove(chosenP);
-
-                            flagf = true;
+                            flagf = true;// chosen patient true
 
                         }
                     }
@@ -373,18 +372,25 @@ public class Model
             doctorCounter++;
 
         }
-        // for every surgery reduce in 1 the time_left and set doctors Oproom to availiable if time_left<=0
+        // וupdate surgeries time: for every surgery reduce in 1 the time_left and set doctors Oproom to availiable if time_left<=0
         for(Surgery s :surgeries)
         {
+            System.out.println(s.toString()+"!!!!!!!!!!!!!!!");
             s.setTime_left(Double.toString(Double.parseDouble(s.getTime_left())-1));
-            if(Double.parseDouble(s.getTime_left())<=0) {
+            System.out.println(Double.parseDouble(s.getTime_left()));
+            if(Double.parseDouble(s.getTime_left())<=0.0)
+            {
+                surgeries.remove(s);
                 s.setTime_left(Double.toString(0.0));
+               // s.setTime_left("done");
                 s.getDoctor().setIs_available(true);
                 s.getRoom().setIs_available(true);
 
 
             }
+
         }
+
 
     }
 
