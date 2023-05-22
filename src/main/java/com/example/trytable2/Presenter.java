@@ -173,9 +173,9 @@ public class Presenter
      * @param op- OperatingRoom op
      * call to the showSurgery function in view
      */
-     public void showSurgInView(Doctor d, Patient p, OperatingRoom op)
+     public void showSurgInView(Doctor d, Patient p, OperatingRoom op,ArrayList<Surgery> allsurgeries)
     {
-        this.view.showSurgery( d, p,op);
+        this.view.showSurgery( d, p,op,allsurgeries);
     }
 
 

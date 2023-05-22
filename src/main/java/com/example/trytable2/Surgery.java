@@ -7,6 +7,8 @@ public class Surgery {
 
     private int surgID;
 
+    private boolean done = false;
+
     private Specialization spec;
     private Doctor doctor;
     private Patient patient;
@@ -23,6 +25,14 @@ public class Surgery {
        // this.time_left = time_left;
         this.time_left = String.valueOf(room.getTime_left_evalution());
 
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     public String getTime_left() {

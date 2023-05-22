@@ -25,6 +25,7 @@ public class Model
 
     Presenter presenter;
     private static ArrayList<Surgery> surgeries = new ArrayList<>();
+    private static ArrayList<Surgery> allsurgeries = new ArrayList<>();
 
 
     /**
@@ -357,7 +358,7 @@ public class Model
                             d1.setIs_available(false);
                             d1.setCurrent_room_id(op.getRoom_id());
                             op.surgery(d1, chosenP);
-                            presenter.showSurgInView(d1,chosenP,op);
+                            presenter.showSurgInView(d1,chosenP,op,allsurgeries);
                             op.setIs_available(false);
                             spec2.getPatient_array_list().remove(chosenP);
                             flagf = true;// chosen patient true
@@ -373,22 +374,20 @@ public class Model
 
         }
         // וupdate surgeries time: for every surgery reduce in 1 the time_left and set doctors Oproom to availiable if time_left<=0
-        for(Surgery s :surgeries)
-        {
-            System.out.println(s.toString()+"!!!!!!!!!!!!!!!");
-            s.setTime_left(Double.toString(Double.parseDouble(s.getTime_left())-1));
+        Iterator<Surgery> iterator = surgeries.iterator();
+        while (iterator.hasNext()) {
+            Surgery s = iterator.next();
+            if(!s.isDone()) {
+                System.out.println(s.toString() + "!!!!!!!!!!!!!!!");
+                s.setTime_left(Double.toString(Double.parseDouble(s.getTime_left()) - 1));
+            }
             System.out.println(Double.parseDouble(s.getTime_left()));
-            if(Double.parseDouble(s.getTime_left())<=0.0)
-            {
-                surgeries.remove(s);
+            if (Double.parseDouble(s.getTime_left()) <= 0.0&&!s.isDone()) {
                 s.setTime_left(Double.toString(0.0));
-               // s.setTime_left("done");
                 s.getDoctor().setIs_available(true);
                 s.getRoom().setIs_available(true);
-
-
+                s.setDone(true); // Remove the surgery from the collection
             }
-
         }
 
 

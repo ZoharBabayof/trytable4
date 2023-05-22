@@ -129,7 +129,8 @@ public class View extends Application {
 
 
 
-    static long min, sec, hr, totalSec = 0;
+    static ArrayList<Surgery> all_the_surgeries;
+
 
     /**
      * constructor
@@ -711,14 +712,7 @@ public class View extends Application {
          * to all the preparations a timer to the user in javafx.
          */
 
-        public static void convertTime()
-        {
-            min = TimeUnit.SECONDS.toMinutes(totalSec);
-            sec = totalSec - (min*60);
-            hr = TimeUnit.MINUTES.toHours(min);
-            min = min-(hr*60);
-            System.out.println(hr+""+min+""+sec);
-        }
+
         public static void CreateTimer(Stage primaryStage) {
 
 
@@ -767,9 +761,12 @@ public class View extends Application {
          * show add the surgeries to the surgeries collection to show to user in the future.
          * gets doctor, patient, operating room to connect in a one new surgery.
          **/
-        public void showSurgery(Doctor d, Patient pat, OperatingRoom op) {
-            Surgery surg = new Surgery(pat.getSpec_needed(), d, pat, op, 0);
+        public void showSurgery(Doctor d, Patient pat, OperatingRoom op, ArrayList<Surgery> allsurgeries) {
+            Surgery surg = new Surgery(pat.getSpec_needed(), d, pat, op, op.getTime_left_evalution());
             surgeries.add(surg);
+            allsurgeries.add(surg);
+            all_the_surgeries = allsurgeries;
+
         }
 
 
